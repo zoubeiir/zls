@@ -1,0 +1,7 @@
+EnumExclude=
+package=hibernateEntity
+databaseUrl=jdbc:sqlserver://localhost;databaseName=RapprochementSample;instanceName=SQLEXPRESS;
+driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+EnumInclude=
+username=sa
+ConfigurationFile=\RapprochementSample\hibernate.cfg.xml

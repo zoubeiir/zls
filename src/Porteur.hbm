@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="hibernateEntity">
+	<class name="Porteur" table="porteur">
+		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
+		<id
+			column="ligne"
+			name="Ligne"
+			type="java.lang.String"
+		>
+			<generator class="increment" />
+		</id>
+		<property
+			column="ID"
+			length="10"
+			name="Id"
+			not-null="true"
+			type="integer"
+		 />
+		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
+		<property
+			column="nom"
+			length="10"
+			name="Nom"
+			not-null="true"
+			type="java.lang.String"
+		 />
+		<set inverse="true" name="LigneSet">
+			<key column="numeroLigne" />
+			<one-to-many class="Ligne" />
+		</set>
+	</class>
+</hibernate-mapping>

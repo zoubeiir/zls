@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="hibernateEntity">
+	<class name="Ligne" table="ligne">
+		<id
+			column="ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="increment" />
+		</id>
+		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
+		<property
+			column="etat"
+			length="10"
+			name="Etat"
+			not-null="false"
+			type="java.lang.String"
+		 />
+		<property
+			column="frais"
+			length="53"
+			name="Frais"
+			not-null="false"
+			type="java.lang.Float"
+		 />
+		<many-to-one
+			class="Porteur"
+			name="NumeroLigne"
+			not-null="true"
+		>
+			<column name="numeroLigne" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

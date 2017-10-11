@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="hibernateEntity">
+	<class name="Factures" table="Factures">
+		<id
+			column="ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="increment" />
+		</id>
+		<property
+			column="Frais"
+			length="53"
+			name="Frais"
+			not-null="false"
+			type="java.lang.Float"
+		 />
+		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
+		<property
+			column="IDFacture"
+			length="20"
+			name="IDFacture"
+			not-null="true"
+			type="java.lang.String"
+		 />
+		<property
+			column="annee"
+			length="10"
+			name="Annee"
+			not-null="true"
+			type="integer"
+		 />
+		<property
+			column="mois"
+			length="10"
+			name="Mois"
+			not-null="true"
+			type="integer"
+		 />
+	</class>
+</hibernate-mapping>
