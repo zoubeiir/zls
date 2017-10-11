@@ -4,6 +4,18 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+
+<%@ page import="hibernateEntity.Ligne" %>
+<%@ page import="java.util.*" %>
+<%@ page import="javax.servlet.http.HttpServletRequest.*" %>
+
+
+
+<% List<Ligne> listeLigne = (List<Ligne>) (request.getSession().getAttribute("listeLigne"));%>
+
+
+
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -147,6 +159,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							</tr>
                 						</tfoot>
                 						<tbody>
+                							
+                							<% if(listeLigne!=null){
+											for(int i=0; i<listeLigne.size(); i++) {%>
+										<tr>
+    										<td><%= listeLigne.get(i).getEtat() %></td>
+    										<td><%= listeLigne.get(i).getFrais() %></td>
+    										<td><%= listeLigne.get(i).getNumeroLigne().getNom() %></td>
+    										<td><%= listeLigne.get(i).getNumeroLigne().getLigne() %></td>
+    										<td>2011/04/25</td>
+    										<td class="text-right">
+       											<a href="#" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-heart"></i></a>
+       											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+       											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a>
+   	 										</td>
+										</tr>
+											<% }} %>
+
+
+
                 							<tr>
                 								<td>Tiger Nixon</td>
                 								<td>System Architect</td>

@@ -47,6 +47,8 @@ public class LigneRecherche extends HttpServlet {
 		Porteur porteur = new Porteur();
 		
 		
+		
+		
 		String numeroLigne = request.getParameter("numeroLigne") ;
 		
 //		PorteurDAO porteurDAO = new PorteurDAO();
@@ -87,8 +89,10 @@ public class LigneRecherche extends HttpServlet {
 		System.out.println(listeLigne.get(0).getFrais());
 		System.out.println(listeLigne.get(1).getFrais());
 		
+		request.getSession().setAttribute("listeLigne", listeLigne);
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.html") ;
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.jsp") ;
 		requestDispatcher.forward(request, response);
 	}
 
