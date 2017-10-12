@@ -3,5 +3,5 @@ package=hibernateEntity
 databaseUrl=jdbc:sqlserver://localhost;databaseName=RapprochementSample;instanceName=SQLEXPRESS;
 driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
 EnumInclude=
+ConfigurationFile=RapprochementSamplehibernate.cfg.xml
 username=sa
-ConfigurationFile=\RapprochementSample\hibernate.cfg.xml

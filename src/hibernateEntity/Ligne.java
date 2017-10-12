@@ -25,12 +25,11 @@ public class Ligne extends BaseLigne {
 	 */
 	public Ligne (
 		java.lang.Integer _id,
-		hibernateEntity.Porteur _numeroLigne) {
+		java.lang.String _numeroLigne) {
 
 		super (
 			_id,
 			_numeroLigne);
 	}
-
 /*[CONSTRUCTOR MARKER END]*/
 }

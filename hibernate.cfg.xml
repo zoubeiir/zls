@@ -31,6 +31,6 @@
 
 		<mapping resource="Porteur.hbm" />
 		<mapping resource="Ligne.hbm" />
-		<mapping resource="Factures.hbm" />
+		<mapping resource="Facture.hbm" />
 	</session-factory>
 </hibernate-configuration>

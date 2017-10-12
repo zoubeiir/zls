@@ -52,31 +52,29 @@ public List<Ligne> findAll(){
 
 
 
-public void create(Ligne ligne){
-	
+public void insertLigne(Ligne ligne,boolean uniqueInsert){
 	try {
 		sessionFactory = HibernateUtil.getSessionFactory();
 //		ligne.setId(-1);
 		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
 			this.sessionFactory.getCurrentSession().getTransaction().begin();}
-		
 		this.sessionFactory.getCurrentSession().save((BaseLigne) ligne);
+		if(uniqueInsert)
 		this.sessionFactory.getCurrentSession().getTransaction().commit();
-		
 //		this.sessionFactory.getCurrentSession().persist(ligne);
 //		this.sessionFactory.getCurrentSession().flush();
 //		this.sessionFactory.getCurrentSession().close();
-				
-		
-		
-			
-
 	}catch (Exception e){
 		this.sessionFactory.getCurrentSession().getTransaction().rollback();
 		throw e;
 	}
-		
-
+}
+public void insertListLigne(List<Ligne> listLigne){
+	    for(int i = 0; i < listLigne.size(); i++){
+	    	
+	    	this.insertLigne(listLigne.get(i),false);
+	  }
+	    this.sessionFactory.getCurrentSession().getTransaction().commit();
 }
 
 
@@ -87,18 +85,13 @@ public void create(Ligne ligne){
 
 public List<Ligne> search(Ligne ligne) {
 	// TODO Auto-generated method stub
-	
 	try{
 	if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
 		Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
 		Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
-	
 	return this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class).add(Restrictions.eq(Ligne.PROP_NUMERO_LIGNE, ligne.getNumeroLigne())).list();
-		
 //		this.sessionFactory.getCurrentSession().close();
 //		return  porteur;
-		
-		
 }catch (Exception e){
 	throw e;
 //	return null;
@@ -107,7 +100,22 @@ public List<Ligne> search(Ligne ligne) {
 	
 }
 
+public Ligne findByNumero(String numeroLigne){
+	
+	try {
+		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+			Ligne ligne = (Ligne) this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class).add(Restrictions.eq(Ligne.PROP_NUMERO_LIGNE, numeroLigne)).uniqueResult();
+					this.sessionFactory.getCurrentSession().close();
+			return  ligne;
+	}catch (Exception e){
+		System.out.println(e);
+		return null;
+	}
+		
 
+}
 
 
 }

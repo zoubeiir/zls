@@ -54,9 +54,9 @@ public class LigneRecherche extends HttpServlet {
 //		PorteurDAO porteurDAO = new PorteurDAO();
 //		porteur = porteurDAO.findByNumero(numeroLigne);
 		
-		porteur.setLigne(numeroLigne);
+//		porteur.setLigne(numeroLigne);
 		//TODO
-		ligne.setNumeroLigne(porteur);
+		ligne.setNumeroLigne(numeroLigne);
 		
 //		String fraisLigne = request.getParameter("fraisLigne") ;
 //		
@@ -86,8 +86,8 @@ public class LigneRecherche extends HttpServlet {
 //		ligneDAO.search(ligne);
 		List<Ligne> listeLigne = ligneDAO.search(ligne);
 		
-		System.out.println(listeLigne.get(0).getFrais());
-		System.out.println(listeLigne.get(1).getFrais());
+//		System.out.println(listeLigne.get(0).getFrais());
+//		System.out.println(listeLigne.get(1).getFrais());
 		
 		request.getSession().setAttribute("listeLigne", listeLigne);
 		

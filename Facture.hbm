@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="hibernateEntity">
+	<class name="Facture" table="facture">
+		<id
+			column="ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
+		<property
+			column="ID_facture"
+			length="10"
+			name="IdFacture"
+			not-null="true"
+			type="java.lang.String"
+		 />
+		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
+		<property
+			column="annee"
+			length="10"
+			name="Annee"
+			not-null="true"
+			type="java.lang.String"
+		 />
+		<property
+			column="frais"
+			length="53"
+			name="Frais"
+			not-null="true"
+			type="java.lang.Float"
+		 />
+		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
+		<property
+			column="mois"
+			length="10"
+			name="Mois"
+			not-null="true"
+			type="java.lang.String"
+		 />
+
+		<many-to-one
+			class="Ligne"
+			name="Ligne"
+			not-null="true"
+		>
+			<column name="ligne" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

@@ -16,21 +16,21 @@ public class Porteur extends BasePorteur {
 	/**
 	 * Constructor for primary key
 	 */
-	public Porteur (java.lang.String _ligne) {
-		super(_ligne);
+	public Porteur (java.lang.Integer _id) {
+		super(_id);
 	}
 
 	/**
 	 * Constructor for required fields
 	 */
 	public Porteur (
-		java.lang.String _ligne,
 		java.lang.Integer _id,
+		hibernateEntity.Ligne _ligne,
 		java.lang.String _nom) {
 
 		super (
-			_ligne,
 			_id,
+			_ligne,
 			_nom);
 	}
 /*[CONSTRUCTOR MARKER END]*/

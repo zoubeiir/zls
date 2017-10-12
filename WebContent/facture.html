@@ -28,56 +28,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    
  <body class="sticky-header left-side-collapsed"  onload="initMap()">
     <section>
-    
 			<div id="page-wrapper">
 				<div class="graphs">
 					<h3 class="blank1">Basic Forms</h3>
 						<div class="tab-content">
 						<div class="tab-pane active" id="horizontal-form">
-							<form class="form-horizontal">
-							
-								
-								
-								
-								
+							<form class="form-horizontal" action="GestionFacture" method="post">
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Mois</label>
 									<div class="col-sm-8">
-										<select  class="form-control1">
-											<option>Option 1</option>
-											<option>Option 2</option>
-											<option>Option 3</option>
-											<option>Option 4</option>
-											<option>Option 5</option>
+										<select  class="form-control1" name="mois">
+											<option value="01">Janvier</option>
+											<option value="02">Février</option>
+											<option value="03">Mars</option>
+											<option value="04"> Avril </option>
+											<option value="05">Mai </option>
+											<option value="06">Juin </option>
+											<option value="07">Juillet </option>
+											<option value="08">Août </option>
+											<option value="09">Septembre </option>
+											<option value="10">Octobre </option>
+											<option value="11">Novembre </option>
+											<option value="12">Décembre</option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Année</label>
 									<div class="col-sm-8">
-										<select  class="form-control1">
-											<option>Option 1</option>
-											<option>Option 2</option>
-											<option>Option 3</option>
-											<option>Option 4</option>
-											<option>Option 5</option>
+										<select  class="form-control1" name="annee">
+											<option value="2016">2016</option>
+											<option value="2017" selected="selected">2017</option>
 										</select>
 									</div>
 								</div>
-								
-								
-								
-							</form>
-						</div>
-					</div>
-					
-					<div class="bs-example" data-example-id="form-validation-states">
-    
-  </div>
-
-						<div class="bs-example" data-example-id="form-validation-states-with-icons">
-						<form>
-						  
+								<div class="bs-example" data-example-id="form-validation-states-with-icons">
 						  <div class="form-group">
 							<label for="exampleInputFile">File input</label>
 							<input type="file" id="exampleInputFile">
@@ -86,21 +71,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						  <div class="panel-footer">
 							<div class="row">
 								<div class="col-sm-8 col-sm-offset-2">
-									<button class="btn-success btn">Submit</button>
-									<button class="btn-default btn">Cancel</button>
+									<button class="btn-success btn" type="submit">Submit</button>
+									<button class="btn-default btn" type="submit">Cancel</button>
 									<button class="btn-inverse btn">Reset</button>
 								</div>
 							</div>
 						 </div>
-						</form>
 					  </div>
-					  
-					  
+							</form>
+						</div>
+					</div>
+					<div class="bs-example" data-example-id="form-validation-states">
+  </div>
 				</div>
 			</div>
-		</div>
 	</section>
-	
-
 </body>
 </html>

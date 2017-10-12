@@ -29,11 +29,13 @@ public abstract class BaseLigne  implements Serializable {
 	private java.lang.Integer _id;
 
 	// fields
+	private java.lang.String _numeroLigne;
 	private java.lang.String _etat;
 	private java.lang.Float _frais;
 
-	// many to one
-	private hibernateEntity.Porteur _numeroLigne;
+	// collections
+	private java.util.Set _factureSet;
+	private java.util.Set _porteurSet;
 
 
 	// constructors
@@ -54,7 +56,7 @@ public abstract class BaseLigne  implements Serializable {
 	 */
 	public BaseLigne (
 		java.lang.Integer _id,
-		hibernateEntity.Porteur _numeroLigne) {
+		java.lang.String _numeroLigne) {
 
 		this.setId(_id);
 		this.setNumeroLigne(_numeroLigne);
@@ -82,6 +84,22 @@ public abstract class BaseLigne  implements Serializable {
 	public void setId (java.lang.Integer _id) {
 		this._id = _id;
 		this.hashCode = Integer.MIN_VALUE;
+	}
+
+
+	/**
+	 * Return the value associated with the column: numeroLigne
+	 */
+	public java.lang.String getNumeroLigne () {
+		return _numeroLigne;
+	}
+
+	/**
+	 * Set the value related to the column: numeroLigne
+	 * @param _numeroLigne the numeroLigne value
+	 */
+	public void setNumeroLigne (java.lang.String _numeroLigne) {
+		this._numeroLigne = _numeroLigne;
 	}
 
 
@@ -118,21 +136,47 @@ public abstract class BaseLigne  implements Serializable {
 
 
 	/**
-     * @hibernate.property
-     *  column=numeroLigne
-	 * not-null=true
+	 * Return the value associated with the column: FactureSet
 	 */
-	public hibernateEntity.Porteur getNumeroLigne () {
-		return this._numeroLigne;
+	public java.util.Set getFactureSet () {
+		return this._factureSet;
 	}
 
 	/**
-	 * Set the value related to the column: numeroLigne
-	 * @param _numeroLigne the numeroLigne value
+	 * Set the value related to the column: FactureSet
+	 * @param _factureSet the FactureSet value
 	 */
-	public void setNumeroLigne (hibernateEntity.Porteur _numeroLigne) {
-		this._numeroLigne = _numeroLigne;
+	public void setFactureSet (java.util.Set _factureSet) {
+		this._factureSet = _factureSet;
 	}
+	
+	public void addToFactureSet (Object obj) {
+		if (null == this._factureSet) this._factureSet = new java.util.HashSet();
+		this._factureSet.add(obj);
+	}
+
+
+
+	/**
+	 * Return the value associated with the column: PorteurSet
+	 */
+	public java.util.Set getPorteurSet () {
+		return this._porteurSet;
+	}
+
+	/**
+	 * Set the value related to the column: PorteurSet
+	 * @param _porteurSet the PorteurSet value
+	 */
+	public void setPorteurSet (java.util.Set _porteurSet) {
+		this._porteurSet = _porteurSet;
+	}
+	
+	public void addToPorteurSet (Object obj) {
+		if (null == this._porteurSet) this._porteurSet = new java.util.HashSet();
+		this._porteurSet.add(obj);
+	}
+
 
 
 	public boolean equals (Object obj) {

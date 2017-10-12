@@ -14,6 +14,14 @@
 		</id>
 		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<property
+			column="numeroLigne"
+			length="10"
+			name="NumeroLigne"
+			not-null="true"
+			type="java.lang.String"
+		 />
+		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
+		<property
 			column="etat"
 			length="10"
 			name="Etat"
@@ -27,12 +35,14 @@
 			not-null="false"
 			type="java.lang.Float"
 		 />
-		<many-to-one
-			class="Porteur"
-			name="NumeroLigne"
-			not-null="true"
-		>
-			<column name="numeroLigne" />
-		</many-to-one>
+
+		<set inverse="true" name="FactureSet">
+			<key column="ligne" />
+			<one-to-many class="Facture" />
+		</set>
+		<set inverse="true" name="PorteurSet">
+			<key column="ligne" />
+			<one-to-many class="Porteur" />
+		</set>
 	</class>
 </hibernate-mapping>

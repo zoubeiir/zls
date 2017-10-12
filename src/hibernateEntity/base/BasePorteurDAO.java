@@ -2,7 +2,6 @@ package hibernateEntity.base;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
-
 import hibernateEntity.dao.PorteurDAO;
 
 /**
@@ -31,17 +30,17 @@ public abstract class BasePorteurDAO extends hibernateEntity.dao._RootDAO {
 		return hibernateEntity.Porteur.class;
 	}
 	
-	public hibernateEntity.Porteur load(java.lang.String key)
+	public hibernateEntity.Porteur load(java.lang.Integer key)
 		throws org.hibernate.HibernateException {
 		return (hibernateEntity.Porteur) load(getReferenceClass(), key);
 	}
 
-	public hibernateEntity.Porteur load(java.lang.String key, Session s)
+	public hibernateEntity.Porteur load(java.lang.Integer key, Session s)
 		throws org.hibernate.HibernateException {
 		return (hibernateEntity.Porteur) load(getReferenceClass(), key, s);
 	}
 
-	public hibernateEntity.Porteur loadInitialize(java.lang.String key, Session s) 
+	public hibernateEntity.Porteur loadInitialize(java.lang.Integer key, Session s) 
 			throws org.hibernate.HibernateException { 
 		hibernateEntity.Porteur obj = load(key, s); 
 		if (!Hibernate.isInitialized(obj)) {
@@ -56,9 +55,9 @@ public abstract class BasePorteurDAO extends hibernateEntity.dao._RootDAO {
 	 * @param porteur a transient instance of a persistent class 
 	 * @return the class identifier
 	 */
-	public java.lang.String save(hibernateEntity.Porteur porteur)
+	public java.lang.Integer save(hibernateEntity.Porteur porteur)
 		throws org.hibernate.HibernateException {
-		return (java.lang.String) super.save(porteur);
+		return (java.lang.Integer) super.save(porteur);
 	}
 
 	/**
@@ -69,9 +68,9 @@ public abstract class BasePorteurDAO extends hibernateEntity.dao._RootDAO {
 	 * @param s the Session
 	 * @return the class identifier
 	 */
-	public java.lang.String save(hibernateEntity.Porteur porteur, Session s)
+	public java.lang.Integer save(hibernateEntity.Porteur porteur, Session s)
 		throws org.hibernate.HibernateException {
-		return (java.lang.String) super.save(porteur, s);
+		return (java.lang.Integer) super.save(porteur, s);
 	}
 
 	/**
@@ -125,7 +124,7 @@ public abstract class BasePorteurDAO extends hibernateEntity.dao._RootDAO {
 	 * Session or a transient instance with an identifier associated with existing persistent state. 
 	 * @param id the instance ID to be removed
 	 */
-	public void delete(java.lang.String id)
+	public void delete(java.lang.Integer id)
 		throws org.hibernate.HibernateException {
 		super.delete(load(id));
 	}
@@ -137,7 +136,7 @@ public abstract class BasePorteurDAO extends hibernateEntity.dao._RootDAO {
 	 * @param id the instance ID to be removed
 	 * @param s the Session
 	 */
-	public void delete(java.lang.String id, Session s)
+	public void delete(java.lang.Integer id, Session s)
 		throws org.hibernate.HibernateException {
 		super.delete(load(id, s), s);
 	}

@@ -25,14 +25,13 @@ public abstract class BasePorteur  implements Serializable {
 	private int hashCode = Integer.MIN_VALUE;
 
 	// primary key
-	private java.lang.String _ligne;
+	private java.lang.Integer _id;
 
 	// fields
-	private java.lang.Integer _id;
 	private java.lang.String _nom;
 
-	// collections
-	private java.util.Set _ligneSet;
+	// many to one
+	private hibernateEntity.Ligne _ligne;
 
 
 	// constructors
@@ -43,8 +42,8 @@ public abstract class BasePorteur  implements Serializable {
 	/**
 	 * Constructor for primary key
 	 */
-	public BasePorteur (java.lang.String _ligne) {
-		this.setLigne(_ligne);
+	public BasePorteur (java.lang.Integer _id) {
+		this.setId(_id);
 		initialize();
 	}
 
@@ -52,12 +51,12 @@ public abstract class BasePorteur  implements Serializable {
 	 * Constructor for required fields
 	 */
 	public BasePorteur (
-		java.lang.String _ligne,
 		java.lang.Integer _id,
+		hibernateEntity.Ligne _ligne,
 		java.lang.String _nom) {
 
-		this.setLigne(_ligne);
 		this.setId(_id);
+		this.setLigne(_ligne);
 		this.setNom(_nom);
 		initialize();
 	}
@@ -69,36 +68,20 @@ public abstract class BasePorteur  implements Serializable {
 	/**
 	 * Return the unique identifier of this class
      * @hibernate.id
-     *  generator-class="increment"
-     *  column="ligne"
+     *  generator-class="identity"
+     *  column="ID"
      */
-	public java.lang.String getLigne () {
-		return _ligne;
-	}
-
-	/**
-	 * Set the unique identifier of this class
-	 * @param _ligne the new ID
-	 */
-	public void setLigne (java.lang.String _ligne) {
-		this._ligne = _ligne;
-		this.hashCode = Integer.MIN_VALUE;
-	}
-
-
-	/**
-	 * Return the value associated with the column: ID
-	 */
 	public java.lang.Integer getId () {
 		return _id;
 	}
 
 	/**
-	 * Set the value related to the column: ID
-	 * @param _id the ID value
+	 * Set the unique identifier of this class
+	 * @param _id the new ID
 	 */
 	public void setId (java.lang.Integer _id) {
 		this._id = _id;
+		this.hashCode = Integer.MIN_VALUE;
 	}
 
 
@@ -119,25 +102,21 @@ public abstract class BasePorteur  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: LigneSet
+     * @hibernate.property
+     *  column=ligne
+	 * not-null=true
 	 */
-	public java.util.Set getLigneSet () {
-		return this._ligneSet;
+	public hibernateEntity.Ligne getLigne () {
+		return this._ligne;
 	}
 
 	/**
-	 * Set the value related to the column: LigneSet
-	 * @param _ligneSet the LigneSet value
+	 * Set the value related to the column: ligne
+	 * @param _ligne the ligne value
 	 */
-	public void setLigneSet (java.util.Set _ligneSet) {
-		this._ligneSet = _ligneSet;
+	public void setLigne (hibernateEntity.Ligne _ligne) {
+		this._ligne = _ligne;
 	}
-	
-	public void addToLigneSet (Object obj) {
-		if (null == this._ligneSet) this._ligneSet = new java.util.HashSet();
-		this._ligneSet.add(obj);
-	}
-
 
 
 	public boolean equals (Object obj) {
@@ -145,17 +124,17 @@ public abstract class BasePorteur  implements Serializable {
 		if (!(obj instanceof hibernateEntity.base.BasePorteur)) return false;
 		else {
 			hibernateEntity.base.BasePorteur mObj = (hibernateEntity.base.BasePorteur) obj;
-			if (null == this.getLigne() || null == mObj.getLigne()) return false;
-			else return (this.getLigne().equals(mObj.getLigne()));
+			if (null == this.getId() || null == mObj.getId()) return false;
+			else return (this.getId().equals(mObj.getId()));
 		}
 	}
 
 
 	public int hashCode () {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getLigne()) return super.hashCode();
+			if (null == this.getId()) return super.hashCode();
 			else {
-				String hashStr = this.getClass().getName() + ":" + this.getLigne().hashCode();
+				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
 			}
 		}

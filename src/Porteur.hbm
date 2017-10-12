@@ -5,21 +5,13 @@
 
 <hibernate-mapping package="hibernateEntity">
 	<class name="Porteur" table="porteur">
-		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<id
-			column="ligne"
-			name="Ligne"
-			type="java.lang.String"
-		>
-			<generator class="increment" />
-		</id>
-		<property
 			column="ID"
-			length="10"
 			name="Id"
-			not-null="true"
 			type="integer"
-		 />
+		>
+			<generator class="identity" />
+		</id>
 		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<property
 			column="nom"
@@ -28,9 +20,12 @@
 			not-null="true"
 			type="java.lang.String"
 		 />
-		<set inverse="true" name="LigneSet">
-			<key column="numeroLigne" />
-			<one-to-many class="Ligne" />
-		</set>
+		<many-to-one
+			class="Ligne"
+			name="Ligne"
+			not-null="true"
+		>
+			<column name="ligne" />
+		</many-to-one>
 	</class>
 </hibernate-mapping>
