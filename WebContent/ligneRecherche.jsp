@@ -92,9 +92,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label for="radio" class="col-sm-2 control-label">Etat</label>
 									<div class="col-sm-8">
-										<div class="radio-inline"><label><input name="test" type="radio" checked="">Opérationnelle</label></div>
+										<div class="radio-inline"><label><input name="test" type="radio" >Opérationnelle</label></div>
 										<div class="radio-inline"><label><input name="test" type="radio">Résiliée</label></div>
-										<div class="radio-inline"><label><input name="test" type="radio" disabled=""> En cours de résiliation</label></div>
+										<div class="radio-inline"><label><input name="test" type="radio" checked="checked">Tout etat</label></div>
 										
 									</div>
 								</div>
@@ -137,13 +137,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	                                <!--        Here you can write extra buttons/actions for the toolbar              -->
 	                            </div>
                                 <div class="fresh-datatables">
+                                <form method="post" action="GestionLigne">
                 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                 						<thead>
                 							<tr>
+                								<th></th>
                 								<th>Num�ro ligne</th>
                 								<th>Frais</th>
                 								<th>Etat</th>
-                								<th>Vide</th>
                 								<th>Vide</th>
                 								<th class="disabled-sorting text-right">Actions</th>
                 							</tr>
@@ -163,13 +164,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							
 											<%for(int i=0; i<listeLigne.size(); i++) {%>
 										<tr>
+											<td><input type="checkbox" name="checkbox" value="<%= listeLigne.get(i).getNumeroLigne() %>" ></td>
 											<td><%= listeLigne.get(i).getNumeroLigne() %></td>
 											<td><%= listeLigne.get(i).getFrais() %></td>
     										<td><%= listeLigne.get(i).getEtat() %></td>
     										<td>vide</td>
-    										<td>vide</td>
     										<td class="text-right">
-       											<a href="#" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-heart"></i></a>
+       											<a href="#" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a>
        											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
        											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a>
    	 										</td>
@@ -181,6 +182,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							
                 						</tbody>
                 					</table>
+                					<button class="btn btn-simple btn-danger btn-icon remove" type="submit">Supprimer la selection</button>
+                					</form>
         				        </div>
                             </div><!-- end content-->
 

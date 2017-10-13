@@ -3,8 +3,6 @@ package hibernateEntity.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
 import com.util.HibernateUtil;
 
@@ -34,6 +32,16 @@ public class FactureDAO extends BaseFactureDAO {
 //			this.sessionFactory.getCurrentSession().persist(facture);
 ////			this.sessionFactory.getCurrentSession().flush();
 			
+//			facture.setLigne((Ligne) this.sessionFactory.getCurrentSession().load(Ligne.class, facture.getLigne().getId()));
+//			Ligne ligne = facture.getLigne();
+//			ligne.setNumeroLigne("+2120");
+//			ligne.setId(null);
+//			facture.setLigne(ligne);
+			
+//			this.sessionFactory.getCurrentSession().delete((BaseLigne) facture.getLigne()); 
+//			this.sessionFactory.getCurrentSession().getTransaction().commit();
+//			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+//				this.sessionFactory.getCurrentSession().getTransaction().begin();}
 			
 			this.sessionFactory.getCurrentSession().save((BaseFacture) facture);
 			if(uniqueInsert)
@@ -47,7 +55,6 @@ public class FactureDAO extends BaseFactureDAO {
 	public void insertListFacture(List<Facture> listFacture){
 		    for(int i = 0; i < listFacture.size(); i++){
 		    	
-				
 		    	this.insertFacture(listFacture.get(i),false);
 		  }
 		    this.sessionFactory.getCurrentSession().getTransaction().commit();

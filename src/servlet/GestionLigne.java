@@ -50,6 +50,11 @@ public class GestionLigne extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		System.out.println(request.getParameter("checkbox"));
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.jsp") ;
+		requestDispatcher.forward(request, response);
 	}
 
 }

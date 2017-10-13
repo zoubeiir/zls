@@ -6,6 +6,7 @@ import hibernateEntity.dao.LigneDAO;
 import hibernateEntity.dao.PorteurDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -45,6 +46,8 @@ public class LigneRecherche extends HttpServlet {
 		
 		Ligne ligne = new Ligne();
 		Porteur porteur = new Porteur();
+		LigneDAO ligneDAO = new LigneDAO();
+		List<Ligne> listeLigne = new ArrayList<Ligne>();
 		
 		
 		
@@ -56,6 +59,14 @@ public class LigneRecherche extends HttpServlet {
 		
 //		porteur.setLigne(numeroLigne);
 		//TODO
+		
+		if(numeroLigne==null||numeroLigne==""){
+			
+			listeLigne = ligneDAO.findAll();
+			
+		}else{
+		
+		
 		ligne.setNumeroLigne(numeroLigne);
 		
 //		String fraisLigne = request.getParameter("fraisLigne") ;
@@ -82,12 +93,12 @@ public class LigneRecherche extends HttpServlet {
 		
 		
 		
-		LigneDAO ligneDAO = new LigneDAO();
-//		ligneDAO.search(ligne);
-		List<Ligne> listeLigne = ligneDAO.search(ligne);
+		listeLigne = ligneDAO.search(ligne);
 		
 //		System.out.println(listeLigne.get(0).getFrais());
 //		System.out.println(listeLigne.get(1).getFrais());
+		
+		}
 		
 		request.getSession().setAttribute("listeLigne", listeLigne);
 		

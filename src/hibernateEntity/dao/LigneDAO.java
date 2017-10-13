@@ -28,6 +28,7 @@ public class LigneDAO extends BaseLigneDAO {
 	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 	
 public List<Ligne> findAll(){
+	
 		
 		try {
 			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
@@ -35,12 +36,13 @@ public List<Ligne> findAll(){
 				Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();
 				}
 				Criteria crit = this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class);
-				this.sessionFactory.getCurrentSession().close();
+//				this.sessionFactory.getCurrentSession().close();
 				return crit.list();
 				
 	
 		}catch (Exception e){
-			return null;
+			throw e;
+//			return null;
 		}
 			
 	
