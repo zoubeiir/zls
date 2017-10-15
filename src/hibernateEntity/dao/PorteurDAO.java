@@ -28,14 +28,14 @@ public class PorteurDAO extends BasePorteurDAO {
 	
 	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 	
-	public Porteur findByNumero(String numeroLigne){
+	public Porteur findByNumero(Ligne ligne){
 			
 			try {
 				if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
 					Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
 					Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
-					Porteur porteur = (Porteur) this.sessionFactory.getCurrentSession().createCriteria(BasePorteur.class).add(Restrictions.eq(Porteur.PROP_LIGNE, numeroLigne)).uniqueResult();
-							this.sessionFactory.getCurrentSession().close();
+					Porteur porteur = (Porteur) this.sessionFactory.getCurrentSession().createCriteria(BasePorteur.class).add(Restrictions.eq(Porteur.PROP_LIGNE, ligne)).uniqueResult();
+//							this.sessionFactory.getCurrentSession().close();
 					return  porteur;
 			}catch (Exception e){
 				System.out.println(e);

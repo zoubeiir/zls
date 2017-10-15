@@ -41,7 +41,13 @@ public List<Ligne> findAll(){
 				
 	
 		}catch (Exception e){
-			throw e;
+			try {
+				throw e;
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return null;
+			}
 //			return null;
 		}
 			
@@ -54,9 +60,11 @@ public List<Ligne> findAll(){
 
 
 
-public void insertLigne(Ligne ligne,boolean uniqueInsert){
+public void insertLigne(Ligne ligne,boolean uniqueInsert) throws Exception{
 	try {
-		sessionFactory = HibernateUtil.getSessionFactory();
+		
+//		sessionFactory = HibernateUtil.getSessionFactory();
+		
 //		ligne.setId(-1);
 		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
 			this.sessionFactory.getCurrentSession().getTransaction().begin();}
@@ -71,7 +79,7 @@ public void insertLigne(Ligne ligne,boolean uniqueInsert){
 		throw e;
 	}
 }
-public void insertListLigne(List<Ligne> listLigne){
+public void insertListLigne(List<Ligne> listLigne) throws Exception{
 	    for(int i = 0; i < listLigne.size(); i++){
 	    	
 	    	this.insertLigne(listLigne.get(i),false);
@@ -85,7 +93,7 @@ public void insertListLigne(List<Ligne> listLigne){
 
 
 
-public List<Ligne> search(Ligne ligne) {
+public List<Ligne> search(Ligne ligne) throws Exception {
 	// TODO Auto-generated method stub
 	try{
 	if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
@@ -108,8 +116,9 @@ public Ligne findByNumero(String numeroLigne){
 		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
 			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
 			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+		
 			Ligne ligne = (Ligne) this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class).add(Restrictions.eq(Ligne.PROP_NUMERO_LIGNE, numeroLigne)).uniqueResult();
-					this.sessionFactory.getCurrentSession().close();
+//					this.sessionFactory.getCurrentSession().close();
 			return  ligne;
 	}catch (Exception e){
 		System.out.println(e);

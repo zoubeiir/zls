@@ -34,6 +34,22 @@ public class GestionRapprochement extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		String listTypeRapprochement[]=request.getParameterValues("typeRapprochement");
+		String listMois[]=request.getParameterValues("mois");
+		String listAnnee[]=request.getParameterValues("annee");
+		
+		for(int typeRapprochement=0;typeRapprochement<listTypeRapprochement.length;typeRapprochement++){
+			
+			for(int mois=0;mois<listTypeRapprochement.length;mois++){
+				
+				for(int annee=0;annee<listTypeRapprochement.length;annee++){
+					
+				}
+			}
+		}
+		
+		
 	}
 
 }

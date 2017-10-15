@@ -93,7 +93,12 @@ public class LigneRecherche extends HttpServlet {
 		
 		
 		
-		listeLigne = ligneDAO.search(ligne);
+		try {
+			listeLigne = ligneDAO.search(ligne);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 //		System.out.println(listeLigne.get(0).getFrais());
 //		System.out.println(listeLigne.get(1).getFrais());

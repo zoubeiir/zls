@@ -51,7 +51,12 @@ public class LigneAjout extends HttpServlet {
 			//
 			porteur =this.getPorteurDB(request);
 			ligne = this.fillEntity(porteur,request);
-			this.insertDBLigne(ligne);
+			try {
+				this.insertDBLigne(ligne);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			// Redirections
 			if(request.getParameter("V") != null) {
@@ -73,7 +78,7 @@ public class LigneAjout extends HttpServlet {
 		
 	}
 
-	private void insertDBLigne(Ligne ligne) {
+	private void insertDBLigne(Ligne ligne) throws Exception {
 		LigneDAO ligneDAO = new LigneDAO();
 		boolean uniqueInsert = true;
 		ligneDAO.insertLigne(ligne,uniqueInsert);
@@ -83,7 +88,12 @@ public class LigneAjout extends HttpServlet {
 		String numeroLigne = request.getParameter("numeroLigne");
 		//récuperer le porteur lié à la ligne ajoutée
 		PorteurDAO porteurDAO = new PorteurDAO();
-		return porteurDAO.findByNumero(numeroLigne);
+		LigneDAO ligneDAO = new LigneDAO();
+		Ligne ligne = new Ligne();
+		ligne = ligneDAO.findByNumero(numeroLigne);
+		//TODO
+		return porteurDAO.findByNumero(ligne);
+//		return null;
 	}
 
 	private Ligne fillEntity(Porteur porteur, HttpServletRequest request) {

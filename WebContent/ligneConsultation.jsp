@@ -1,25 +1,25 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+<%@page import="hibernateEntity.Porteur"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<%@page import="hibernateEntity.Facture"%>
 <%@ page import="hibernateEntity.Ligne" %>
 <%@ page import="java.util.*" %>
 <%@ page import="javax.servlet.http.HttpServletRequest.*" %>
 
 
 
-<% List<Ligne> listeLigne = (List<Ligne>) (request.getSession().getAttribute("listeLigne"));%>
+<% List<Facture> listeFacture = (List<Facture>) (request.getSession().getAttribute("listeFacture"));%>
+<% Ligne ligne = (Ligne) (request.getSession().getAttribute("ligne"));%>
+<% Porteur porteur = (Porteur) (request.getSession().getAttribute("porteur"));%>
 
 
 
-
-<!DOCTYPE HTML>
 <html>
 <head>
-<title>Easy Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Forms :: w3layouts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Easy Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -28,51 +28,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
  <!-- Bootstrap Core CSS -->
 <link href="css/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
 <!-- Custom CSS -->
-<link href="css/css/style.css" rel='stylesheet' type='text/css'  media="all"/>
-
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<link href="css/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
-
-
- 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<link href="css/css/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
-<!-- Custom Theme files -->
-<link href="css/css/css/style.css" rel="stylesheet" type="text/css" media="all"/>
-<!--js-->
-
-
-
-<!--     Fonts and icons     -->
-    <link href="css/css/css/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="css/css/css/css/pe-icon-7-stroke.css" rel="stylesheet" />
-	
-	    <!-- Bootstrap core CSS     -->
-    <link href="css/css/css/css/bootstrap.min.css" rel="stylesheet" />
-
+<link href="css/css/style.css" rel='stylesheet' type='text/css' />
 
 	<script>
 		 new WOW().init();
 	</script>
+	
+</head>
+<body>
 
-</head> 
-   
  <body class="sticky-header left-side-collapsed"  onload="initMap()">
-    
     <section>
-    
 			<div id="page-wrapper">
 				<div class="graphs">
-					<h3 class="blank1">Recherche d'une ligne</h3>
+					<h3 class="blank1">Ligne</h3>
 						<div class="tab-content">
 						<div class="tab-pane active" id="horizontal-form">
-							<form class="form-horizontal" action="LigneRecherche" method="post">
+							<form class="form-horizontal"  method="post" action="LigneAjout" >
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">NumÃ©ro ligne</label>
+									<label for="focusedinput" class="col-sm-2 control-label">Numéro ligne</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control1" id="focusedinput" placeholder="Default Input" value="+212" name="numeroLigne">
+										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getNumeroLigne() %>" readonly="readonly">
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -82,31 +58,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label">Frais</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control1" id="focusedinput" placeholder="Default Input">
+										<input type="text" name="fraisLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getFrais() %>" readonly="readonly">
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block">MAD</p>
 									</div>
 								</div>
-								
 								<div class="form-group">
-									<label for="radio" class="col-sm-2 control-label">Etat</label>
+									<label for="radio" class="col-sm-2 control-label" >Etat</label>
 									<div class="col-sm-8">
-										<div class="radio-inline"><label><input name="test" type="radio" >OpÃ©rationnelle</label></div>
-										<div class="radio-inline"><label><input name="test" type="radio">RÃ©siliÃ©e</label></div>
-										<div class="radio-inline"><label><input name="test" type="radio" checked="checked">Tout etat</label></div>
-										
+										<div class="radio-inline"><label><input name="etat" type="radio" checked="" value="1">Opérationnelle</label></div>
+										<div class="radio-inline"><label><input name="etat" type="radio" value="2">Résiliée</label></div>
+<!-- 										<div class="radio-inline"><label><input name="test" type="radio" disabled="" value=""> En cours de résiliation</label></div> -->
 									</div>
-								</div>
-								
-								<div class="row">
-								<div class="col-sm-8 col-sm-offset-2">
-									
-									<button class="btn-success btn">Chercher</button>
-									<button class="btn-default btn">Annuler</button>
-									<button class="btn-inverse btn">RÃ©initialiser</button>
-
-								</div>
 								</div>
 							</form>
 						</div>
@@ -120,10 +84,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						
 			
 	</section>
+	
+<!-- <br><br><br><br><br><br><br>=============================<br><br><br><br><br><br>	 -->
 
 
 
-	<% if(listeLigne!=null){ %>
+    <section>
+    
+			<div id="page-wrapper">
+				<div class="graphs">
+					<h3 class="blank1">Porteur</h3>
+						<div class="tab-content">
+						<div class="tab-pane active" id="horizontal-form">
+							<form class="form-horizontal">
+							
+							
+								<div class="form-group">
+									<label for="focusedinput" class="col-sm-2 control-label">Code</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control1" id="focusedinput" value="<% if(porteur!=null){ %><%= porteur.getNom() %><%}%>" readonly="readonly">
+									</div>
+									<div class="col-sm-2 jlkdfj1">
+										<p class="help-block"></p>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="bs-example" data-example-id="form-validation-states">
+    
+  </div>
+  
+					
+						
+			
+	</section>
+	
+	
+	
+	
+<!-- <br><br><br><br><br><br><br>=============================<br><br><br><br><br><br>	 -->
+	
+	
+	
+	
+	
+<% if(listeFacture!=null){ %>
+
+<section>
+    
+			<div id="page-wrapper">
+				<div class="graphs">
+					<h3 class="blank1">Factures</h3>
+				</div>
+			</div>
+</section>
 
 <div class="content">
             <div class="container-fluid">
@@ -140,12 +155,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                 						<thead>
                 							<tr>
-                								<th></th>
-                								<th>Numéro ligne</th>
+<!--                 								<th></th> -->
+                								<th>Facture</th>
+                								<th>Ligne</th>
+                								<th>Mois</th>
+                								<th>Annee</th>
                 								<th>Frais</th>
-                								<th>Etat</th>
-                								<th>Vide</th>
-                								<th class="disabled-sorting text-right">Actions</th>
+<!--                 								<th class="disabled-sorting text-right">Actions</th> -->
                 							</tr>
                 						</thead>
 <!--                 						<tfoot> -->
@@ -161,18 +177,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 						<tbody>
                 							
                 							
-											<%for(int i=0; i<listeLigne.size(); i++) {%>
+											<%for(int i=0; i<listeFacture.size(); i++) {%>
 										<tr>
-											<td><input type="checkbox" name="checkbox" value="<%= listeLigne.get(i).getNumeroLigne() %>" ></td>
-											<td><%= listeLigne.get(i).getNumeroLigne() %></td>
-											<td><%= listeLigne.get(i).getFrais() %></td>
-    										<td><%= listeLigne.get(i).getEtat() %></td>
-    										<td>vide</td>
-    										<td class="text-right">
-       											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumeroLigne().replace("+", "%2B") %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a>
-       											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-       											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a>
-   	 										</td>
+<%-- 											<td><input type="checkbox" name="checkbox" value="<%= listeFacture.get(i).getNumeroLigne() %>" ></td> --%>
+											<td><%= listeFacture.get(i).getIdFacture() %></td>
+											<td><%= listeFacture.get(i).getLigne().getNumeroLigne() %></td>
+    										<td><%= listeFacture.get(i).getMois() %></td>
+    										<td><%= listeFacture.get(i).getAnnee() %></td>
+    										<td><%= listeFacture.get(i).getFrais() %></td>
+<!--     										<td class="text-right"> -->
+<%--        											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumeroLigne() %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a> --%>
+<!--        											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> -->
+<!--        											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a> -->
+<!--    	 										</td> -->
 										</tr>
 											<% } %>
 
@@ -181,7 +198,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							
                 						</tbody>
                 					</table>
-                					<button class="btn btn-simple btn-danger btn-icon remove" type="submit">Supprimer la selection</button>
+<!--                 					<button class="btn btn-simple btn-danger btn-icon remove" type="submit">Supprimer la selection</button> -->
                 					</form>
         				        </div>
                             </div><!-- end content-->
@@ -192,6 +209,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </div>
 <% } %>
+
+
+
 
 </body>
 
@@ -242,5 +262,4 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 
     </script>
-	
 </html>

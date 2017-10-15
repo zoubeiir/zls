@@ -1,11 +1,14 @@
 package servlet;
 
+import hibernateEntity.Facture;
 import hibernateEntity.Ligne;
 import hibernateEntity.Porteur;
+import hibernateEntity.dao.FactureDAO;
 import hibernateEntity.dao.LigneDAO;
 import hibernateEntity.dao.PorteurDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -43,6 +46,31 @@ public class GestionLigne extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println(request.getParameter("numeroLigne"));
+		
+		String numeroLigne=request.getParameter("numeroLigne");
+		LigneDAO ligneDAO = new LigneDAO();
+		PorteurDAO porteurDAO = new PorteurDAO();
+		FactureDAO factureDAO = new FactureDAO();
+		
+		Ligne ligne = new Ligne();
+		ligne=ligneDAO.findByNumero(numeroLigne);
+		
+		Porteur porteur = new Porteur();
+		porteur=porteurDAO.findByNumero(ligne);
+		
+		List<Facture> listeFacture = new ArrayList<Facture>();
+		listeFacture = factureDAO.findByNumero(ligne);
+		
+		
+		request.getSession().setAttribute("porteur", porteur);
+		request.getSession().setAttribute("ligne", ligne);
+		request.getSession().setAttribute("listeFacture", listeFacture);
+		
+		
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneConsultation.jsp") ;
+		requestDispatcher.forward(request, response);
 	}
 
 	/**
@@ -51,8 +79,21 @@ public class GestionLigne extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println(request.getParameter("checkbox"));
+		Ligne ligneActuelle = new Ligne();
+		List<Ligne> listeLigne = new ArrayList<Ligne>();
 		
+		LigneDAO ligneDAO = new LigneDAO();
+		
+		String listCB[] = request.getParameterValues("checkbox");
+		
+		for(int i=0;i<listCB.length;i++){
+			
+			ligneActuelle=ligneDAO.findByNumero(listCB[i]);
+			System.out.println(ligneActuelle.getNumeroLigne());
+			if(ligneActuelle!=null)
+				listeLigne.add(ligneActuelle);
+		}
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.jsp") ;
 		requestDispatcher.forward(request, response);
 	}

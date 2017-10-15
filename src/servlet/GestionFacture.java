@@ -109,7 +109,19 @@ public class GestionFacture extends HttpServlet {
 			
 			
 			FactureDAO factureDAO = new FactureDAO();
-			factureDAO.insertListFacture(listeFactureImport);
+			try {
+				factureDAO.insertListFacture(listeFactureImport);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+				try {
+					throw e;
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 			
 			} catch (FileNotFoundException e) {
 			e.printStackTrace();
