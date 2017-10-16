@@ -27,6 +27,7 @@ import hibernateEntity.base.BasePorteur;
 public class FactureDAO extends BaseFactureDAO {
 	
 	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	
 	private void insertFacture(Facture facture,boolean uniqueInsert) throws Exception{
 		try {
 			sessionFactory = HibernateUtil.getSessionFactory();
@@ -79,6 +80,19 @@ public class FactureDAO extends BaseFactureDAO {
 			return null;
 		}
 		
+	}
+
+	public List<Facture> findByMoisAnnee(String mois, String annee) {
+		try {
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+				Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+				return (List<Facture>) this.sessionFactory.getCurrentSession().createCriteria(BaseFacture.class).add(Restrictions.eq(Facture.PROP_MOIS, mois)).add(Restrictions.eq(Facture.PROP_ANNEE, annee)).list();
+//						this.sessionFactory.getCurrentSession().close();
+		}catch (Exception e){
+			System.out.println(e);
+			return null;
+		}
 	}
 	
 	

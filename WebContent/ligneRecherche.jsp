@@ -161,7 +161,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 						<tbody>
                 							
                 							
-											<%for(int i=0; i<listeLigne.size(); i++) {%>
+											<%for(int i=0; i<listeLigne.size(); i++) { %>
 										<tr>
 											<td><input type="checkbox" name="checkbox" value="<%= listeLigne.get(i).getNumeroLigne() %>" ></td>
 											<td><%= listeLigne.get(i).getNumeroLigne() %></td>
