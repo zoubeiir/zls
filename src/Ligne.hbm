@@ -3,7 +3,7 @@
 	"-//Hibernate/Hibernate Mapping DTD//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
-<hibernate-mapping package="hibernateEntity">
+<hibernate-mapping package="entity">
 	<class name="Ligne" table="ligne">
 		<id
 			column="ID"
@@ -12,37 +12,42 @@
 		>
 			<generator class="identity" />
 		</id>
+		<property
+			column="dateCreation"
+			length="10"
+			name="DateCreation"
+			not-null="false"
+			type="date"
+		 />
 		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<property
 			column="numeroLigne"
-			length="10"
+			length="15"
 			name="NumeroLigne"
 			not-null="true"
 			type="java.lang.String"
 		 />
-		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<property
 			column="etat"
 			length="10"
 			name="Etat"
 			not-null="false"
-			type="java.lang.String"
-		 />
-		<property
-			column="frais"
-			length="53"
-			name="Frais"
-			not-null="false"
-			type="java.lang.Float"
+			type="integer"
 		 />
 
-		<set inverse="true" name="FactureSet">
-			<key column="ligne" />
-			<one-to-many class="Facture" />
-		</set>
-		<set inverse="true" name="PorteurSet">
-			<key column="ligne" />
-			<one-to-many class="Porteur" />
-		</set>
+		<many-to-one
+			class="Localite"
+			name="Localite"
+			not-null="true"
+		>
+			<column name="localite" />
+		</many-to-one>
+		<many-to-one
+			class="Type"
+			name="Type"
+			not-null="true"
+		>
+			<column name="type" />
+		</many-to-one>
 	</class>
 </hibernate-mapping>

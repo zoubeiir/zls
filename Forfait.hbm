@@ -3,8 +3,8 @@
 	"-//Hibernate/Hibernate Mapping DTD//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
-<hibernate-mapping package="hibernateEntity">
-	<class name="Porteur" table="porteur">
+<hibernate-mapping package="entity">
+	<class name="Forfait" table="forfait">
 		<id
 			column="ID"
 			name="Id"
@@ -14,18 +14,22 @@
 		</id>
 		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<property
-			column="nom"
-			length="10"
-			name="Nom"
+			column="code"
+			length="20"
+			name="Code"
 			not-null="true"
 			type="java.lang.String"
 		 />
-		<many-to-one
-			class="Ligne"
-			name="Ligne"
+		<property
+			column="cout"
+			length="53"
+			name="Cout"
 			not-null="true"
-		>
-			<column name="ligne" />
-		</many-to-one>
+			type="java.lang.Float"
+		 />
+		<set inverse="true" name="TypeSet">
+			<key column="forfait" />
+			<one-to-many class="Type" />
+		</set>
 	</class>
 </hibernate-mapping>

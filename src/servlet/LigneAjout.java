@@ -69,9 +69,13 @@ public class LigneAjout extends HttpServlet {
 			
 			
 			
-		}else {
+		}else if(request.getParameter("A") != null){
 			System.out.println("A");
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligne.html") ;
+			requestDispatcher.forward(request, response) ;
+		}else{
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneAjout.html") ;
 			requestDispatcher.forward(request, response) ;
 		}
 		

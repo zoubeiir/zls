@@ -30,15 +30,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- Custom CSS -->
 <link href="css/css/style.css" rel='stylesheet' type='text/css' />
 
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css">	
 	<script>
 		 new WOW().init();
 	</script>
 	
-</head>
-<body>
+	
+</head> 
 
- <body class="sticky-header left-side-collapsed"  onload="initMap()">
-    <section>
+<body class="sticky-header left-side-collapsed"  onload="initMap()">
+	<div class="navbar navbar-fixed-top" data-activeslide="1">
+		<div class="container">
+			<div class="nav-collapse collapse navbar-responsive-collapse">
+				<ul class="nav row">
+					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="ligne.html" title="Next Section"><span class="icon icon-phone" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="porteur.html" title="Next Section"><span class="icon icon-user" style="color: "></span> <span class="text" style="color: ">PORTEURS</span></a></li>
+					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.html" title="Next Section"><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="facture.html" title="Next Section"><span class="icon icon-leaf" style="color: "></span> <span class="text" style="color: ">FACTURE</span></a></li>
+					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li>
+				</ul>
+			</div><!-- /.nav-collapse -->
+		</div><!-- /.container -->
+	</div><!-- /.navbar -->
+	<div class="slide story"  data-slide="1">
+	</div>
+    <div class="container">
 			<div id="page-wrapper">
 				<div class="graphs">
 					<h3 class="blank1">Ligne</h3>
@@ -46,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="tab-pane active" id="horizontal-form">
 							<form class="form-horizontal"  method="post" action="LigneAjout" >
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Numéro ligne</label>
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Numéro ligne</label>
 									<div class="col-sm-8">
 										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getNumeroLigne() %>" readonly="readonly">
 									</div>
@@ -56,7 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
 								
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Frais</label>
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Frais</label>
 									<div class="col-sm-8">
 										<input type="text" name="fraisLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getFrais() %>" readonly="readonly">
 									</div>
@@ -65,10 +84,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="radio" class="col-sm-2 control-label" >Etat</label>
+									<label for="radio" class="col-sm-2 control-label" style="color: white">Etat</label>
 									<div class="col-sm-8">
-										<div class="radio-inline"><label><input name="etat" type="radio" checked="" value="1">Opérationnelle</label></div>
-										<div class="radio-inline"><label><input name="etat" type="radio" value="2">Résiliée</label></div>
+										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" checked="" value="1">Opérationnelle</label></div>
+										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" value="2">Résiliée</label></div>
 <!-- 										<div class="radio-inline"><label><input name="test" type="radio" disabled="" value=""> En cours de résiliation</label></div> -->
 									</div>
 								</div>
@@ -100,7 +119,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							
 							
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Code</label>
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Code</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control1" id="focusedinput" value="<% if(porteur!=null){ %><%= porteur.getNom() %><%}%>" readonly="readonly">
 									</div>
@@ -154,13 +173,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <form method="post" action="GestionLigne">
                 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                 						<thead>
-                							<tr>
+                							<tr >
 <!--                 								<th></th> -->
-                								<th>Facture</th>
-                								<th>Ligne</th>
-                								<th>Mois</th>
-                								<th>Annee</th>
-                								<th>Frais</th>
+                								<th style="color: white">Facture</th>
+                								<th style="color: white">Ligne</th>
+                								<th style="color: white">Mois</th>
+                								<th style="color: white">Année</th>
+                								<th style="color: white">Frais</th>
 <!--                 								<th class="disabled-sorting text-right">Actions</th> -->
                 							</tr>
                 						</thead>
@@ -209,7 +228,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </div>
 <% } %>
-
+</div>
 
 
 

@@ -63,7 +63,7 @@ public class GestionRapprochement extends HttpServlet {
 		Facture factureActuelle = new Facture();
 		
 		XSSFWorkbook wb = new XSSFWorkbook();
-		XSSFSheet sheet = wb.createSheet("Feuil1");
+		XSSFSheet sheet = wb.createSheet(fileName);
 		XSSFRow row ;
 		
 		row = sheet.createRow(0);

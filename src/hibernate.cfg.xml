@@ -7,7 +7,7 @@
 	<session-factory>
 		<!-- local connection properties -->
 		<property name="hibernate.connection.url">
-			jdbc:sqlserver://localhost;databaseName=RapprochementSample;instanceName=SQLEXPRESS;
+			jdbc:sqlserver://localhost;databaseName=Rapprochement;instanceName=SQLEXPRESS;
 		</property>
 		<property name="hibernate.connection.driver_class">
 			com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -24,7 +24,6 @@
 		
 <!-- 		<property name="hbm2ddl.auto">validate</property> -->
 		
-		
 		<!-- <property name="hibernate.transaction.factory_class"> -->
 		<!-- net.sf.hibernate.transaction.JTATransactionFactory -->
 		<!-- </property> -->
@@ -33,8 +32,9 @@
 		<!-- </property> -->
 		<property name="hibernate.current_session_context_class">thread</property>
 
-		<mapping resource="Porteur.hbm" />
 		<mapping resource="Ligne.hbm" />
-		<mapping resource="Facture.hbm" />
+		<mapping resource="Forfait.hbm" />
+		<mapping resource="Localite.hbm" />
+		<mapping resource="Type.hbm" />
 	</session-factory>
 </hibernate-configuration>

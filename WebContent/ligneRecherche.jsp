@@ -53,15 +53,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="css/css/css/css/bootstrap.min.css" rel="stylesheet" />
 
 
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css">	
 	<script>
 		 new WOW().init();
 	</script>
-
 </head> 
-   
- <body class="sticky-header left-side-collapsed"  onload="initMap()">
-    
-    <section>
+<body class="sticky-header left-side-collapsed"  onload="initMap()">
+	<div class="navbar navbar-fixed-top" data-activeslide="1">
+		<div class="container">
+			<div class="nav-collapse collapse navbar-responsive-collapse">
+				<ul class="nav row">
+					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="ligne.html" title="Next Section"><span class="icon icon-phone" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="porteur.html" title="Next Section"><span class="icon icon-user" style="color: "></span> <span class="text" style="color: ">PORTEURS</span></a></li>
+					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.html" title="Next Section"><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="facture.html" title="Next Section"><span class="icon icon-leaf" style="color: "></span> <span class="text" style="color: ">FACTURE</span></a></li>
+					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li>
+				</ul>
+			</div><!-- /.nav-collapse -->
+		</div><!-- /.container -->
+	</div><!-- /.navbar -->
+	<div class="slide story"  data-slide="1">
+	</div>
+		
+
+	<div class="container">
     
 			<div id="page-wrapper">
 				<div class="graphs">
@@ -70,7 +88,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="tab-pane active" id="horizontal-form">
 							<form class="form-horizontal" action="LigneRecherche" method="post">
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Numéro ligne</label>
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Numéro ligne</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control1" id="focusedinput" placeholder="Default Input" value="+212" name="numeroLigne">
 									</div>
@@ -80,7 +98,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
 								
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Frais</label>
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Frais</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control1" id="focusedinput" placeholder="Default Input">
 									</div>
@@ -90,11 +108,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
 								
 								<div class="form-group">
-									<label for="radio" class="col-sm-2 control-label">Etat</label>
+									<label for="radio" class="col-sm-2 control-label" style="color: white">Etat</label>
 									<div class="col-sm-8">
-										<div class="radio-inline"><label><input name="test" type="radio" >Opérationnelle</label></div>
-										<div class="radio-inline"><label><input name="test" type="radio">Résiliée</label></div>
-										<div class="radio-inline"><label><input name="test" type="radio" checked="checked">Tout etat</label></div>
+										<div class="radio-inline">
+										<label style="color: white">
+										<input name="test" type="radio" >
+										Opérationnelle
+										</label></div>
+										<div class="radio-inline" style="color: white"><label><input name="test" type="radio">Résiliée</label></div>
+										<div class="radio-inline" style="color: white"><label><input name="test" type="radio" checked="checked">Tout etat</label></div>
 										
 									</div>
 								</div>
@@ -119,7 +141,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					
 						
 			
-	</section>
+	</div>
 
 
 
@@ -202,6 +224,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!--  Plugin for DataTables.net  -->
 	<script src="css/css/css/css/jquery.datatables.js"></script>
 	
+	<!-- SCRIPTS -->
+<script src="js/html5shiv.js"></script>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<!-- <script src="js/bootstrap.min.js"></script> -->
+<script src="js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="fancybox/jquery.fancybox.pack-v=2.1.5.js"></script>
+<script src="js/script.js"></script>
 	
 	
 	<script type="text/javascript">

@@ -4,7 +4,7 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
 <hibernate-mapping package="entity">
-	<class name="Ligne" table="ligne">
+	<class name="Type" table="type">
 		<id
 			column="ID"
 			name="Id"
@@ -12,42 +12,32 @@
 		>
 			<generator class="identity" />
 		</id>
-		<property
-			column="dateCreation"
-			length="10"
-			name="DateCreation"
-			not-null="false"
-			type="date"
-		 />
 		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<property
-			column="numeroLigne"
-			length="15"
-			name="NumeroLigne"
+			column="code"
+			length="20"
+			name="Code"
 			not-null="true"
 			type="java.lang.String"
 		 />
 		<property
-			column="etat"
-			length="10"
-			name="Etat"
-			not-null="false"
-			type="integer"
+			column="cout"
+			length="53"
+			name="Cout"
+			not-null="true"
+			type="java.lang.Float"
 		 />
 
 		<many-to-one
-			class="Localite"
-			name="Localite"
+			class="Forfait"
+			name="Forfait"
 			not-null="true"
 		>
-			<column name="localite" />
+			<column name="forfait" />
 		</many-to-one>
-		<many-to-one
-			class="Type"
-			name="Type"
-			not-null="true"
-		>
-			<column name="type" />
-		</many-to-one>
+		<set inverse="true" name="LigneSet">
+			<key column="type" />
+			<one-to-many class="Ligne" />
+		</set>
 	</class>
 </hibernate-mapping>

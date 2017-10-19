@@ -3751,7 +3751,7 @@ h3.count.text-light {
 .coffee-top i {
   position: absolute;
   top: 84%;
-  background: url(../images/1.png)no-repeat center;
+/*   background: url(../images/1.png)no-repeat center; */
   width: 80px;
   height: 80px;
   display: block;
@@ -5511,7 +5511,7 @@ h3.count.text-light {
 }
 .coffee-top i {
   top: 70%;
-  background: url(../images/1.png)no-repeat center;
+/*   background: url(../images/1.png)no-repeat center; */
   left: 31%;
   background-size: 70%;
 }
@@ -5959,7 +5959,7 @@ ul.new li.new_left, ul.new li.new_right {
 }
 .coffee-top i {
   top: 88%;
-  background: url(../images/1.png)no-repeat center;
+/*   background: url(../images/1.png)no-repeat center; */
   left: 44%;
   background-size: 70%;
 }
