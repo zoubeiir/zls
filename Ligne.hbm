@@ -16,14 +16,14 @@
 			column="dateCreation"
 			length="10"
 			name="DateCreation"
-			not-null="false"
+			not-null="true"
 			type="date"
 		 />
 		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<property
-			column="numeroLigne"
+			column="numero"
 			length="15"
-			name="NumeroLigne"
+			name="Numero"
 			not-null="true"
 			type="java.lang.String"
 		 />
@@ -31,7 +31,7 @@
 			column="etat"
 			length="10"
 			name="Etat"
-			not-null="false"
+			not-null="true"
 			type="integer"
 		 />
 
@@ -43,11 +43,11 @@
 			<column name="localite" />
 		</many-to-one>
 		<many-to-one
-			class="Type"
-			name="Type"
+			class="Forfait"
+			name="Forfait"
 			not-null="true"
 		>
-			<column name="type" />
+			<column name="forfait" />
 		</many-to-one>
 	</class>
 </hibernate-mapping>

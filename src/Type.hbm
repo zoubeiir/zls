@@ -15,7 +15,7 @@
 		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<property
 			column="code"
-			length="20"
+			length="50"
 			name="Code"
 			not-null="true"
 			type="java.lang.String"
@@ -27,17 +27,9 @@
 			not-null="true"
 			type="java.lang.Float"
 		 />
-
-		<many-to-one
-			class="Forfait"
-			name="Forfait"
-			not-null="true"
-		>
-			<column name="forfait" />
-		</many-to-one>
-		<set inverse="true" name="LigneSet">
+		<set inverse="true" name="ForfaitSet">
 			<key column="type" />
-			<one-to-many class="Ligne" />
+			<one-to-many class="Forfait" />
 		</set>
 	</class>
 </hibernate-mapping>

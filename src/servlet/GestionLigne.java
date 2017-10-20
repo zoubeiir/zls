@@ -1,11 +1,11 @@
 package servlet;
 
-import hibernateEntity.Facture;
-import hibernateEntity.Ligne;
-import hibernateEntity.Porteur;
-import hibernateEntity.dao.FactureDAO;
-import hibernateEntity.dao.LigneDAO;
-import hibernateEntity.dao.PorteurDAO;
+//import entity.Facture;
+import entity.Ligne;
+//import entity.Porteur;
+//import entity.dao.FactureDAO;
+import entity.dao.LigneDAO;
+//import entity.dao.PorteurDAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import org.hibernate.Transaction;
 import com.util.HibernateUtil;
 
 import antlr.StringUtils;
-import hibernateEntity.base.*;
+import entity.base.*;
 
 /**
  * Servlet implementation class GestionLigne
@@ -50,22 +50,23 @@ public class GestionLigne extends HttpServlet {
 		
 		String numeroLigne=request.getParameter("numeroLigne");
 		LigneDAO ligneDAO = new LigneDAO();
-		PorteurDAO porteurDAO = new PorteurDAO();
-		FactureDAO factureDAO = new FactureDAO();
+//		PorteurDAO porteurDAO = new PorteurDAO();
+//		FactureDAO factureDAO = new FactureDAO();
 		
 		Ligne ligne = new Ligne();
-		ligne=ligneDAO.findByNumero(numeroLigne);
+//		ligne=ligneDAO.findByNumero(numeroLigne);
 		
-		Porteur porteur = new Porteur();
-		porteur=porteurDAO.findByNumero(ligne);
+//		Porteur porteur = new Porteur();
+//		porteur=porteurDAO.findByNumero(ligne);
 		
-		List<Facture> listeFacture = new ArrayList<Facture>();
-		listeFacture = factureDAO.findByNumero(ligne);
+//		List<Facture> listeFacture = new ArrayList<Facture>();
+//		listeFacture = factureDAO.findByNumero(ligne);
 		
+		ligne = ligneDAO.findByNumero(numeroLigne);
 		
-		request.getSession().setAttribute("porteur", porteur);
+//		request.getSession().setAttribute("porteur", porteur);
 		request.getSession().setAttribute("ligne", ligne);
-		request.getSession().setAttribute("listeFacture", listeFacture);
+//		request.getSession().setAttribute("listeFacture", listeFacture);
 		
 		
 		
@@ -89,7 +90,7 @@ public class GestionLigne extends HttpServlet {
 		for(int i=0;i<listCB.length;i++){
 			
 			ligneActuelle=ligneDAO.findByNumero(listCB[i]);
-			System.out.println(ligneActuelle.getNumeroLigne());
+			System.out.println(ligneActuelle.getNumero());
 			if(ligneActuelle!=null)
 				listeLigne.add(ligneActuelle);
 		}

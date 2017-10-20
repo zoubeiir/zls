@@ -1,5 +1,5 @@
 EnumExclude=
-package=hibernateEntity
+package=entity
 databaseUrl=jdbc:sqlserver://localhost;instanceName=SQLEXPRESS;
 driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
 EnumInclude=

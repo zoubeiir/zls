@@ -1,5 +1,17 @@
 package entity.dao;
 
+import entity.Ligne;
+import entity.base.BaseLigne;
+
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
+import com.util.HibernateUtil;
+
 import entity.base.BaseLigneDAO;
 
 /**
@@ -11,4 +23,62 @@ import entity.base.BaseLigneDAO;
  * Any customizations belong here.
  */
 public class LigneDAO extends BaseLigneDAO {
+	
+	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	
+public List<Ligne> findAll(){
+	
+		
+		try {
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+				Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();
+				}
+				Criteria crit = this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class);
+				return crit.list();
+				
+	
+		}catch (Exception e){
+			try {
+				throw e;
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				return null;
+			}
+		}
+			
+	
+	}
+
+public List<Ligne> search(Ligne ligne) throws Exception {
+	try{
+	if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+		Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+		Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+	return this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class).add(Restrictions.eq(Ligne.PROP_NUMERO, ligne.getNumero())).list();
+}catch (Exception e){
+	throw e;
+//	return null;
+}
+}
+public Ligne findByNumero(String numeroLigne){
+	
+	try {
+		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+		
+			Ligne ligne = (Ligne) this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class).add(Restrictions.eq(Ligne.PROP_NUMERO, numeroLigne)).uniqueResult();
+//					this.sessionFactory.getCurrentSession().close();
+			return  ligne;
+	}catch (Exception e){
+		System.out.println(e);
+		return null;
+	}
+		
+
+}
+
+
+
 }

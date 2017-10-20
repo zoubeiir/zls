@@ -17,12 +17,12 @@ import java.io.Serializable;
  */
 public abstract class BaseLigne  implements Serializable {
 
-	public static String PROP_TYPE = "Type";
+	public static String PROP_NUMERO = "Numero";
 	public static String PROP_ETAT = "Etat";
 	public static String PROP_DATE_CREATION = "DateCreation";
 	public static String PROP_LOCALITE = "Localite";
+	public static String PROP_FORFAIT = "Forfait";
 	public static String PROP_ID = "Id";
-	public static String PROP_NUMERO_LIGNE = "NumeroLigne";
 
 
 	private int hashCode = Integer.MIN_VALUE;
@@ -32,12 +32,12 @@ public abstract class BaseLigne  implements Serializable {
 
 	// fields
 	private java.util.Date _dateCreation;
-	private java.lang.String _numeroLigne;
+	private java.lang.String _numero;
 	private java.lang.Integer _etat;
 
 	// many to one
 	private entity.Localite _localite;
-	private entity.Type _type;
+	private entity.Forfait _forfait;
 
 
 	// constructors
@@ -59,13 +59,17 @@ public abstract class BaseLigne  implements Serializable {
 	public BaseLigne (
 		java.lang.Integer _id,
 		entity.Localite _localite,
-		entity.Type _type,
-		java.lang.String _numeroLigne) {
+		entity.Forfait _forfait,
+		java.util.Date _dateCreation,
+		java.lang.String _numero,
+		java.lang.Integer _etat) {
 
 		this.setId(_id);
 		this.setLocalite(_localite);
-		this.setType(_type);
-		this.setNumeroLigne(_numeroLigne);
+		this.setForfait(_forfait);
+		this.setDateCreation(_dateCreation);
+		this.setNumero(_numero);
+		this.setEtat(_etat);
 		initialize();
 	}
 
@@ -110,18 +114,18 @@ public abstract class BaseLigne  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: numeroLigne
+	 * Return the value associated with the column: numero
 	 */
-	public java.lang.String getNumeroLigne () {
-		return _numeroLigne;
+	public java.lang.String getNumero () {
+		return _numero;
 	}
 
 	/**
-	 * Set the value related to the column: numeroLigne
-	 * @param _numeroLigne the numeroLigne value
+	 * Set the value related to the column: numero
+	 * @param _numero the numero value
 	 */
-	public void setNumeroLigne (java.lang.String _numeroLigne) {
-		this._numeroLigne = _numeroLigne;
+	public void setNumero (java.lang.String _numero) {
+		this._numero = _numero;
 	}
 
 
@@ -161,19 +165,19 @@ public abstract class BaseLigne  implements Serializable {
 
 	/**
      * @hibernate.property
-     *  column=type
+     *  column=forfait
 	 * not-null=true
 	 */
-	public entity.Type getType () {
-		return this._type;
+	public entity.Forfait getForfait () {
+		return this._forfait;
 	}
 
 	/**
-	 * Set the value related to the column: type
-	 * @param _type the type value
+	 * Set the value related to the column: forfait
+	 * @param _forfait the forfait value
 	 */
-	public void setType (entity.Type _type) {
-		this._type = _type;
+	public void setForfait (entity.Forfait _forfait) {
+		this._forfait = _forfait;
 	}
 
 

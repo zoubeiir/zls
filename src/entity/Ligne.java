@@ -26,15 +26,18 @@ public class Ligne extends BaseLigne {
 	public Ligne (
 		java.lang.Integer _id,
 		entity.Localite _localite,
-		entity.Type _type,
-		java.lang.String _numeroLigne) {
+		entity.Forfait _forfait,
+		java.util.Date _dateCreation,
+		java.lang.String _numero,
+		java.lang.Integer _etat) {
 
 		super (
 			_id,
 			_localite,
-			_type,
-			_numeroLigne);
+			_forfait,
+			_dateCreation,
+			_numero,
+			_etat);
 	}
-
 /*[CONSTRUCTOR MARKER END]*/
 }

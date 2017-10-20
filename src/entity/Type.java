@@ -25,16 +25,13 @@ public class Type extends BaseType {
 	 */
 	public Type (
 		java.lang.Integer _id,
-		entity.Forfait _forfait,
 		java.lang.String _code,
 		java.lang.Float _cout) {
 
 		super (
 			_id,
-			_forfait,
 			_code,
 			_cout);
 	}
-
 /*[CONSTRUCTOR MARKER END]*/
 }

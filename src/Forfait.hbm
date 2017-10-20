@@ -15,21 +15,29 @@
 		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
 		<property
 			column="code"
-			length="20"
+			length="50"
 			name="Code"
-			not-null="true"
+			not-null="false"
 			type="java.lang.String"
 		 />
 		<property
 			column="cout"
 			length="53"
 			name="Cout"
-			not-null="true"
+			not-null="false"
 			type="java.lang.Float"
 		 />
-		<set inverse="true" name="TypeSet">
+
+		<many-to-one
+			class="Type"
+			name="Type"
+			not-null="true"
+		>
+			<column name="type" />
+		</many-to-one>
+		<set inverse="true" name="LigneSet">
 			<key column="forfait" />
-			<one-to-many class="Type" />
+			<one-to-many class="Ligne" />
 		</set>
 	</class>
 </hibernate-mapping>

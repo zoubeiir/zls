@@ -1,18 +1,26 @@
+<%@page import="staticReference.EtatStatic"%>
 <%@page import="hibernateEntity.Porteur"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<%@page import="hibernateEntity.Facture"%>
-<%@ page import="hibernateEntity.Ligne" %>
-<%@ page import="java.util.*" %>
+<%-- <%@page import="hibernateEntity.Facture"%> --%>
+<%@ page import="entity.Ligne" %>
 <%@ page import="javax.servlet.http.HttpServletRequest.*" %>
+<%@page import="entity.Forfait"%>
+<%@page import="entity.dao.ForfaitDAO"%>
+<%@page import="entity.Type"%>
+<%@page import="entity.dao.TypeDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entity.Localite"%>
+<%@page import="java.util.List"%>
+<%@page import="entity.dao.LocaliteDAO"%>
 
 
 
-<% List<Facture> listeFacture = (List<Facture>) (request.getSession().getAttribute("listeFacture"));%>
+<%-- <% List<Facture> listeFacture = (List<Facture>) (request.getSession().getAttribute("listeFacture"));%> --%>
 <% Ligne ligne = (Ligne) (request.getSession().getAttribute("ligne"));%>
-<% Porteur porteur = (Porteur) (request.getSession().getAttribute("porteur"));%>
+<%-- <% Porteur porteur = (Porteur) (request.getSession().getAttribute("porteur"));%> --%>
 
 
 
@@ -58,78 +66,155 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="slide story"  data-slide="1">
 	</div>
     <div class="container">
+    
 			<div id="page-wrapper">
 				<div class="graphs">
-					<h3 class="blank1">Ligne</h3>
+					<h3 class="blank1">Consultation d'une ligne</h3>
 						<div class="tab-content">
 						<div class="tab-pane active" id="horizontal-form">
 							<form class="form-horizontal"  method="post" action="LigneAjout" >
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Numéro ligne</label>
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">NumÃ©ro ligne</label>
 									<div class="col-sm-8">
-										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getNumeroLigne() %>" readonly="readonly">
+										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getNumero() %>"  style="width:50% ; background-color: grey;color:white;" readonly="readonly" >
+									</div>
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white; width: 20%;">NumÃ©ro ligne</label> -->
+<!-- 									<div class="col-sm-8">  -->
+<!-- 										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="+212" style="width: 20%"> -->
+<!-- 									</div> -->
+									<div class="col-sm-2 jlkdfj1">
+										<p class="help-block"></p>
+									</div>
+								</div>
+								
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Frais</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<input type="number" step="100" min="0" name="fraisLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="0" style="width:50%" > -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-2 jlkdfj1"> -->
+<!-- 										<p class="help-block"></p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+								
+								<div class="form-group">
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Date de crÃ©ation</label>
+									<div class="col-sm-8">
+									<div id="datetimepicker" class="input-append date"> 
+      								<input type="date" value="<%= ligne.getDateCreation()%>" readonly="readonly" style="background-color: grey;color:white;"></input>
+      								<span class="add-on">
+        								<i data-time-icon="icon-qsd" data-date-icon="icon-qsd" ></i>
+      								</span>
+    							</div>
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
 									</div>
 								</div>
 								
+								
+								
+								
+<!-- 								<div class="form-group"> -->
+<!-- <!-- 								<div id="datetimepicker" class="input-append date"> --> 
+<!--       								<input type="text"></input> -->
+<!--       								<span class="add-on"> -->
+<!--         								<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i> -->
+<!--       								</span> -->
+<!--     							</div> -->
+								
+								
+								
+								
+								
+								
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Frais</label>
+									<label class="col-sm-2 control-label" style="color: white">Localité</label>
 									<div class="col-sm-8">
-										<input type="text" name="fraisLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getFrais() %>" readonly="readonly">
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block">MAD</p>
+										<select   class="form-control1" name="localite" style="background-color: grey;color:white;" >
+											
+											<%if(ligne.getLocalite()!=null){ %>
+											<option value="" 	><%= ligne.getLocalite().getCode()%></option>
+											<%} %>
+											
+											
+										</select>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="radio" class="col-sm-2 control-label" style="color: white">Etat</label>
+									<label class="col-sm-2 control-label" style="color: white">Type</label>
 									<div class="col-sm-8">
-										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" checked="" value="1">Opérationnelle</label></div>
-										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" value="2">Résiliée</label></div>
-<!-- 										<div class="radio-inline"><label><input name="test" type="radio" disabled="" value=""> En cours de résiliation</label></div> -->
+										<select   class="form-control1" name="type" style="background-color: grey;color:white;">
+											 
+											
+											<%if(ligne.getForfait()!=null){ %>
+											<option  ><%= ligne.getForfait().getType().getCode() %></option>
+											<%} %>
+											
+										</select>
 									</div>
 								</div>
-							</form>
-						</div>
-					</div>
-					
-					<div class="bs-example" data-example-id="form-validation-states">
-    
-  </div>
-  
-					
-						
-			
-	</section>
-	
-<!-- <br><br><br><br><br><br><br>=============================<br><br><br><br><br><br>	 -->
-
-
-
-    <section>
-    
-			<div id="page-wrapper">
-				<div class="graphs">
-					<h3 class="blank1">Porteur</h3>
-						<div class="tab-content">
-						<div class="tab-pane active" id="horizontal-form">
-							<form class="form-horizontal">
-							
-							
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Code</label>
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Type</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control1" id="focusedinput" value="<% if(porteur!=null){ %><%= porteur.getNom() %><%}%>" readonly="readonly">
+										<input type="text"  name="coutType"  id="coutType" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getForfait().getType().getCout() %>" style="width:50%;background-color: grey;color:white;" readonly="readonly">
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
 									</div>
 								</div>
+								
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" style="color: white">Forfait</label>
+									<div class="col-sm-8">
+										<select class="form-control1" name="forfait" id="forfait" style="background-color: grey;color:white;">
+<!-- 											<option id="vide" value="" onclick="fillCouts(0,'coutForfait')" > Aucun </option> -->
+ 
+											
+											<%if(ligne.getForfait()!=null){ %>
+											<option >
+											 <%= ligne.getForfait().getCode()%></option>
+											<%} %>
+											
+											
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Forfait</label>
+									<div class="col-sm-8">
+										<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getForfait().getCout() %>" style="width:50%;background-color: grey;color:white;" readonly="readonly">
+									</div>
+									<div class="col-sm-2 jlkdfj1">
+										<p class="help-block"></p>
+									</div>
+								</div>
+								
+								
+								
+								<div class="form-group">
+									<label for="radio" class="col-sm-2 control-label" style="color: white">Etat</label>
+									<div class="col-sm-8">
+										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" <% if(EtatStatic.ETAT_OPERATIONNEL.compareTo(ligne.getEtat())==0){ %> checked="checked" <% } %> value="0" disabled="disabled">OpÃ©rationnelle</label></div>
+										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" <% if(EtatStatic.ETAT_RESILIE.compareTo(ligne.getEtat())==0){ %> checked="checked" <% } %> value="1" disabled="disabled">RÃ©siliÃ©e</label></div>
+<!-- 										<div class="radio-inline"><label><input name="test" type="radio" disabled="" value=""> En cours de rÃ©siliation</label></div> -->
+										
+									</div>
+								</div>
+								
+								<div class="row"  style="width:80%">
+								<div class="col-sm-8 col-sm-offset-2" >
+									
+									<button class="btn-success btn" type="submit" name="VN">Modifier</button>
+									<button class="btn-default btn" type="submit" name="R" >Retour</button>
+								</div>
+								</div>
+								
 							</form>
 						</div>
 					</div>
+					
 					<div class="bs-example" data-example-id="form-validation-states">
     
   </div>
@@ -137,7 +222,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					
 						
 			
-	</section>
+	</div>
+	</div></div>
+  
+					
+						
+			
+	
+<!-- <br><br><br><br><br><br><br>=============================<br><br><br><br><br><br>	 -->
+
+
+
+<!--     <section> -->
+    
+<!-- 			<div id="page-wrapper"> -->
+<!-- 				<div class="graphs"> -->
+<!-- 					<h3 class="blank1">Porteur</h3> -->
+<!-- 						<div class="tab-content"> -->
+<!-- 						<div class="tab-pane active" id="horizontal-form"> -->
+<!-- 							<form class="form-horizontal"> -->
+							
+							
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Code</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<%-- 										<input type="text" class="form-control1" id="focusedinput" value="<% if(porteur!=null){ %><%= porteur.getNom() %><%}%>" readonly="readonly"> --%>
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-2 jlkdfj1"> -->
+<!-- 										<p class="help-block"></p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</form> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="bs-example" data-example-id="form-validation-states"> -->
+    
+<!--   </div> -->
+  
+					
+						
+			
+<!-- 	</section> -->
 	
 	
 	
@@ -148,87 +273,87 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 	
 	
-<% if(listeFacture!=null){ %>
+<%-- <% if(listeFacture!=null){ %> --%>
 
-<section>
+<!-- <section> -->
     
-			<div id="page-wrapper">
-				<div class="graphs">
-					<h3 class="blank1">Factures</h3>
-				</div>
-			</div>
-</section>
+<!-- 			<div id="page-wrapper"> -->
+<!-- 				<div class="graphs"> -->
+<!-- 					<h3 class="blank1">Factures</h3> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- </section> -->
 
-<div class="content">
-            <div class="container-fluid">
+<!-- <div class="content"> -->
+<!--             <div class="container-fluid"> -->
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="content">
-								<div class="toolbar">
-	                                <!--        Here you can write extra buttons/actions for the toolbar              -->
-	                            </div>
-                                <div class="fresh-datatables">
-                                <form method="post" action="GestionLigne">
-                					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                						<thead>
-                							<tr >
-<!--                 								<th></th> -->
-                								<th style="color: white">Facture</th>
-                								<th style="color: white">Ligne</th>
-                								<th style="color: white">Mois</th>
-                								<th style="color: white">Année</th>
-                								<th style="color: white">Frais</th>
-<!--                 								<th class="disabled-sorting text-right">Actions</th> -->
-                							</tr>
-                						</thead>
-<!--                 						<tfoot> -->
-<!--                 							<tr> -->
-<!--                 								<th>Name</th> -->
-<!--                 								<th>Position</th> -->
-<!--                 								<th>Office</th> -->
-<!--                 								<th>Age</th> -->
-<!--                 								<th>Start date</th> -->
-<!--                 								<th class="text-right">Actions</th> -->
+<!--                 <div class="row"> -->
+<!--                     <div class="col-md-12"> -->
+<!--                         <div class="card"> -->
+<!--                             <div class="content"> -->
+<!-- 								<div class="toolbar"> -->
+<!-- 	                                       Here you can write extra buttons/actions for the toolbar              -->
+<!-- 	                            </div> -->
+<!--                                 <div class="fresh-datatables"> -->
+<!--                                 <form method="post" action="GestionLigne"> -->
+<!--                 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%"> -->
+<!--                 						<thead> -->
+<!--                 							<tr > -->
+<!-- <!--                 								<th></th> --> -->
+<!--                 								<th style="color: white">Facture</th> -->
+<!--                 								<th style="color: white">Ligne</th> -->
+<!--                 								<th style="color: white">Mois</th> -->
+<!--                 								<th style="color: white">Année</th> -->
+<!--                 								<th style="color: white">Frais</th> -->
+<!-- <!--                 								<th class="disabled-sorting text-right">Actions</th> --> -->
 <!--                 							</tr> -->
-<!--                 						</tfoot> -->
-                						<tbody>
+<!--                 						</thead> -->
+<!-- <!--                 						<tfoot> --> -->
+<!-- <!--                 							<tr> --> -->
+<!-- <!--                 								<th>Name</th> --> -->
+<!-- <!--                 								<th>Position</th> --> -->
+<!-- <!--                 								<th>Office</th> --> -->
+<!-- <!--                 								<th>Age</th> --> -->
+<!-- <!--                 								<th>Start date</th> --> -->
+<!-- <!--                 								<th class="text-right">Actions</th> --> -->
+<!-- <!--                 							</tr> --> -->
+<!-- <!--                 						</tfoot> --> -->
+<!--                 						<tbody> -->
                 							
                 							
-											<%for(int i=0; i<listeFacture.size(); i++) {%>
-										<tr>
-<%-- 											<td><input type="checkbox" name="checkbox" value="<%= listeFacture.get(i).getNumeroLigne() %>" ></td> --%>
-											<td><%= listeFacture.get(i).getIdFacture() %></td>
-											<td><%= listeFacture.get(i).getLigne().getNumeroLigne() %></td>
-    										<td><%= listeFacture.get(i).getMois() %></td>
-    										<td><%= listeFacture.get(i).getAnnee() %></td>
-    										<td><%= listeFacture.get(i).getFrais() %></td>
-<!--     										<td class="text-right"> -->
-<%--        											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumeroLigne() %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a> --%>
-<!--        											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> -->
-<!--        											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a> -->
-<!--    	 										</td> -->
-										</tr>
-											<% } %>
+<%-- 											<%for(int i=0; i<listeFacture.size(); i++) {%> --%>
+<!-- 										<tr> -->
+<%-- <%-- 											<td><input type="checkbox" name="checkbox" value="<%= listeFacture.get(i).getNumeroLigne() %>" ></td> --%> --%>
+<%-- 											<td><%= listeFacture.get(i).getIdFacture() %></td> --%>
+<%-- 											<td><%= listeFacture.get(i).getLigne().getNumeroLigne() %></td> --%>
+<%--     										<td><%= listeFacture.get(i).getMois() %></td> --%>
+<%--     										<td><%= listeFacture.get(i).getAnnee() %></td> --%>
+<%--     										<td><%= listeFacture.get(i).getFrais() %></td> --%>
+<!-- <!--     										<td class="text-right"> --> -->
+<%-- <%--        											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumeroLigne() %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a> --%> --%>
+<!-- <!--        											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> --> -->
+<!-- <!--        											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a> --> -->
+<!-- <!--    	 										</td> --> -->
+<!-- 										</tr> -->
+<%-- 											<% } %> --%>
 
 
 
                 							
-                						</tbody>
-                					</table>
-<!--                 					<button class="btn btn-simple btn-danger btn-icon remove" type="submit">Supprimer la selection</button> -->
-                					</form>
-        				        </div>
-                            </div><!-- end content-->
+<!--                 						</tbody> -->
+<!--                 					</table> -->
+<!-- <!--                 					<button class="btn btn-simple btn-danger btn-icon remove" type="submit">Supprimer la selection</button> --> -->
+<!--                 					</form> -->
+<!--         				        </div> -->
+<!--                             </div>end content -->
 
-            </div>
-        </div>
-</div>
-    </div>
-</div>
-<% } %>
-</div>
+<!--             </div> -->
+<!--         </div> -->
+<!-- </div> -->
+<!--     </div> -->
+<!-- </div> -->
+<%-- <% } %> --%>
+<!-- </div> -->
 
 
 

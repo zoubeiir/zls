@@ -1,5 +1,16 @@
 package entity.dao;
 
+import entity.Forfait;
+import entity.base.BaseForfait;
+
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+import com.util.HibernateUtil;
+
 import entity.base.BaseForfaitDAO;
 
 /**
@@ -11,4 +22,33 @@ import entity.base.BaseForfaitDAO;
  * Any customizations belong here.
  */
 public class ForfaitDAO extends BaseForfaitDAO {
+	
+	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	
+public List<Forfait> findAll(){
+	
+		
+		try {
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+				Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();
+				}
+				Criteria crit = this.sessionFactory.getCurrentSession().createCriteria(BaseForfait.class);
+//				this.sessionFactory.getCurrentSession().close();
+				return crit.list();
+				
+	
+		}catch (Exception e){
+			try {
+				throw e;
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return null;
+			}
+//			return null;
+		}
+			
+	
+	}
 }

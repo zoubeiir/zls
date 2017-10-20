@@ -25,14 +25,11 @@ public class Forfait extends BaseForfait {
 	 */
 	public Forfait (
 		java.lang.Integer _id,
-		java.lang.String _code,
-		java.lang.Float _cout) {
+		entity.Type _type) {
 
 		super (
 			_id,
-			_code,
-			_cout);
+			_type);
 	}
-
 /*[CONSTRUCTOR MARKER END]*/
 }

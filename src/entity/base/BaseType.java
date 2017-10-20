@@ -18,7 +18,6 @@ import java.io.Serializable;
 public abstract class BaseType  implements Serializable {
 
 	public static String PROP_COUT = "Cout";
-	public static String PROP_FORFAIT = "Forfait";
 	public static String PROP_ID = "Id";
 	public static String PROP_CODE = "Code";
 
@@ -32,11 +31,8 @@ public abstract class BaseType  implements Serializable {
 	private java.lang.String _code;
 	private java.lang.Float _cout;
 
-	// many to one
-	private entity.Forfait _forfait;
-
 	// collections
-	private java.util.Set _ligneSet;
+	private java.util.Set _forfaitSet;
 
 
 	// constructors
@@ -57,12 +53,10 @@ public abstract class BaseType  implements Serializable {
 	 */
 	public BaseType (
 		java.lang.Integer _id,
-		entity.Forfait _forfait,
 		java.lang.String _code,
 		java.lang.Float _cout) {
 
 		this.setId(_id);
-		this.setForfait(_forfait);
 		this.setCode(_code);
 		this.setCout(_cout);
 		initialize();
@@ -125,41 +119,23 @@ public abstract class BaseType  implements Serializable {
 
 
 	/**
-     * @hibernate.property
-     *  column=forfait
-	 * not-null=true
+	 * Return the value associated with the column: ForfaitSet
 	 */
-	public entity.Forfait getForfait () {
-		return this._forfait;
+	public java.util.Set getForfaitSet () {
+		return this._forfaitSet;
 	}
 
 	/**
-	 * Set the value related to the column: forfait
-	 * @param _forfait the forfait value
+	 * Set the value related to the column: ForfaitSet
+	 * @param _forfaitSet the ForfaitSet value
 	 */
-	public void setForfait (entity.Forfait _forfait) {
-		this._forfait = _forfait;
-	}
-
-
-	/**
-	 * Return the value associated with the column: LigneSet
-	 */
-	public java.util.Set getLigneSet () {
-		return this._ligneSet;
-	}
-
-	/**
-	 * Set the value related to the column: LigneSet
-	 * @param _ligneSet the LigneSet value
-	 */
-	public void setLigneSet (java.util.Set _ligneSet) {
-		this._ligneSet = _ligneSet;
+	public void setForfaitSet (java.util.Set _forfaitSet) {
+		this._forfaitSet = _forfaitSet;
 	}
 	
-	public void addToLigneSet (Object obj) {
-		if (null == this._ligneSet) this._ligneSet = new java.util.HashSet();
-		this._ligneSet.add(obj);
+	public void addToForfaitSet (Object obj) {
+		if (null == this._forfaitSet) this._forfaitSet = new java.util.HashSet();
+		this._forfaitSet.add(obj);
 	}
 
 

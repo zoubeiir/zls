@@ -17,6 +17,7 @@ import java.io.Serializable;
  */
 public abstract class BaseForfait  implements Serializable {
 
+	public static String PROP_TYPE = "Type";
 	public static String PROP_COUT = "Cout";
 	public static String PROP_ID = "Id";
 	public static String PROP_CODE = "Code";
@@ -31,8 +32,11 @@ public abstract class BaseForfait  implements Serializable {
 	private java.lang.String _code;
 	private java.lang.Float _cout;
 
+	// many to one
+	private entity.Type _type;
+
 	// collections
-	private java.util.Set _typeSet;
+	private java.util.Set _ligneSet;
 
 
 	// constructors
@@ -53,12 +57,10 @@ public abstract class BaseForfait  implements Serializable {
 	 */
 	public BaseForfait (
 		java.lang.Integer _id,
-		java.lang.String _code,
-		java.lang.Float _cout) {
+		entity.Type _type) {
 
 		this.setId(_id);
-		this.setCode(_code);
-		this.setCout(_cout);
+		this.setType(_type);
 		initialize();
 	}
 
@@ -119,23 +121,41 @@ public abstract class BaseForfait  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: TypeSet
+     * @hibernate.property
+     *  column=type
+	 * not-null=true
 	 */
-	public java.util.Set getTypeSet () {
-		return this._typeSet;
+	public entity.Type getType () {
+		return this._type;
 	}
 
 	/**
-	 * Set the value related to the column: TypeSet
-	 * @param _typeSet the TypeSet value
+	 * Set the value related to the column: type
+	 * @param _type the type value
 	 */
-	public void setTypeSet (java.util.Set _typeSet) {
-		this._typeSet = _typeSet;
+	public void setType (entity.Type _type) {
+		this._type = _type;
+	}
+
+
+	/**
+	 * Return the value associated with the column: LigneSet
+	 */
+	public java.util.Set getLigneSet () {
+		return this._ligneSet;
+	}
+
+	/**
+	 * Set the value related to the column: LigneSet
+	 * @param _ligneSet the LigneSet value
+	 */
+	public void setLigneSet (java.util.Set _ligneSet) {
+		this._ligneSet = _ligneSet;
 	}
 	
-	public void addToTypeSet (Object obj) {
-		if (null == this._typeSet) this._typeSet = new java.util.HashSet();
-		this._typeSet.add(obj);
+	public void addToLigneSet (Object obj) {
+		if (null == this._ligneSet) this._ligneSet = new java.util.HashSet();
+		this._ligneSet.add(obj);
 	}
 
 
