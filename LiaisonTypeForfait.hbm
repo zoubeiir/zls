@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="entite">
+	<class name="LiaisonTypeForfait" table="LiaisonTypeForfait">
+		<id
+			column="ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<many-to-one
+			class="Type"
+			name="Type"
+			not-null="true"
+		>
+			<column name="type" />
+		</many-to-one>
+		<many-to-one
+			class="Forfait"
+			name="Forfait"
+			not-null="true"
+		>
+			<column name="forfait" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

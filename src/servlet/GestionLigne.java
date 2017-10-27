@@ -1,12 +1,5 @@
 package servlet;
 
-//import entity.Facture;
-import entity.Ligne;
-//import entity.Porteur;
-//import entity.dao.FactureDAO;
-import entity.dao.LigneDAO;
-//import entity.dao.PorteurDAO;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +16,14 @@ import org.hibernate.Transaction;
 
 import com.util.HibernateUtil;
 
+import entite.LiaisonTypeForfait;
+import entite.Type;
+import entite.dao.LiaisonTypeForfaitDAO;
+import entite.dao.TypeDAO;
+import entite.Ligne;
+import entite.base.*;
+import entite.dao.LigneDAO;
 import antlr.StringUtils;
-import entity.base.*;
 
 /**
  * Servlet implementation class GestionLigne
@@ -50,22 +49,35 @@ public class GestionLigne extends HttpServlet {
 		
 		String numeroLigne=request.getParameter("numeroLigne");
 		LigneDAO ligneDAO = new LigneDAO();
+		LiaisonTypeForfaitDAO liaisonTypeForfaitDAO = new LiaisonTypeForfaitDAO();
 //		PorteurDAO porteurDAO = new PorteurDAO();
 //		FactureDAO factureDAO = new FactureDAO();
 		
 		Ligne ligne = new Ligne();
-//		ligne=ligneDAO.findByNumero(numeroLigne);
+		ligne=ligneDAO.findByNumero(numeroLigne);
+		
+		List<LiaisonTypeForfait> listeLiaisonTypeForfait = new ArrayList<LiaisonTypeForfait>();
+		listeLiaisonTypeForfait = liaisonTypeForfaitDAO.findByType(ligne.getType());
+		
+		
 		
 //		Porteur porteur = new Porteur();
 //		porteur=porteurDAO.findByNumero(ligne);
-		
+//		
 //		List<Facture> listeFacture = new ArrayList<Facture>();
 //		listeFacture = factureDAO.findByNumero(ligne);
 		
-		ligne = ligneDAO.findByNumero(numeroLigne);
+		
 		
 //		request.getSession().setAttribute("porteur", porteur);
+		
+		
 		request.getSession().setAttribute("ligne", ligne);
+		System.out.println("id"+listeLiaisonTypeForfait.get(0).getId()+"--For--"+listeLiaisonTypeForfait.get(0).getType().getId()+"--Type--"+listeLiaisonTypeForfait.get(0).getType().getId());
+	
+		
+		request.getSession().setAttribute("listeLiaisonTypeForfait", listeLiaisonTypeForfait);
+		
 //		request.getSession().setAttribute("listeFacture", listeFacture);
 		
 		

@@ -5,14 +5,16 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE HTML>
-<%@page import="entity.Forfait"%>
-<%@page import="entity.dao.ForfaitDAO"%>
-<%@page import="entity.Type"%>
-<%@page import="entity.dao.TypeDAO"%>
+<%@page import="entite.LiaisonTypeForfait"%>
+<%@page import="entite.dao.LiaisonTypeForfaitDAO"%>
+<%@page import="entite.Forfait"%>
+<%@page import="entite.dao.ForfaitDAO"%>
+<%@page import="entite.Type"%>
+<%@page import="entite.dao.TypeDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entity.Localite"%>
+<%@page import="entite.Localite"%>
 <%@page import="java.util.List"%>
-<%@page import="entity.dao.LocaliteDAO"%>
+<%@page import="entite.dao.LocaliteDAO"%>
 <html>
 <head>
 <title>Easy Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Forms :: w3layouts</title>
@@ -50,12 +52,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<div class="nav-collapse collapse navbar-responsive-collapse">
 				<ul class="nav row">
-					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style=";background-image: none;text-shadow : none "></span> <span class="text" style="color: grey ;">ACCUEIL</span></a></li>
-					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.html" title="Next Section"><span class="icon icon-phone" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
-					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="porteur.html" title="Next Section"><span class="icon icon-user" style="color: "></span> <span class="text" style="color: ">PORTEURS</span></a></li>
+					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.html" title="Next Section"><span class="icon icon-user" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.html" title="Next Section"><span class="icon icon-phone" style="color: "></span> <span class="text" style="color: ">LOCALITES</span></a></li>
 					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.html" title="Next Section"><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
-					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="facture.html" title="Next Section"><span class="icon icon-leaf" style="color: "></span> <span class="text" style="color: ">FACTURE</span></a></li>
-					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style=" " ></span> <span class="text" style="color: ">Extraction</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="paraetrage.html" title="Next Section"><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
+<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style=" " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
 				</ul>
 			</div><!-- /.nav-collapse -->
 		</div><!-- /.container -->
@@ -71,7 +73,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="tab-pane active" id="horizontal-form">
 							<form class="form-horizontal"  method="post" action="LigneAjout" >
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Numéro ligne</label>
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Num�ro ligne</label>
 									<div class="col-sm-8">
 										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="+212"  style="width:50%">
 									</div>
@@ -98,7 +100,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Date de création</label>
 									<div class="col-sm-8">
 									<div id="datetimepicker" class="input-append date"> 
-      								<input type="date"></input>
+      								<input type="date" name="dateCreation" style="width: 100%" readonly="readonly"></input>
       								<span class="add-on">
         								<i data-time-icon="icon-qsd" data-date-icon="icon-qsd" ></i>
       								</span>
@@ -128,7 +130,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label class="col-sm-2 control-label" style="color: white">Localit�</label>
 									<div class="col-sm-8">
-										<select   class="form-control1" name="localite">
+										<select   class="form-control1" name="localite" id ="localite">
+										
 											<% 
 											LocaliteDAO localiteDAO = new LocaliteDAO();
 											List<Localite> listeLocalite = new ArrayList<Localite>();
@@ -141,7 +144,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 											%>
 											
-											<option value="" ><%= listeLocalite.get(i).getCode() %></option>
+											<option value="<%= listeLocalite.get(i).getId()%>" ><%= listeLocalite.get(i).getCode() %></option>
 											
 											<%
 											}
@@ -155,6 +158,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<label class="col-sm-2 control-label" style="color: white">Type</label>
 									<div class="col-sm-8">
 										<select   class="form-control1" name="type">
+										
+										<option id="vide" value=""  selected="selected" onclick="azedfg(0);"> Aucun </option>
 											<% 
 											TypeDAO typeDAO = new TypeDAO();
 											List<Type> listeType = new ArrayList<Type>();
@@ -168,7 +173,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											%>
 											
 											<option value="<%=listeType.get(i).getId()%>" 
-											onclick="azedfg(<%=listeType.get(i).getId()%>);fillCouts(0,'coutForfait');fillCouts(<%=listeType.get(i).getCout()%>,'coutType')" >
+											onclick="azedfg(<%=listeType.get(i).getId()%>);" >
 											<%= listeType.get(i).getCode() %></option>
 											
 											<%
@@ -179,69 +184,83 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</select>
 									</div>
 								</div>
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Type</label>
-									<div class="col-sm-8">
-										<input type="text"  name="coutType"  id="coutType" class="form-control1" id="focusedinput" placeholder="Default Input" value="0" style="width:50%;background-color: grey;color:white;" readonly="readonly">
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Type</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<input type="text"  name="coutType"  id="coutType" class="form-control1" id="focusedinput" placeholder="Default Input" value="0" style="width:50%;background-color: grey;color:white;" readonly="readonly"> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-2 jlkdfj1"> -->
+<!-- 										<p class="help-block"></p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
 								
-								<div class="form-group">
-									<label class="col-sm-2 control-label" style="color: white">Forfait</label>
-									<div class="col-sm-8">
-										<select class="form-control1" name="forfait" id="forfait">
-											<option id="vide" value="" onclick="fillCouts(0,'coutForfait')" > Aucun </option>
-<% 
-											ForfaitDAO forfaitDAO = new ForfaitDAO();
-											List<Forfait> listeForfait = new ArrayList<Forfait>();
-											listeForfait = forfaitDAO.findAll();
-											if(listeForfait.size()>0){
-											for(int i = 0 ; i < listeForfait.size() ; i++ ){
+<!-- 								<div class="form-group"> -->
+<!-- 									<label class="col-sm-2 control-label" style="color: white">Forfait</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<select class="form-control1" name="forfait" id="forfait"> -->
+<!-- 											<option id="vide" value="" onclick="fillCouts(0,'coutForfait')" > Aucun </option> -->
+										
+										<div class="form-group" name="toutForfait">
+										
+										<% 
+											LiaisonTypeForfaitDAO liaisonTypeForfaitDAO = new LiaisonTypeForfaitDAO();
+											List<LiaisonTypeForfait> listeLiaisonTypeForfait = new ArrayList<LiaisonTypeForfait>();
+											listeLiaisonTypeForfait = liaisonTypeForfaitDAO.findAll();
+											if(listeLiaisonTypeForfait.size()>0){
+											for(int i = 0 ; i < listeLiaisonTypeForfait.size() ; i++ ){
 												
 											
 											
 											
 											%>
+											<div class="form-group"  style="display: none;" id="<%=listeLiaisonTypeForfait.get(i).getType().getId()%>" name="forfaitCout" >
+											<label for="focusedinput" class="col-sm-2 control-label" style="color:white"><%= listeLiaisonTypeForfait.get(i).getForfait().getCode() %></label>
 											
-											<option id="<%=listeForfait.get(i).getType().getId()%>"
-											name="<%=listeForfait.get(i).getType().getId()%>"
-											 value="<%=listeForfait.get(i).getId()%>" style="display: none;"
-											 onclick="fillCouts(<%= listeForfait.get(i).getCout() %>,'coutForfait')">
-											 <%= listeForfait.get(i).getCode() %></option>
+											<div class="col-sm-8"> 
+												<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= listeLiaisonTypeForfait.get(i).getForfait().getCout()%>" style="width:50%;background-color: grey;color:white;" readonly="readonly">
+											</div>
+											<div class="col-sm-2 jlkdfj1">
+											<p class="help-block"></p>
+											</div>
+											</div>
+											
+											
+<%-- 											<option id="<%=listeLiaisonTypeForfait.get(i).getType().getId()%>" --%>
+<%-- 											name="<%=listeLiaisonTypeForfait.get(i).getType().getId()%>" --%>
+<%-- 											 value="<%=listeLiaisonTypeForfait.get(i).getId()%>" style="display: none;" --%>
+<%-- 											 onclick="fillCouts(<%= listeLiaisonTypeForfait.get(i).getForfait().getCout()%>,'coutForfait')"> --%>
+<%-- 											 <%= listeLiaisonTypeForfait.get(i).getForfait().getCode() %></option> --%>
 											
 											<%
 											}
 											}
 											%>
-											
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Forfait</label>
-									<div class="col-sm-8">
-										<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="0" style="width:50%;background-color: grey;color:white;" readonly="readonly">
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
+											</div>
+<!-- 										</select> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Forfait</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="0" style="width:50%;background-color: grey;color:white;" readonly="readonly"> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-2 jlkdfj1"> -->
+<!-- 										<p class="help-block"></p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
 								
 								
-								<div class="form-group">
-									<label for="radio" class="col-sm-2 control-label" style="color: white">Etat</label>
-									<div class="col-sm-8">
-										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" checked="checked" value="0">Opérationnelle</label></div>
-										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" value="1">Résiliée</label></div>
-<!-- 										<div class="radio-inline"><label><input name="test" type="radio" disabled="" value=""> En cours de résiliation</label></div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="radio" class="col-sm-2 control-label" style="color: white">Etat</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" checked="checked" value="0">Opérationnelle</label></div> -->
+<!-- 										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" value="1">Résiliée</label></div> -->
+<!-- <!-- 										<div class="radio-inline"><label><input name="test" type="radio" disabled="" value=""> En cours de résiliation</label></div> --> -->
 										
-									</div>
-								</div>
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
 								<div class="row"  style="width:80%">
 								<div class="col-sm-8 col-sm-offset-2" >
@@ -298,26 +317,57 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
 
 <script type="text/javascript">
-
 function azedfg(identifiant) {
+	
+// 	var forfaitCout = document.getElementsByName('toutForfait');
+// 	var length = forfaitCout.length;
+// 	for (i = 0; i < length; i++) {
+// 		if(forfaitCout[i].id == 'forfaitCout'){
+// 		forfaitCout[i].style.display='none';
+// 	}}
+	
+	var elementById = document.getElementsByName('forfaitCout');
+	for(var elements = 0 ; elements<elementById.length;elements++){
 
-	var select = document.getElementById("forfait");
-	var length = select.options.length;
-	for (i = 0; i < length; i++) {
-	  select.options[i].style.display='none';
+		if(elementById[elements].id == identifiant){
+			elementById[elements].style.display='block';
+		}else{
+			elementById[elements].style.display='none';
+		}
 	}
-	document.getElementById("vide").style.display='block';
-	document.getElementById("vide").selected='true';
-	var elementById = document.getElementsByName(identifiant);
-	
-	for(var elements = 0 ; elements<elementById.length;elements++)
-		elementById[elements].style.display='block';
-	
 }
-
-function fillCouts(cout,identifiantCout){
-	document.getElementById(identifiantCout).value=cout;
-}
+$('#localite').html($('#localite').children('option').sort(function (x, y) {
+    return $(x).text().toUpperCase() < $(y).text().toUpperCase() ? -1 : 1;
+}));
+$('#localite').get(0).selectedIndex = 0;
+	
+// 	var elementById = document.getElementsByName('forfaitCout');
+	
+// 	for(var elements = 0 ; elements<elementById.length;elements++)
+// 		var idElement = forfaitCout[elements].getAtt;
+// 		if(idElement == identifiant){
+// 		elementById[elements].style.display='block';
+// 		}else{
+// 			elementById[elements].style.display='none';
+// 		}
+// }
+	
+// 	var select = document.getElementById("forfait");
+// 	var length = select.options.length;
+// 	for (i = 0; i < length; i++) {
+// 	  select.options[i].style.display='none';
+// 	}
+// 	document.getElementById("vide").style.display='block';
+// 	document.getElementById("vide").selected='true';
+// 	var elementById = document.getElementsByName(identifiant);
+	
+// 	for(var elements = 0 ; elements<elementById.length;elements++)
+// 		elementById[elements].style.display='block';
+	
+// }
+// function fillCouts(cout,identifiantCout){
+// // 	document.getElementById(identifiantCout).value=cout;
+// }
 </script>
 </body>
 </html>

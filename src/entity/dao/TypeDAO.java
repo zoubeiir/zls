@@ -1,6 +1,8 @@
 package entity.dao;
 
 import entity.Type;
+import entity.Type;
+import entity.base.BaseType;
 import entity.base.BaseType;
 
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.util.HibernateUtil;
 
@@ -51,4 +54,23 @@ public List<Type> findAll(){
 			
 	
 	}
+
+public Type findByID(String numeroType){
+	
+	try {
+		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+		
+			Type localite = (Type) this.sessionFactory.getCurrentSession().createCriteria(BaseType.class).add(Restrictions.eq(Type.PROP_ID, numeroType)).uniqueResult();
+//					this.sessionFactory.getCurrentSession().close();
+			return  localite;
+	}catch (Exception e){
+		System.out.println(e);
+		return null;
+	}
+		
+
+}
+
 }

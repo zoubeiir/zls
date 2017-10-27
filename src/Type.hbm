@@ -3,7 +3,7 @@
 	"-//Hibernate/Hibernate Mapping DTD//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
-<hibernate-mapping package="entity">
+<hibernate-mapping package="entite">
 	<class name="Type" table="type">
 		<id
 			column="ID"
@@ -27,9 +27,22 @@
 			not-null="true"
 			type="java.lang.Float"
 		 />
-		<set inverse="true" name="ForfaitSet">
+		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->
+		<property
+			column="libelle"
+			length="10"
+			name="Libelle"
+			not-null="false"
+			type="java.lang.String"
+		 />
+
+		<set inverse="true" name="LigneSet">
 			<key column="type" />
-			<one-to-many class="Forfait" />
+			<one-to-many class="Ligne" />
+		</set>
+		<set inverse="true" name="LiaisonTypeForfaitSet">
+			<key column="type" />
+			<one-to-many class="LiaisonTypeForfait" />
 		</set>
 	</class>
 </hibernate-mapping>

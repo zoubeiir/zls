@@ -1,6 +1,8 @@
 package entity.dao;
 
 import entity.Localite;
+import entity.Localite;
+import entity.base.BaseLocalite;
 import entity.base.BaseLocalite;
 
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.util.HibernateUtil;
 
@@ -51,4 +54,69 @@ public List<Localite> findAll(){
 			
 	
 	}
+
+public Localite findByID(int idLocalite){
+	
+	try {
+		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+		
+			Localite localite = (Localite) this.sessionFactory.getCurrentSession().createCriteria(BaseLocalite.class).add(Restrictions.eq(Localite.PROP_ID, idLocalite)).uniqueResult();
+//					this.sessionFactory.getCurrentSession().close();
+			return  localite;
+	}catch (Exception e){
+		System.out.println(e);
+		return null;
+	}
+		
+}
+
+public Localite findByCode(String codeLocalite){
+	
+	try {
+		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+		
+			Localite localite = (Localite) this.sessionFactory.getCurrentSession().createCriteria(BaseLocalite.class).add(Restrictions.eq(Localite.PROP_CODE, codeLocalite)).uniqueResult();
+//					this.sessionFactory.getCurrentSession().close();
+			return  localite;
+	}catch (Exception e){
+		System.out.println(e);
+		return null;
+	}
+		
+
+}
+
+
+
+public void insertLocalite(Localite localite,boolean uniqueInsert) throws Exception{
+	try {
+		
+//		sessionFactory = HibernateUtil.getSessionFactory();
+		
+//		localite.setId(-1);
+		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+			this.sessionFactory.getCurrentSession().getTransaction().begin();}
+		this.sessionFactory.getCurrentSession().save((BaseLocalite) localite);
+		if(uniqueInsert)
+		this.sessionFactory.getCurrentSession().getTransaction().commit();
+//		this.sessionFactory.getCurrentSession().persist(localite);
+//		this.sessionFactory.getCurrentSession().flush();
+//		this.sessionFactory.getCurrentSession().close();
+	}catch (Exception e){
+		this.sessionFactory.getCurrentSession().getTransaction().rollback();
+//		throw e;
+	}
+}
+public void insertListLocalite(List<Localite> listLocalite) throws Exception{
+	    for(int i = 0; i < listLocalite.size(); i++){
+	    	
+	    	this.insertLocalite(listLocalite.get(i),false);
+	  }
+	    this.sessionFactory.getCurrentSession().getTransaction().commit();
+}
+
 }

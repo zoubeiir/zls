@@ -79,6 +79,31 @@ public Ligne findByNumero(String numeroLigne){
 
 }
 
-
+public void insertLigne(Ligne ligne,boolean uniqueInsert) throws Exception{
+	try {
+		
+//		sessionFactory = HibernateUtil.getSessionFactory();
+		
+//		ligne.setId(-1);
+		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+			this.sessionFactory.getCurrentSession().getTransaction().begin();}
+		this.sessionFactory.getCurrentSession().save((BaseLigne) ligne);
+		if(uniqueInsert)
+		this.sessionFactory.getCurrentSession().getTransaction().commit();
+//		this.sessionFactory.getCurrentSession().persist(ligne);
+//		this.sessionFactory.getCurrentSession().flush();
+//		this.sessionFactory.getCurrentSession().close();
+	}catch (Exception e){
+		this.sessionFactory.getCurrentSession().getTransaction().rollback();
+		throw e;
+	}
+}
+public void insertListLigne(List<Ligne> listLigne) throws Exception{
+	    for(int i = 0; i < listLigne.size(); i++){
+	    	
+	    	this.insertLigne(listLigne.get(i),false);
+	  }
+	    this.sessionFactory.getCurrentSession().getTransaction().commit();
+}
 
 }

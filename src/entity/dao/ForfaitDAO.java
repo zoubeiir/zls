@@ -1,6 +1,8 @@
 package entity.dao;
 
 import entity.Forfait;
+import entity.Forfait;
+import entity.base.BaseForfait;
 import entity.base.BaseForfait;
 
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.util.HibernateUtil;
 
@@ -51,4 +54,23 @@ public List<Forfait> findAll(){
 			
 	
 	}
+
+public Forfait findByID(int idForfait){
+	
+	try {
+		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+		
+			Forfait localite = (Forfait) this.sessionFactory.getCurrentSession().createCriteria(BaseForfait.class).add(Restrictions.eq(Forfait.PROP_ID, idForfait)).uniqueResult();
+//					this.sessionFactory.getCurrentSession().close();
+			return  localite;
+	}catch (Exception e){
+		System.out.println(e);
+		return null;
+	}
+		
+
+}
+
 }

@@ -5,16 +5,16 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 
-<%@ page import="entity.Ligne" %>
+<%@ page import="entite.Ligne" %>
 <%@ page import="javax.servlet.http.HttpServletRequest.*" %>
-<%@page import="entity.Forfait"%>
-<%@page import="entity.dao.ForfaitDAO"%>
-<%@page import="entity.Type"%>
-<%@page import="entity.dao.TypeDAO"%>
+<%@page import="entite.Forfait"%>
+<%@page import="entite.dao.ForfaitDAO"%>
+<%@page import="entite.Type"%>
+<%@page import="entite.dao.TypeDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entity.Localite"%>
+<%@page import="entite.Localite"%>
 <%@page import="java.util.List"%>
-<%@page import="entity.dao.LocaliteDAO"%>
+<%@page import="entite.dao.LocaliteDAO"%>
 
 
 
@@ -68,9 +68,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 	
 	
-	<link href="css/combine.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+<!-- 	<link href="css/combine.css" rel="stylesheet"> -->
+<!--     <link rel="stylesheet" type="text/css" media="screen" -->
+<!--      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"> -->
      
      
      
@@ -81,11 +81,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="nav-collapse collapse navbar-responsive-collapse">
 				<ul class="nav row">
 					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
-					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="ligne.html" title="Next Section"><span class="icon icon-phone" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
-					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="porteur.html" title="Next Section"><span class="icon icon-user" style="color: "></span> <span class="text" style="color: ">PORTEURS</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.html" title="Next Section"><span class="icon icon-user" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.html" title="Next Section"><span class="icon icon-phone" style="color: "></span> <span class="text" style="color: ">LOCALITES</span></a></li>
 					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.html" title="Next Section"><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
-					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="facture.html" title="Next Section"><span class="icon icon-leaf" style="color: "></span> <span class="text" style="color: ">FACTURE</span></a></li>
-					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="paraetrage.html" title="Next Section"><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
+<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
 				</ul>
 			</div><!-- /.nav-collapse -->
 		</div><!-- /.container -->
@@ -115,52 +115,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<p class="help-block"></p>
 									</div>
 								</div>
-								
-<!-- 								<div class="form-group"> -->
-<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Frais</label> -->
-<!-- 									<div class="col-sm-8"> -->
-<!-- 										<input type="number" step="100" min="0" name="fraisLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="0" style="width:50%" > -->
-<!-- 									</div> -->
-<!-- 									<div class="col-sm-2 jlkdfj1"> -->
-<!-- 										<p class="help-block"></p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-								
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Date de cr√©ation</label>
-									<div class="col-sm-8">
-									<div id="datetimepicker" class="input-append date"> 
-      								<input type="date"></input>
-      								<span class="add-on">
-        								<i data-time-icon="icon-qsd" data-date-icon="icon-qsd" ></i>
-      								</span>
-    							</div>
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
-								
-								
-								
-								
-<!-- 								<div class="form-group"> -->
-<!-- <!-- 								<div id="datetimepicker" class="input-append date"> --> 
-<!--       								<input type="text"></input> -->
-<!--       								<span class="add-on"> -->
-<!--         								<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i> -->
-<!--       								</span> -->
-<!--     							</div> -->
-								
-								
-								
-								
-								
-								
-								<div class="form-group">
+
+<div class="form-group">
 									<label class="col-sm-2 control-label" style="color: white">LocalitÈ</label>
 									<div class="col-sm-8">
-										<select   class="form-control1" name="localite">
+										<select   class="form-control1" name="localite" id ="localite">
+										<option id="vide" value=""  selected="selected" > Aucun </option>
 											<% 
 											LocaliteDAO localiteDAO = new LocaliteDAO();
 											List<Localite> listeLocalite = new ArrayList<Localite>();
@@ -173,7 +133,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 											%>
 											
-											<option value="" ><%= listeLocalite.get(i).getCode() %></option>
+											<option value="<%= listeLocalite.get(i).getId()%>" ><%= listeLocalite.get(i).getCode() %></option>
 											
 											<%
 											}
@@ -187,7 +147,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<label class="col-sm-2 control-label" style="color: white">Type</label>
 									<div class="col-sm-8">
 										<select   class="form-control1" name="type">
-<!-- 										<option id="vide" value=""  > Aucun </option> -->
+										
+										<option id="vide" value=""  selected="selected" >Aucun</option>
 											<% 
 											TypeDAO typeDAO = new TypeDAO();
 											List<Type> listeType = new ArrayList<Type>();
@@ -200,8 +161,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 											%>
 											
-											<option value="<%=listeType.get(i).getId()%>" 
-											onclick="azedfg(<%=listeType.get(i).getId()%>);" >
+											<option value="<%=listeType.get(i).getId()%>" >
+											
 											<%= listeType.get(i).getCode() %></option>
 											
 											<%
@@ -211,70 +172,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</select>
 									</div>
-								</div>
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Type</label>
-									<div class="col-sm-8">
-										<input type="text"  name="coutType"  id="coutType" class="form-control1" id="focusedinput" placeholder="Default Input" value="0" style="width:50%;background-color: grey;color:white;" readonly="readonly">
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
+								</div>								
 								
-								
-								<div class="form-group">
-									<label class="col-sm-2 control-label" style="color: white">Forfait</label>
-									<div class="col-sm-8">
-										<select class="form-control1" name="forfait" id="forfait">
-											<option id="vide" value=""  > Aucun </option>
-<% 
-											ForfaitDAO forfaitDAO = new ForfaitDAO();
-											List<Forfait> listeForfait = new ArrayList<Forfait>();
-											listeForfait = forfaitDAO.findAll();
-											if(listeForfait.size()>0){
-											for(int i = 0 ; i < listeForfait.size() ; i++ ){
-												
-											
-											
-											
-											%>
-											
-											<option id="<%=listeForfait.get(i).getType().getId()%>"
-											name="<%=listeForfait.get(i).getType().getId()%>"
-											 value="<%=listeForfait.get(i).getId()%>" style="display: none;"
-											 >
-											 <%= listeForfait.get(i).getCode() %></option>
-											
-											<%
-											}
-											}
-											%>
-											
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Forfait</label>
-									<div class="col-sm-8">
-										<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="0" style="width:50%;background-color: grey;color:white;" readonly="readonly">
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
-								
-								
-								
-								<div class="form-group">
-									<label for="radio" class="col-sm-2 control-label" style="color: white">Etat</label>
-									<div class="col-sm-8">
-										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" checked="checked" value="0">Op√©rationnelle</label></div>
-										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" value="1">R√©sili√©e</label></div>
-<!-- 										<div class="radio-inline"><label><input name="test" type="radio" disabled="" value=""> En cours de r√©siliation</label></div> -->
-										
-									</div>
-								</div>
+
+
+
 								
 								<div class="row" style="width:80%">
 								<div class="col-sm-8 col-sm-offset-2">
@@ -291,7 +193,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="bs-example" data-example-id="form-validation-states">
     
   </div>
-  
+  </div>
 					
 						
 			
@@ -299,7 +201,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 
-	<% if(listeLigne!=null){ %>
+	<% if(listeLigne.size()>0){ %>
 
 <div class="content">
             <div class="container-fluid">
@@ -318,9 +220,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							<tr>
                 								<th></th>
                 								<th>NumÈro ligne</th>
-                								<th>Frais</th>
-                								<th>Etat</th>
-                								<th>Vide</th>
+                								<th>date de crÈation</th>
+                								<th>localite</th>
+                								<th>type</th>
                 								<th class="disabled-sorting text-right">Actions</th>
                 							</tr>
                 						</thead>
@@ -338,13 +240,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							
                 							
 											<%for(int i=0; i<listeLigne.size(); i++) { %>
-										<tr>
+										<tr style="background-color: white">
 											<td><input type="checkbox" name="checkbox" value="<%= listeLigne.get(i).getNumero() %>" ></td>
 											<td><%= listeLigne.get(i).getNumero() %></td>
-											<td></td>
+											<td><%= listeLigne.get(i).getDateCreation() %></td>
 <%-- 											<td><%= listeLigne.get(i).getFrais() %></td> --%>
-    										<td><%= listeLigne.get(i).getEtat() %></td>
-    										<td>vide</td>
+    										<td><%= listeLigne.get(i).getLocalite().getCode() %></td>
+    										<td><%= listeLigne.get(i).getType().getCode() %></td>
     										<td class="text-right">
        											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumero().replace("+", "%2B") %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a>
        											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
@@ -381,9 +283,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 	<!-- SCRIPTS -->
 <script src="js/html5shiv.js"></script>
-<script src="js/jquery-1.10.2.min.js"></script>
+<!-- <script src="js/jquery-1.10.2.min.js"></script> -->
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
-<!-- <script src="js/bootstrap.min.js"></script> -->
+<script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="fancybox/jquery.fancybox.pack-v=2.1.5.js"></script>
 <script src="js/script.js"></script>
@@ -399,71 +301,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		    search: "_INPUT_",
 		    searchPlaceholder: "Search records",
 		    }
-
 		});
-
-
 		var table = $('#datatables').DataTable();
-
 		// Edit record
 		table.on( 'click', '.edit', function () {
 		    $tr = $(this).closest('tr');
-
 		    var data = table.row($tr).data();
 		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
 		} );
-
 		// Delete a record
 		table.on( 'click', '.remove', function (e) {
 		    $tr = $(this).closest('tr');
 		    table.row($tr).remove().draw();
 		    e.preventDefault();
 		} );
-
 		//Like record
 		table.on( 'click', '.like', function () {
 		    alert('You clicked on Like button');
 		});
 	});
+    
 
+                $('#localite').html($('#localite').children('option').sort(function (x, y) {
+                    return $(x).text().toUpperCase() < $(y).text().toUpperCase() ? -1 : 1;
+                }));
+                $('#localite').get(0).selectedIndex = 0;
+         
+
+        
+
+   
+    	
     </script>
     
     
-    <script type="text/javascript"
-     src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-     </script>  
-<!--     <script type="text/javascript" -->
-<!--      src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"> -->
-<!--     </script> -->
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-    </script>
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-    </script>
-    <script type="text/javascript">
-      $('#datetimepicker').datetimepicker({
-        format: 'dd/MM/yyyy',
-//         language: 'pt-BR'
-      });
-    </script>
     
-    <script type="text/javascript">
-
-function azedfg(identifiant) {
-
-	var select = document.getElementById("forfait");
-	var length = select.options.length;
-	for (i = 0; i < length; i++) {
-	  select.options[i].style.display='none';
-	}
-	document.getElementById("vide").style.display='block';
-	document.getElementById("vide").selected='true';
-	var elementById = document.getElementsByName(identifiant);
-	
-	for(var elements = 0 ; elements<elementById.length;elements++)
-		elementById[elements].style.display='block';
-	
-}</script>
+    
+   
 	
 </html>

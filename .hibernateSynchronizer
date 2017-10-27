@@ -1,7 +1,7 @@
 EnumExclude=
-package=entity
-databaseUrl=jdbc:sqlserver://localhost;instanceName=SQLEXPRESS;
+package=entite
+databaseUrl=jdbc:sqlserver://localhost;DatabaseName=Rapprochement;instanceName=SQLEXPRESS;
 driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
 EnumInclude=
-username=sa
 ConfigurationFile=RapprochementSamplehibernate.cfg.xml
+username=sa

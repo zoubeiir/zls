@@ -1,25 +1,25 @@
-<%@page import="staticReference.EtatStatic"%>
-<%@page import="hibernateEntity.Porteur"%>
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<%-- <%@page import="hibernateEntity.Facture"%> --%>
-<%@ page import="entity.Ligne" %>
+<%@ page import="entite.Ligne" %>
 <%@ page import="javax.servlet.http.HttpServletRequest.*" %>
-<%@page import="entity.Forfait"%>
-<%@page import="entity.dao.ForfaitDAO"%>
-<%@page import="entity.Type"%>
-<%@page import="entity.dao.TypeDAO"%>
+<%@page import="entite.Type"%>
+<%@page import="entite.dao.TypeDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entity.Localite"%>
+<%@page import="entite.Localite"%>
 <%@page import="java.util.List"%>
-<%@page import="entity.dao.LocaliteDAO"%>
+<%@page import="staticReference.EtatStatic"%>
+<%@page import="entite.LiaisonTypeForfait"%>
 
 
 
 <%-- <% List<Facture> listeFacture = (List<Facture>) (request.getSession().getAttribute("listeFacture"));%> --%>
 <% Ligne ligne = (Ligne) (request.getSession().getAttribute("ligne"));%>
+<% List<LiaisonTypeForfait> listeLiaisonTypeForfait = (List<LiaisonTypeForfait>) (request.getSession().getAttribute("listeLiaisonTypeForfait"));%>
+
 <%-- <% Porteur porteur = (Porteur) (request.getSession().getAttribute("porteur"));%> --%>
 
 
@@ -54,11 +54,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="nav-collapse collapse navbar-responsive-collapse">
 				<ul class="nav row">
 					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
-					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="ligne.html" title="Next Section"><span class="icon icon-phone" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
-					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="porteur.html" title="Next Section"><span class="icon icon-user" style="color: "></span> <span class="text" style="color: ">PORTEURS</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.html" title="Next Section"><span class="icon icon-user" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.html" title="Next Section"><span class="icon icon-phone" style="color: "></span> <span class="text" style="color: ">LOCALITES</span></a></li>
 					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.html" title="Next Section"><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
-					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="facture.html" title="Next Section"><span class="icon icon-leaf" style="color: "></span> <span class="text" style="color: ">FACTURE</span></a></li>
-					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="paraetrage.html" title="Next Section"><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
+<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
 				</ul>
 			</div><!-- /.nav-collapse -->
 		</div><!-- /.container -->
@@ -147,52 +147,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<select   class="form-control1" name="type" style="background-color: grey;color:white;">
 											 
 											
-											<%if(ligne.getForfait()!=null){ %>
-											<option  ><%= ligne.getForfait().getType().getCode() %></option>
+											<%if(ligne.getType()!=null){ %>
+											<option  ><%= ligne.getType().getCode() %></option>
 											<%} %>
 											
 										</select>
 									</div>
 								</div>
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Type</label>
-									<div class="col-sm-8">
-										<input type="text"  name="coutType"  id="coutType" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getForfait().getType().getCout() %>" style="width:50%;background-color: grey;color:white;" readonly="readonly">
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
 								
-								
-								<div class="form-group">
-									<label class="col-sm-2 control-label" style="color: white">Forfait</label>
-									<div class="col-sm-8">
-										<select class="form-control1" name="forfait" id="forfait" style="background-color: grey;color:white;">
-<!-- 											<option id="vide" value="" onclick="fillCouts(0,'coutForfait')" > Aucun </option> -->
- 
+										<div class="form-group" name="toutForfait">
+										
+											<% 
+											if(listeLiaisonTypeForfait !=null && listeLiaisonTypeForfait.size()>0){
+											for(int i = 0 ; i < listeLiaisonTypeForfait.size() ; i++ ){
+											%>
+											<div class="form-group"   id="<%=listeLiaisonTypeForfait.get(i).getType().getId()%>" name="forfaitCout" >
+											<label for="focusedinput" class="col-sm-2 control-label" style="color:white">Coût <%= listeLiaisonTypeForfait.get(i).getForfait().getCode() %></label>
 											
-											<%if(ligne.getForfait()!=null){ %>
-											<option >
-											 <%= ligne.getForfait().getCode()%></option>
-											<%} %>
-											
-											
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout Forfait</label>
-									<div class="col-sm-8">
-										<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getForfait().getCout() %>" style="width:50%;background-color: grey;color:white;" readonly="readonly">
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
-								
-								
-								
+											<div class="col-sm-8"> 
+												<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= listeLiaisonTypeForfait.get(i).getForfait().getCout()%>" style="width:50%;background-color: grey;color:white;" readonly="readonly">
+											</div>
+											<div class="col-sm-2 jlkdfj1">
+											<p class="help-block"></p>
+											</div>
+											</div>
+											<%
+											}
+											}
+											%>
+											</div>
+
 								<div class="form-group">
 									<label for="radio" class="col-sm-2 control-label" style="color: white">Etat</label>
 									<div class="col-sm-8">
@@ -206,7 +190,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="row"  style="width:80%">
 								<div class="col-sm-8 col-sm-offset-2" >
 									
-									<button class="btn-success btn" type="submit" name="VN">Modifier</button>
+									<button class="btn-success btn" href="" type="" id="BoutonModifier" onclick="activerModification()" >Modifier</button>
+									<button class="btn-success btn" id="BoutonValider" type="submit" name="V" style="display: none;" >Valider</button>
 									<button class="btn-default btn" type="submit" name="R" >Retour</button>
 								</div>
 								</div>
@@ -228,133 +213,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					
 						
 			
-	
-<!-- <br><br><br><br><br><br><br>=============================<br><br><br><br><br><br>	 -->
-
-
-
-<!--     <section> -->
-    
-<!-- 			<div id="page-wrapper"> -->
-<!-- 				<div class="graphs"> -->
-<!-- 					<h3 class="blank1">Porteur</h3> -->
-<!-- 						<div class="tab-content"> -->
-<!-- 						<div class="tab-pane active" id="horizontal-form"> -->
-<!-- 							<form class="form-horizontal"> -->
-							
-							
-<!-- 								<div class="form-group"> -->
-<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Code</label> -->
-<!-- 									<div class="col-sm-8"> -->
-<%-- 										<input type="text" class="form-control1" id="focusedinput" value="<% if(porteur!=null){ %><%= porteur.getNom() %><%}%>" readonly="readonly"> --%>
-<!-- 									</div> -->
-<!-- 									<div class="col-sm-2 jlkdfj1"> -->
-<!-- 										<p class="help-block"></p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</form> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="bs-example" data-example-id="form-validation-states"> -->
-    
-<!--   </div> -->
-  
-					
-						
-			
-<!-- 	</section> -->
-	
-	
-	
-	
-<!-- <br><br><br><br><br><br><br>=============================<br><br><br><br><br><br>	 -->
-	
-	
-	
-	
-	
-<%-- <% if(listeFacture!=null){ %> --%>
-
-<!-- <section> -->
-    
-<!-- 			<div id="page-wrapper"> -->
-<!-- 				<div class="graphs"> -->
-<!-- 					<h3 class="blank1">Factures</h3> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- </section> -->
-
-<!-- <div class="content"> -->
-<!--             <div class="container-fluid"> -->
-
-<!--                 <div class="row"> -->
-<!--                     <div class="col-md-12"> -->
-<!--                         <div class="card"> -->
-<!--                             <div class="content"> -->
-<!-- 								<div class="toolbar"> -->
-<!-- 	                                       Here you can write extra buttons/actions for the toolbar              -->
-<!-- 	                            </div> -->
-<!--                                 <div class="fresh-datatables"> -->
-<!--                                 <form method="post" action="GestionLigne"> -->
-<!--                 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%"> -->
-<!--                 						<thead> -->
-<!--                 							<tr > -->
-<!-- <!--                 								<th></th> --> -->
-<!--                 								<th style="color: white">Facture</th> -->
-<!--                 								<th style="color: white">Ligne</th> -->
-<!--                 								<th style="color: white">Mois</th> -->
-<!--                 								<th style="color: white">Année</th> -->
-<!--                 								<th style="color: white">Frais</th> -->
-<!-- <!--                 								<th class="disabled-sorting text-right">Actions</th> --> -->
-<!--                 							</tr> -->
-<!--                 						</thead> -->
-<!-- <!--                 						<tfoot> --> -->
-<!-- <!--                 							<tr> --> -->
-<!-- <!--                 								<th>Name</th> --> -->
-<!-- <!--                 								<th>Position</th> --> -->
-<!-- <!--                 								<th>Office</th> --> -->
-<!-- <!--                 								<th>Age</th> --> -->
-<!-- <!--                 								<th>Start date</th> --> -->
-<!-- <!--                 								<th class="text-right">Actions</th> --> -->
-<!-- <!--                 							</tr> --> -->
-<!-- <!--                 						</tfoot> --> -->
-<!--                 						<tbody> -->
-                							
-                							
-<%-- 											<%for(int i=0; i<listeFacture.size(); i++) {%> --%>
-<!-- 										<tr> -->
-<%-- <%-- 											<td><input type="checkbox" name="checkbox" value="<%= listeFacture.get(i).getNumeroLigne() %>" ></td> --%> --%>
-<%-- 											<td><%= listeFacture.get(i).getIdFacture() %></td> --%>
-<%-- 											<td><%= listeFacture.get(i).getLigne().getNumeroLigne() %></td> --%>
-<%--     										<td><%= listeFacture.get(i).getMois() %></td> --%>
-<%--     										<td><%= listeFacture.get(i).getAnnee() %></td> --%>
-<%--     										<td><%= listeFacture.get(i).getFrais() %></td> --%>
-<!-- <!--     										<td class="text-right"> --> -->
-<%-- <%--        											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumeroLigne() %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a> --%> --%>
-<!-- <!--        											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> --> -->
-<!-- <!--        											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a> --> -->
-<!-- <!--    	 										</td> --> -->
-<!-- 										</tr> -->
-<%-- 											<% } %> --%>
-
-
-
-                							
-<!--                 						</tbody> -->
-<!--                 					</table> -->
-<!-- <!--                 					<button class="btn btn-simple btn-danger btn-icon remove" type="submit">Supprimer la selection</button> --> -->
-<!--                 					</form> -->
-<!--         				        </div> -->
-<!--                             </div>end content -->
-
-<!--             </div> -->
-<!--         </div> -->
-<!-- </div> -->
-<!--     </div> -->
-<!-- </div> -->
-<%-- <% } %> --%>
-<!-- </div> -->
-
 
 
 </body>
@@ -378,32 +236,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		    search: "_INPUT_",
 		    searchPlaceholder: "Search records",
 		    }
-
 		});
-
-
 		var table = $('#datatables').DataTable();
-
 		// Edit record
 		table.on( 'click', '.edit', function () {
 		    $tr = $(this).closest('tr');
-
 		    var data = table.row($tr).data();
 		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
 		} );
-
 		// Delete a record
 		table.on( 'click', '.remove', function (e) {
 		    $tr = $(this).closest('tr');
 		    table.row($tr).remove().draw();
 		    e.preventDefault();
 		} );
-
 		//Like record
 		table.on( 'click', '.like', function () {
 		    alert('You clicked on Like button');
 		});
 	});
-
     </script>
+    <script type="text/javascript">
+    function activerModification(){
+    	var BoutonModifier = document.getElementById('BoutonModifier');
+    	var BoutonValider = document.getElementById('BoutonValider');
+    	
+    	BoutonModifier.style.display='none';
+    	BoutonValider.style.display='block';
+    }
+    
+    
+</script>
 </html>

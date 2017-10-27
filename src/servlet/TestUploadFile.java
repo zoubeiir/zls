@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -67,6 +69,31 @@ public class TestUploadFile extends HttpServlet {
 				request.setAttribute("name", fname);
 				request.setAttribute("size", fsize);
 				request.setAttribute("type", ftype);
+				
+				String filename = "Facture.xlsx";   
+				  String filepath = UPLOAD_DIRECTORY;   
+				  response.setContentType("APPLICATION/OCTET-STREAM");   
+				  response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");   
+				  
+				  FileInputStream fileInputStream = new FileInputStream(filepath + filename);  
+//				  int i;   
+//				  while ((i=fileInputStream.read()) != -1) {  
+//				    out.write(i);   
+//				  }   
+				  fileInputStream.close();   
+				
+				
+				
+				OutputStream out = response.getOutputStream();
+				FileInputStream in = new FileInputStream(UPLOAD_DIRECTORY + "/Facture.xlsx");
+				byte[] buffer = new byte[4096];
+				int length;
+				while ((length = in.read(buffer)) > 0){
+				    out.write(buffer, 0, length);
+				}
+				in.close();
+				out.flush();
+				
 			} catch (Exception ex) {
 				request.setAttribute("message", "File Upload Failed due to "
 						+ ex);
@@ -77,7 +104,17 @@ public class TestUploadFile extends HttpServlet {
 					"Sorry this Servlet only handles file upload request");
 		}
  
-		request.getRequestDispatcher("/TestResultUploadFile.jsp").forward(request, response);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		request.getRequestDispatcher("/TestResultUploadFile.jsp").forward(request, response);
 		
 		
 		
