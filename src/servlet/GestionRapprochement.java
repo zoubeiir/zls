@@ -113,13 +113,18 @@ public class GestionRapprochement extends HttpServlet {
 							
 						}
 						if(numeroLigne.startsWith("212")){
-							numeroLigne = numeroLigne.replaceFirst("212", "");
+//							numeroLigne = numeroLigne.replaceFirst("212", "");
 						}
 						if( numeroLigne.startsWith("05")){
-							numeroLigne = numeroLigne.replaceFirst("05", "5");
+							numeroLigne = numeroLigne.replaceFirst("05", "2125");
 						}else if(numeroLigne.startsWith("06")){
-							numeroLigne = numeroLigne.replaceFirst("06", "6");
+							numeroLigne = numeroLigne.replaceFirst("06", "2126");
+						}else if(numeroLigne.startsWith("5")){
+							numeroLigne = numeroLigne.replaceFirst("5", "2125");
+						}else if(numeroLigne.startsWith("6")){
+							numeroLigne = numeroLigne.replaceFirst("6", "2126");
 						}
+						
 						System.out.println("=");
 						System.out.println(numeroLigne);
 						ligneActuelle.setNumero(numeroLigne);
@@ -270,7 +275,7 @@ public class GestionRapprochement extends HttpServlet {
 			
 			if(numeroLigne==null){
 				listeLigneNonTraite.add(ligneActuelle);
-			}else if(!numeroLigne.startsWith("5") && !numeroLigne.startsWith("6") && !numeroLigne.startsWith("212")){
+			}else if(!numeroLigne.startsWith("05") && !numeroLigne.startsWith("06") && !numeroLigne.startsWith("5") && !numeroLigne.startsWith("6") && !numeroLigne.startsWith("212")){
 				System.out.println("------------------------------------------------------");
 				System.out.println("------------------------------------------------------");
 				listeLigneNonTraite.add(ligneActuelle);

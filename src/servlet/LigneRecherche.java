@@ -42,6 +42,25 @@ public class LigneRecherche extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		
+		if(request.getParameter("R") != null){
+			
+			request.getSession().removeAttribute("listeLigne");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.jsp") ;
+			requestDispatcher.forward(request, response);
+			
+		}else if(request.getParameter("A") != null){
+			
+//			request.getSession().removeAttribute("listeLigne");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligne.html") ;
+			requestDispatcher.forward(request, response);
+			
+			
+			
+		}else if (request.getParameter("C") != null){ 
+		
+		
+		
 		Ligne ligne = new Ligne();
 //		Porteur porteur = new Porteur();
 		LigneDAO ligneDAO = new LigneDAO();
@@ -108,8 +127,11 @@ public class LigneRecherche extends HttpServlet {
 		}else {
 		
 //			listeLigneRecherche=ligneDAO.findAll();
-		numeroLigne =numeroLigne.replace("+212", " ");
-		ligne.setNumero(numeroLigne.replace(" ", ""));
+			numeroLigne = numeroLigne.replace(" ", "");
+			numeroLigne = numeroLigne.replace("\t", "");
+			if(numeroLigne.startsWith("+212"))
+		numeroLigne =numeroLigne.replace("+212", "212");
+		ligne.setNumero(numeroLigne);
 		
 //		String fraisLigne = request.getParameter("fraisLigne") ;
 //		
@@ -153,6 +175,6 @@ public class LigneRecherche extends HttpServlet {
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.jsp") ;
 		requestDispatcher.forward(request, response);
-	}
+	}}
 
 }

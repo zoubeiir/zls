@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,10 @@ import org.hibernate.Transaction;
 import com.util.HibernateUtil;
 
 import entite.LiaisonTypeForfait;
+import entite.Localite;
 import entite.Type;
 import entite.dao.LiaisonTypeForfaitDAO;
+import entite.dao.LocaliteDAO;
 import entite.dao.TypeDAO;
 import entite.Ligne;
 import entite.base.*;
@@ -44,47 +48,42 @@ public class GestionLigne extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println(request.getParameter("numeroLigne"));
 		
+		// get parameters
 		String numeroLigne=request.getParameter("numeroLigne");
+		String mf=request.getParameter("mf");
+
+		// initiate DAOs
 		LigneDAO ligneDAO = new LigneDAO();
 		LiaisonTypeForfaitDAO liaisonTypeForfaitDAO = new LiaisonTypeForfaitDAO();
-//		PorteurDAO porteurDAO = new PorteurDAO();
-//		FactureDAO factureDAO = new FactureDAO();
 		
+		//initiate and get ligne from DB
 		Ligne ligne = new Ligne();
 		ligne=ligneDAO.findByNumero(numeroLigne);
 		
+		// initiate and get listeLiaisonTypeForfait from DB
 		List<LiaisonTypeForfait> listeLiaisonTypeForfait = new ArrayList<LiaisonTypeForfait>();
 		listeLiaisonTypeForfait = liaisonTypeForfaitDAO.findByType(ligne.getType());
 		
-		
-		
-//		Porteur porteur = new Porteur();
-//		porteur=porteurDAO.findByNumero(ligne);
-//		
-//		List<Facture> listeFacture = new ArrayList<Facture>();
-//		listeFacture = factureDAO.findByNumero(ligne);
-		
-		
-		
-//		request.getSession().setAttribute("porteur", porteur);
-		
-		
+		// set attributes
 		request.getSession().setAttribute("ligne", ligne);
-		System.out.println("id"+listeLiaisonTypeForfait.get(0).getId()+"--For--"+listeLiaisonTypeForfait.get(0).getType().getId()+"--Type--"+listeLiaisonTypeForfait.get(0).getType().getId());
-	
-		
+		request.getSession().setAttribute("mf", mf);
 		request.getSession().setAttribute("listeLiaisonTypeForfait", listeLiaisonTypeForfait);
 		
-//		request.getSession().setAttribute("listeFacture", listeFacture);
+		//forwards
+		if(mf==null){
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneConsultation.jsp") ;
+			requestDispatcher.forward(request, response);
+		}else if(mf.equals("m")){
 		
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneModification.jsp") ;
+			requestDispatcher.forward(request, response);
+			
+		}else{
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneConsultation.jsp") ;
+			requestDispatcher.forward(request, response);
 		
-		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneConsultation.jsp") ;
-		requestDispatcher.forward(request, response);
-	}
+	}}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -92,23 +91,108 @@ public class GestionLigne extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		Ligne ligneActuelle = new Ligne();
-		List<Ligne> listeLigne = new ArrayList<Ligne>();
-		
-		LigneDAO ligneDAO = new LigneDAO();
-		
-		String listCB[] = request.getParameterValues("checkbox");
-		
-		for(int i=0;i<listCB.length;i++){
+		if(request.getParameter("R") != null ){
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.jsp") ;
+			requestDispatcher.forward(request, response);
+		}else if (request.getParameter("V") != null){
 			
-			ligneActuelle=ligneDAO.findByNumero(listCB[i]);
-			System.out.println(ligneActuelle.getNumero());
-			if(ligneActuelle!=null)
-				listeLigne.add(ligneActuelle);
+			//get parameter
+			String numeroLigne=request.getParameter("numeroLigne");
+			String idTypeCaractere = request.getParameter("type");
+			String dateCreation = request.getParameter("dateCreation");
+			String idLocaliteCaractere = request.getParameter("localite");
+			
+			
+			int idType = Integer.parseInt(idTypeCaractere);
+			int idLocalite=Integer.parseInt(idLocaliteCaractere);
+			
+			boolean isChanged=false;
+			
+			LigneDAO ligneDAO = new LigneDAO();
+			Ligne ligne = new Ligne();
+			ligne=ligneDAO.findByNumero(numeroLigne);
+			
+			if(idType!=ligne.getType().getId()){
+				TypeDAO typeDAO = new TypeDAO();
+				Type type = new Type();
+				type = typeDAO.findByID(idType);
+				
+				ligne.setType(type);
+				isChanged=true;
+			}
+			if(idLocalite!=ligne.getLocalite().getId()){
+				LocaliteDAO localiteDAO = new LocaliteDAO();
+				Localite localite = new Localite();
+				localite = localiteDAO.findByID(idLocalite);
+				
+				ligne.setLocalite(localite);
+				isChanged=true;
+			}
+			if(!dateCreation.equals(ligne.getDateCreation().toString())){
+				
+				System.out.println(dateCreation+"!!!!!!!"+ligne.getDateCreation().toString());
+				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					ligne.setDateCreation(formatter.parse(dateCreation));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				isChanged=true;
+			}
+			
+			if(isChanged){
+				ligneDAO.update(ligne);
+			}
+			
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.jsp") ;
+			requestDispatcher.forward(request, response);
+			
+		}else if (request.getParameter("M") != null){
+			
+			//get parameter
+			String numeroLigne=request.getParameter("numeroLigne");
+			
+			// initiate DAOs
+			LigneDAO ligneDAO = new LigneDAO();
+			LiaisonTypeForfaitDAO liaisonTypeForfaitDAO = new LiaisonTypeForfaitDAO();
+			
+			//initiate and get ligne from DB
+			Ligne ligne = new Ligne();
+			ligne=ligneDAO.findByNumero(numeroLigne);
+			
+			// initiate and get listeLiaisonTypeForfait from DB
+			List<LiaisonTypeForfait> listeLiaisonTypeForfait = new ArrayList<LiaisonTypeForfait>();
+			listeLiaisonTypeForfait = liaisonTypeForfaitDAO.findByType(ligne.getType());
+			
+			// set attributes
+			request.getSession().setAttribute("ligne", ligne);
+			request.getSession().setAttribute("listeLiaisonTypeForfait", listeLiaisonTypeForfait);
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneModification.jsp") ;
+			requestDispatcher.forward(request, response);
 		}
-
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.jsp") ;
-		requestDispatcher.forward(request, response);
+		
+		
+		
+//		Ligne ligneActuelle = new Ligne();
+//		List<Ligne> listeLigne = new ArrayList<Ligne>();
+//		
+//		LigneDAO ligneDAO = new LigneDAO();
+//		
+//		String listCB[] = request.getParameterValues("checkbox");
+//		
+//		for(int i=0;i<listCB.length;i++){
+//			
+//			ligneActuelle=ligneDAO.findByNumero(listCB[i]);
+//			System.out.println(ligneActuelle.getNumero());
+//			if(ligneActuelle!=null)
+//				listeLigne.add(ligneActuelle);
+//		}
+//
+//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneRecherche.jsp") ;
+//		requestDispatcher.forward(request, response);
 	}
 
 }

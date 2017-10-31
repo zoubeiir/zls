@@ -1,5 +1,7 @@
 
 
+<%@page import="entite.dao.LiaisonTypeForfaitDAO"%>
+<%@page import="entite.dao.LocaliteDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -76,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Numéro ligne</label>
 									<div class="col-sm-8">
-										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getNumero() %>"  style="width:50% ; background-color: grey;color:white;" readonly="readonly" >
+										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= ligne.getNumero() %>"  style="width:50% ; background-color: grey;color:white;" readonly="readonly "   >
 									</div>
 <!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white; width: 20%;">Numéro ligne</label> -->
 <!-- 									<div class="col-sm-8">  -->
@@ -101,7 +103,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Date de création</label>
 									<div class="col-sm-8">
 									<div id="datetimepicker" class="input-append date"> 
-      								<input type="date" value="<%= ligne.getDateCreation()%>" readonly="readonly" style="background-color: grey;color:white;"></input>
+      								<input type="date" value="<%= ligne.getDateCreation()%>" name="dateCreation"   style="" readonly="readonly"></input>
       								<span class="add-on">
         								<i data-time-icon="icon-qsd" data-date-icon="icon-qsd" ></i>
       								</span>
@@ -131,11 +133,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label class="col-sm-2 control-label" style="color: white">Localit�</label>
 									<div class="col-sm-8">
-										<select   class="form-control1" name="localite" style="background-color: grey;color:white;" >
+										<select   class="form-control1" name="localite" style="" id ="localite">
 											
 											<%if(ligne.getLocalite()!=null){ %>
-											<option value="" 	><%= ligne.getLocalite().getCode()%></option>
+											<option value="<%= ligne.getLocalite().getId()%>" 	>  <%= ligne.getLocalite().getCode()%></option>
 											<%} %>
+											
+											<% 
+											LocaliteDAO localiteDAO = new LocaliteDAO();
+											List<Localite> listeLocalite = new ArrayList<Localite>();
+											listeLocalite = localiteDAO.findAll();
+											if(listeLocalite.size()>0){
+											for(int i = 0 ; i < listeLocalite.size() ; i++ ){
+												
+											
+											if(listeLocalite.get(i).getId()!=ligne.getLocalite().getId() ){
+											
+											%>
+											
+											
+											<option value="<%= listeLocalite.get(i).getId()%>" ><%= listeLocalite.get(i).getCode() %></option>
+											
+											<%
+											}}
+											}
+											%>
+											
+											
 											
 											
 										</select>
@@ -144,28 +168,89 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label class="col-sm-2 control-label" style="color: white">Type</label>
 									<div class="col-sm-8">
-										<select   class="form-control1" name="type" style="background-color: grey;color:white;">
+										<select   class="form-control1" name="type" style="">
 											 
 											
 											<%if(ligne.getType()!=null){ %>
-											<option  ><%= ligne.getType().getCode() %></option>
+											<option value="<%=ligne.getType().getId()%>" 
+											onclick="azedfg(<%=ligne.getType().getId()%>);" ><%= ligne.getType().getCode() %></option>
 											<%} %>
+											
+											<% 
+											TypeDAO typeDAO = new TypeDAO();
+											List<Type> listeType = new ArrayList<Type>();
+											listeType = typeDAO.findAll();
+											if(listeType.size()>0){
+											for(int i = 0 ; i < listeType.size() ; i++ ){
+												
+											
+											if(listeType.get(i).getId()!=ligne.getType().getId()){
+											
+											%>
+											
+											<option value="<%=listeType.get(i).getId()%>" 
+											onclick="azedfg(<%=listeType.get(i).getId()%>);" >
+											<%= listeType.get(i).getCode() %></option>
+											
+											<%
+											}}
+											}
+											%>
+											
+											
 											
 										</select>
 									</div>
 								</div>
 								
-										<div class="form-group" name="toutForfait">
+										<div class="form-group" name="toutForfait" >
+										
+										
+										<% 
+											LiaisonTypeForfaitDAO liaisonTypeForfaitDAO = new LiaisonTypeForfaitDAO();
+											List<LiaisonTypeForfait> listeLiaisonTypeForfaitDB = new ArrayList<LiaisonTypeForfait>();
+											listeLiaisonTypeForfaitDB = liaisonTypeForfaitDAO.findAll();
+											if(listeLiaisonTypeForfaitDB.size()>0){
+											for(int i = 0 ; i < listeLiaisonTypeForfaitDB.size() ; i++ ){
+												
+											
+											
+											
+											%>
+											<div class="form-group"  style="display: none;" id="<%=listeLiaisonTypeForfaitDB.get(i).getType().getId()%>" name="forfaitCout" >
+											<label for="focusedinput" class="col-sm-2 control-label" style="color:white">Co�t <%= listeLiaisonTypeForfaitDB.get(i).getForfait().getCode() %></label>
+											
+											<div class="col-sm-8"> 
+												<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= listeLiaisonTypeForfaitDB.get(i).getForfait().getCout()%>" style="width:50%;background-color: grey;color:white;" readonly="readonly">
+											</div>
+											<div class="col-sm-2 jlkdfj1">
+											<p class="help-block"></p>
+											</div>
+											</div>
+											
+											
+<%-- 											<option id="<%=listeLiaisonTypeForfait.get(i).getType().getId()%>" --%>
+<%-- 											name="<%=listeLiaisonTypeForfait.get(i).getType().getId()%>" --%>
+<%-- 											 value="<%=listeLiaisonTypeForfait.get(i).getId()%>" style="display: none;" --%>
+<%-- 											 onclick="fillCouts(<%= listeLiaisonTypeForfait.get(i).getForfait().getCout()%>,'coutForfait')"> --%>
+<%-- 											 <%= listeLiaisonTypeForfait.get(i).getForfait().getCode() %></option> --%>
+											
+											<%
+											}
+											}
+											%>
+											
+										
 										
 											<% 
 											if(listeLiaisonTypeForfait !=null && listeLiaisonTypeForfait.size()>0){
 											for(int i = 0 ; i < listeLiaisonTypeForfait.size() ; i++ ){
 											%>
-											<div class="form-group"   id="<%=listeLiaisonTypeForfait.get(i).getType().getId()%>" name="forfaitCout" >
+											<div class="form-group"    name="forfaitCout" >
 											<label for="focusedinput" class="col-sm-2 control-label" style="color:white">Co�t <%= listeLiaisonTypeForfait.get(i).getForfait().getCode() %></label>
 											
 											<div class="col-sm-8"> 
-												<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= listeLiaisonTypeForfait.get(i).getForfait().getCout()%>" style="width:50%;background-color: grey;color:white;" readonly="readonly">
+												<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= listeLiaisonTypeForfait.get(i).getForfait().getCout()%>" style="width:50%; background-color :grey; color: white;" readonly="readonly"  >
 											</div>
 											<div class="col-sm-2 jlkdfj1">
 											<p class="help-block"></p>
@@ -176,12 +261,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											}
 											%>
 											</div>
+											
+											
+											
+											
 
 								<div class="form-group">
 									<label for="radio" class="col-sm-2 control-label" style="color: white">Etat</label>
 									<div class="col-sm-8">
-										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" <% if(EtatStatic.ETAT_OPERATIONNEL.compareTo(ligne.getEtat())==0){ %> checked="checked" <% } %> value="0" disabled="disabled">Opérationnelle</label></div>
-										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" <% if(EtatStatic.ETAT_RESILIE.compareTo(ligne.getEtat())==0){ %> checked="checked" <% } %> value="1" disabled="disabled">Résiliée</label></div>
+										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" <% if(EtatStatic.ETAT_OPERATIONNEL.compareTo(ligne.getEtat())==0){ %> checked="checked" <% } %> value="0" >Opérationnelle</label></div>
+										<div class="radio-inline"><label style="color: white"><input name="etat" type="radio" <% if(EtatStatic.ETAT_RESILIE.compareTo(ligne.getEtat())==0){ %> checked="checked" <% } %> value="1" >Résiliée</label></div>
 <!-- 										<div class="radio-inline"><label><input name="test" type="radio" disabled="" value=""> En cours de résiliation</label></div> -->
 										
 									</div>
@@ -190,7 +279,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="row"  style="width:80%">
 								<div class="col-sm-8 col-sm-offset-2" >
 									
-									<button class="btn-success btn" href="" type="submit" name="M" >Modifier</button>
+									<button class="btn-success btn" type="submit" name="V" >Valider</button>
 									<button class="btn-default btn" type="submit" name="R" >Retour</button>
 								</div>
 								</div>
@@ -224,35 +313,75 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="css/css/css/css/jquery.datatables.js"></script>
 	
 	
-	
-	<script type="text/javascript">
-    $(document).ready(function() {
-		$('#datatables').DataTable({
-		    "pagingType": "full_numbers",
-		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		    responsive: true,
-		    language: {
-		    search: "_INPUT_",
-		    searchPlaceholder: "Search records",
-		    }
-		});
-		var table = $('#datatables').DataTable();
-		// Edit record
-		table.on( 'click', '.edit', function () {
-		    $tr = $(this).closest('tr');
-		    var data = table.row($tr).data();
-		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
-		} );
-		// Delete a record
-		table.on( 'click', '.remove', function (e) {
-		    $tr = $(this).closest('tr');
-		    table.row($tr).remove().draw();
-		    e.preventDefault();
-		} );
-		//Like record
-		table.on( 'click', '.like', function () {
-		    alert('You clicked on Like button');
-		});
-	});
+
+
+
+
+<link href="css/combine.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen"
+     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+     
+     
+
+
+
+<!-- SCRIPTS -->
+<script src="js/html5shiv.js"></script>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<!-- <script src="js/bootstrap.min.js"></script> -->
+<script src="js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="fancybox/jquery.fancybox.pack-v=2.1.5.js"></script>
+<script src="js/script.js"></script>
+
+	<script type="text/javascript"
+     src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+     </script>  
+<!--     <script type="text/javascript" -->
+<!--      src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"> -->
+<!--     </script> -->
+    <script type="text/javascript"
+     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
     </script>
+    <script type="text/javascript"
+     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+    </script>
+    <script type="text/javascript">
+      $('#datetimepicker').datetimepicker({
+        format: 'dd/MM/yyyy',
+//         language: 'pt-BR'
+      });
+    </script>
+
+<script type="text/javascript">
+function azedfg(identifiant) {
+	
+	
+	var elementById = document.getElementsByName('forfaitCout');
+	for(var elements = 0 ; elements<elementById.length;elements++){
+
+		if(elementById[elements].id == identifiant){
+			elementById[elements].style.display='block';
+		}else{
+			elementById[elements].style.display='none';
+		}
+	}
+}
+$('#localite').html($('#localite').children('option').sort(function (x, y) {
+    return $(x).text().toUpperCase() < $(y).text().toUpperCase() ? -1 : 1;
+}));
+$('#localite').get(0).selectedIndex = 0;
+</script>
+
+
+
+
+
+
+
+
+
+
+
+    
 </html>

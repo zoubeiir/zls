@@ -183,7 +183,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									
 									<button class="btn-success btn" name="C">Chercher</button>
 									<button class="btn-default btn" name="A">Annuler</button>
-									<button class="btn-inverse btn">RÃ©initialiser</button>
+									<button class="btn-inverse btn" name="R">Réinitialiser</button>
 								</div>
 								</div>
 							</form>
@@ -200,8 +200,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 
 
-
-	<% if(listeLigne.size()>0){ %>
+	
+	<% if(listeLigne!=null){
+	if(listeLigne.size()>0){ %>
 
 <div class="content">
             <div class="container-fluid">
@@ -249,8 +250,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     										<td><%= listeLigne.get(i).getType().getCode() %></td>
     										<td class="text-right">
        											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumero().replace("+", "%2B") %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a>
-       											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-       											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a>
+       											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumero().replace("+", "%2B")%>&mf=m" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+<!--        											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a> -->
    	 										</td>
 										</tr>
 											<% } %>
@@ -260,7 +261,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							
                 						</tbody>
                 					</table>
-                					<button class="btn btn-simple btn-danger btn-icon remove" type="submit">Supprimer la selection</button>
+<!--                 					<button class="btn btn-simple btn-danger btn-icon remove" type="submit">Supprimer la selection</button> -->
                 					</form>
         				        </div>
                             </div><!-- end content-->
@@ -270,7 +271,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
     </div>
 </div>
-<% } %>
+<% }} %>
 
 </body>
 
@@ -282,13 +283,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="css/css/css/css/jquery.datatables.js"></script>
 	
 	<!-- SCRIPTS -->
-<script src="js/html5shiv.js"></script>
-<!-- <script src="js/jquery-1.10.2.min.js"></script> -->
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="fancybox/jquery.fancybox.pack-v=2.1.5.js"></script>
-<script src="js/script.js"></script>
+<!-- <script src="js/html5shiv.js"></script> -->
+<!-- <!-- <script src="js/jquery-1.10.2.min.js"></script> --> -->
+<!-- <script src="js/jquery-migrate-1.2.1.min.js"></script> -->
+<!-- <script src="js/bootstrap.min.js"></script> -->
+<!-- <script src="js/jquery.easing.1.3.js"></script> -->
+<!-- <script type="text/javascript" src="fancybox/jquery.fancybox.pack-v=2.1.5.js"></script> -->
+<!-- <script src="js/script.js"></script> -->
 	
 	
 	<script type="text/javascript">
