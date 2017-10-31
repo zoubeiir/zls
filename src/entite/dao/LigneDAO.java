@@ -11,6 +11,7 @@ import com.util.HibernateUtil;
 
 import entite.base.BaseLigneDAO;
 import entite.Ligne;
+import entite.Localite;
 import entite.base.BaseLigne;
 
 /**
@@ -124,6 +125,20 @@ public void update(Ligne ligne){
 		this.sessionFactory.getCurrentSession().getTransaction().rollback();
 		throw e;
 	}
+}
+
+public List<Ligne> findbylocalite(Localite localite) {
+
+	try{
+		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+		return this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class).add(Restrictions.eq(Ligne.PROP_LOCALITE, "%"+localite)).list();
+	}catch (Exception e){
+		throw e;
+//		return null;
+	}
+	
 }
 	
 }

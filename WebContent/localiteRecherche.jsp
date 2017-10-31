@@ -5,20 +5,14 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 
-<%@ page import="entity.Ligne" %>
-<%@ page import="javax.servlet.http.HttpServletRequest.*" %>
-<%@page import="entity.Forfait"%>
-<%@page import="entity.dao.ForfaitDAO"%>
-<%@page import="entity.Type"%>
-<%@page import="entity.dao.TypeDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entity.Localite"%>
+<%@page import="entite.Localite"%>
 <%@page import="java.util.List"%>
-<%@page import="entity.dao.LocaliteDAO"%>
+<%@page import="entite.dao.LocaliteDAO"%>
 
 
 
-<% List<Ligne> listeLigne = (List<Ligne>) (request.getSession().getAttribute("listeLigne"));%>
+<%-- <% List<Ligne> listeLocalite = (List<Ligne>) (request.getSession().getAttribute("listeLocalite"));%> --%>
 
 
 
@@ -68,9 +62,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 	
 	
-	<link href="css/combine.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+<!-- 	<link href="css/combine.css" rel="stylesheet"> -->
+<!--     <link rel="stylesheet" type="text/css" media="screen" -->
+<!--      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"> -->
      
      
      
@@ -94,107 +88,111 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 		
 
-	<div class="container">
+<!-- 	<div class="container"> -->
     
-			<div id="page-wrapper">
-				<div class="graphs">
-					<h3 class="blank1">Recherche d'une localité</h3>
-						<div class="tab-content">
-						<div class="tab-pane active" id="horizontal-form">
-							<form class="form-horizontal"  method="post" action="LigneAjout" >
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Code localité</label>
-									<div class="col-sm-8">
-										<input type="text" name="codeLocalite" class="form-control1" id="focusedinput" placeholder="Default Input" value=""  style="width:50%" >
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
+<!-- 			<div id="page-wrapper"> -->
+<!-- 				<div class="graphs"> -->
+<!-- 					<h3 class="blank1">Recherche d'une localité</h3> -->
+<!-- 						<div class="tab-content"> -->
+<!-- 						<div class="tab-pane active" id="horizontal-form"> -->
+<!-- 							<form class="form-horizontal"  method="post" action="LigneAjout" > -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Code localité</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<input type="text" name="codeLocalite" class="form-control1" id="focusedinput" placeholder="Default Input" value=""  style="width:50%" > -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-2 jlkdfj1"> -->
+<!-- 										<p class="help-block"></p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Nomination</label>
-									<div class="col-sm-8">
-										<input type="text" name="nom" class="form-control1" id="focusedinput" placeholder="Default Input" value=""   >
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse postale</label>
-									<div class="col-sm-8">
-										<input type="text" name="adressePostale" class="form-control1" id="focusedinput" placeholder="Default Input" value=""   >
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Nomination</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<input type="text" name="nom" class="form-control1" id="focusedinput" placeholder="Default Input" value=""   > -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-2 jlkdfj1"> -->
+<!-- 										<p class="help-block"></p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse postale</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<input type="text" name="adressePostale" class="form-control1" id="focusedinput" placeholder="Default Input" value=""   > -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-2 jlkdfj1"> -->
+<!-- 										<p class="help-block"></p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse IP</label>
-									<div class="col-sm-8">
-										<input type="text" name="adresseIP" class="form-control1" id="focusedinput" placeholder="Default Input" value=""  style="width:50%" >
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse IP</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<input type="text" name="adresseIP" class="form-control1" id="focusedinput" placeholder="Default Input" value=""  style="width:50%" > -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-2 jlkdfj1"> -->
+<!-- 										<p class="help-block"></p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Responsable</label>
-									<div class="col-sm-8">
-										<input type="text" name="responsable" class="form-control1" id="focusedinput" placeholder="Default Input" value=""  style="width:50%" >
-									</div>
-									<div class="col-sm-2 jlkdfj1">
-										<p class="help-block"></p>
-									</div>
-								</div>
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Responsable</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<input type="text" name="responsable" class="form-control1" id="focusedinput" placeholder="Default Input" value=""  style="width:50%" > -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-2 jlkdfj1"> -->
+<!-- 										<p class="help-block"></p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
-								<div class="form-group">
-									<label class="col-sm-2 control-label" style="color: white">Type de localité</label>
-									<div class="col-sm-8">
-										<select   class="form-control1" name="localite">
-											<option></option>
-											<option>Branche</option>
-											<option>Siège</option>
+<!-- 								<div class="form-group"> -->
+<!-- 									<label class="col-sm-2 control-label" style="color: white">Type de localité</label> -->
+<!-- 									<div class="col-sm-8"> -->
+<!-- 										<select   class="form-control1" name="localite"> -->
+<!-- 											<option></option> -->
+<!-- 											<option>Branche</option> -->
+<!-- 											<option>Siège</option> -->
 											
-										</select>
-									</div>
-								</div>
+<!-- 										</select> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
 								
 								
-								</br>
+<!-- 								</br> -->
 								
-								<div class="row"  style="width:80%">
-								<div class="col-sm-8 col-sm-offset-2" >
+<!-- 								<div class="row"  style="width:80%"> -->
+<!-- 								<div class="col-sm-8 col-sm-offset-2" > -->
 									
-									<button class="btn-success btn" type="submit" name="VN">Valider et nouvel ajout</button>
-									<button class="btn-success btn" type="submit" name="V" >Valider</button>
-									<button class="btn-default btn" type="submit" name="A" >Annuler</button>
-									<button class="btn-inverse btn" >Réinitialiser</button>
-								</div>
-								</div>
+<!-- 									<button class="btn-success btn" type="submit" name="VN">Valider et nouvel ajout</button> -->
+<!-- 									<button class="btn-success btn" type="submit" name="V" >Valider</button> -->
+<!-- 									<button class="btn-default btn" type="submit" name="A" >Annuler</button> -->
+<!-- 									<button class="btn-inverse btn" >Réinitialiser</button> -->
+<!-- 								</div> -->
+<!-- 								</div> -->
 								
-							</form>
-						</div>
-					</div>
+<!-- 							</form> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 					
-					<div class="bs-example" data-example-id="form-validation-states">
+<!-- 					<div class="bs-example" data-example-id="form-validation-states"> -->
     
-  </div>
+<!--   </div> -->
   
 					
 						
 			
-	</div>
-	</div></div>l
+<!-- 	</div> -->
+<!-- 	</div></div> -->
 
 
-
-	<% if(listeLigne!=null){ %>
-
+<% 
+											LocaliteDAO localiteDAO = new LocaliteDAO();
+											List<Localite> listeLocalite = new ArrayList<Localite>();
+											listeLocalite = localiteDAO.findAll();
+// 											 if(listeLocalite.size()>0){
+		 %>
+<div class="container">
 <div class="content">
             <div class="container-fluid">
 
@@ -206,16 +204,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	                                <!--        Here you can write extra buttons/actions for the toolbar              -->
 	                            </div>
                                 <div class="fresh-datatables">
-                                <form method="post" action="GestionLigne">
+                                <form method="post" action="GestionLocalite">
                 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                 						<thead>
-                							<tr>
+                							<tr >
                 								<th></th>
-                								<th>Numéro ligne</th>
-                								<th>Frais</th>
-                								<th>Etat</th>
-                								<th>Vide</th>
-                								<th class="disabled-sorting text-right">Actions</th>
+                								<th style="color: white">localité</th>
+                								<th style="color: white">adressePostale</th>
+                								<th style="color: white">adresseIP</th>
+                								<th style="color: white">Responsable</th>
+                								<th style="color: white" class="disabled-sorting text-right">Actions</th>
                 							</tr>
                 						</thead>
 <!--                 						<tfoot> -->
@@ -231,18 +229,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 						<tbody>
                 							
                 							
-											<%for(int i=0; i<listeLigne.size(); i++) { %>
-										<tr>
-											<td><input type="checkbox" name="checkbox" value="<%= listeLigne.get(i).getNumero() %>" ></td>
-											<td><%= listeLigne.get(i).getNumero() %></td>
-											<td></td>
-<%-- 											<td><%= listeLigne.get(i).getFrais() %></td> --%>
-    										<td><%= listeLigne.get(i).getEtat() %></td>
-    										<td>vide</td>
+											<%for(int i = 0 ; i < listeLocalite.size() ; i++ ){ %>
+										<tr style="background-color: white">
+										<td></td>
+<%-- 											<td><input type="checkbox" name="checkbox" value="<%= listeLocalite.get(i).getNumero() %>" ></td> --%>
+											<td><%= listeLocalite.get(i).getCode() %></td>
+											<td><%= listeLocalite.get(i).getAdressePostale() %></td>
+<%-- 											<td><%= listeLocalite.get(i).getFrais() %></td> --%>
+    										<td> <%= listeLocalite.get(i).getAdresseIP() %> </td>
+    										<td> <%= listeLocalite.get(i).getResponsable() %> </td>
     										<td class="text-right">
-       											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumero().replace("+", "%2B") %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a>
-       											<a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-       											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a>
+       											<a href="GestionLocalite?codeLocalite=<%=listeLocalite.get(i).getCode().replace("+", "%2B") %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a>
+       											<a href="GestionLigne?codeLocalite=<%=listeLocalite.get(i).getCode().replace("+", "%2B")%>&mf=m" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+<!--        											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a> -->
    	 										</td>
 										</tr>
 											<% } %>
@@ -252,7 +251,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							
                 						</tbody>
                 					</table>
-                					<button class="btn btn-simple btn-danger btn-icon remove" type="submit">Supprimer la selection</button>
                 					</form>
         				        </div>
                             </div><!-- end content-->
@@ -261,8 +259,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
 </div>
     </div>
-</div>
-<% } %>
+</div></div>
+											<%
+// 											}
+											%>
 
 </body>
 
@@ -274,13 +274,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="css/css/css/css/jquery.datatables.js"></script>
 	
 	<!-- SCRIPTS -->
-<script src="js/html5shiv.js"></script>
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<!-- <script src="js/bootstrap.min.js"></script> -->
-<script src="js/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="fancybox/jquery.fancybox.pack-v=2.1.5.js"></script>
-<script src="js/script.js"></script>
+<!-- <script src="js/html5shiv.js"></script> -->
+<!-- <script src="js/jquery-1.10.2.min.js"></script> -->
+<!-- <script src="js/jquery-migrate-1.2.1.min.js"></script> -->
+<!-- <!-- <script src="js/bootstrap.min.js"></script> --> -->
+<!-- <script src="js/jquery.easing.1.3.js"></script> -->
+<!-- <script type="text/javascript" src="fancybox/jquery.fancybox.pack-v=2.1.5.js"></script> -->
+<!-- <script src="js/script.js"></script> -->
 	
 	
 	<script type="text/javascript">
@@ -314,40 +314,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
     </script>
     
-    
-    <script type="text/javascript"
-     src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-     </script>  
-<!--     <script type="text/javascript" -->
-<!--      src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"> -->
-<!--     </script> -->
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-    </script>
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-    </script>
-    <script type="text/javascript">
-      $('#datetimepicker').datetimepicker({
-        format: 'dd/MM/yyyy',
-//         language: 'pt-BR'
-      });
-    </script>
-    
-    <script type="text/javascript">
-function azedfg(identifiant) {
-	var select = document.getElementById("forfait");
-	var length = select.options.length;
-	for (i = 0; i < length; i++) {
-	  select.options[i].style.display='none';
-	}
-	document.getElementById("vide").style.display='block';
-	document.getElementById("vide").selected='true';
-	var elementById = document.getElementsByName(identifiant);
-	
-	for(var elements = 0 ; elements<elementById.length;elements++)
-		elementById[elements].style.display='block';
-	
-}</script>
 	
 </html>
