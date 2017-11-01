@@ -9,7 +9,9 @@ import org.hibernate.criterion.Restrictions;
 
 import com.util.HibernateUtil;
 
+import entite.base.BaseLigne;
 import entite.base.BaseLocaliteDAO;
+import entite.Ligne;
 import entite.Localite;
 import entite.base.BaseLocalite;
 
@@ -114,6 +116,25 @@ public class LocaliteDAO extends BaseLocaliteDAO {
 		    	this.insertLocalite(listLocalite.get(i),false);
 		  }
 		    this.sessionFactory.getCurrentSession().getTransaction().commit();
+	}
+	
+	public void update(Localite localite){
+		try {
+			
+//			sessionFactory = HibernateUtil.getSessionFactory();
+			
+//			ligne.setId(-1);
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				this.sessionFactory.getCurrentSession().getTransaction().begin();}
+			this.sessionFactory.getCurrentSession().update((BaseLocalite) localite);
+			this.sessionFactory.getCurrentSession().getTransaction().commit();
+//			this.sessionFactory.getCurrentSession().persist(ligne);
+//			this.sessionFactory.getCurrentSession().flush();
+//			this.sessionFactory.getCurrentSession().close();
+		}catch (Exception e){
+			this.sessionFactory.getCurrentSession().getTransaction().rollback();
+			throw e;
+		}
 	}
 	
 }

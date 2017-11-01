@@ -133,7 +133,7 @@ public List<Ligne> findbylocalite(Localite localite) {
 		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
 			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
 			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
-		return this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class).add(Restrictions.eq(Ligne.PROP_LOCALITE, "%"+localite)).list();
+		return (List<Ligne>) this.sessionFactory.getCurrentSession().createCriteria(BaseLigne.class).add(Restrictions.eq(Ligne.PROP_LOCALITE,localite)).list();
 	}catch (Exception e){
 		throw e;
 //		return null;

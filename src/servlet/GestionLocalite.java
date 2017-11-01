@@ -160,23 +160,6 @@ public class GestionLocalite extends HttpServlet {
 		
 		
 		
-//		Localite localiteActuelle = new Localite();
-//		List<Localite> listeLocalite = new ArrayList<Localite>();
-//		
-//		LocaliteDAO localiteDAO = new LocaliteDAO();
-//		
-//		String listCB[] = request.getParameterValues("checkbox");
-//		
-//		for(int i=0;i<listCB.length;i++){
-//			
-//			localiteActuelle=localiteDAO.findByNumero(listCB[i]);
-//			System.out.println(localiteActuelle.getNumero());
-//			if(localiteActuelle!=null)
-//				listeLocalite.add(localiteActuelle);
-//		}
-//
-//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localiteRecherche.jsp") ;
-//		requestDispatcher.forward(request, response);
 
 	}
 
