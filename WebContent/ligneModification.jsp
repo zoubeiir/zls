@@ -218,7 +218,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 											%>
 											<div class="form-group"  style="display: none;" id="<%=listeLiaisonTypeForfaitDB.get(i).getType().getId()%>" name="forfaitCout" >
-											<label for="focusedinput" class="col-sm-2 control-label" style="color:white">Coût <%= listeLiaisonTypeForfaitDB.get(i).getForfait().getCode() %></label>
+											<label for="focusedinput" class="col-sm-2 control-label" style="color:white">Cout <%= listeLiaisonTypeForfaitDB.get(i).getForfait().getCode() %></label>
 											
 											<div class="col-sm-8"> 
 												<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= listeLiaisonTypeForfaitDB.get(i).getForfait().getCout()%>" style="width:50%;background-color: grey;color:white;" readonly="readonly">
@@ -247,7 +247,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											for(int i = 0 ; i < listeLiaisonTypeForfait.size() ; i++ ){
 											%>
 											<div class="form-group"    name="forfaitCout" >
-											<label for="focusedinput" class="col-sm-2 control-label" style="color:white">Coût <%= listeLiaisonTypeForfait.get(i).getForfait().getCode() %></label>
+											<label for="focusedinput" class="col-sm-2 control-label" style="color:white">Cout <%= listeLiaisonTypeForfait.get(i).getForfait().getCode() %></label>
 											
 											<div class="col-sm-8"> 
 												<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= listeLiaisonTypeForfait.get(i).getForfait().getCout()%>" style="width:50%; background-color :grey; color: white;" readonly="readonly"  >

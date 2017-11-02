@@ -10,7 +10,9 @@ import org.hibernate.criterion.Restrictions;
 import com.util.HibernateUtil;
 
 import entite.base.BaseForfaitDAO;
+import entite.base.BaseLocalite;
 import entite.Forfait;
+import entite.Localite;
 import entite.base.BaseForfait;
 
 /**
@@ -67,4 +69,46 @@ public class ForfaitDAO extends BaseForfaitDAO {
 			return null;
 		}
 	
-}}
+}
+
+	public void insertForfait(Forfait localite,boolean uniqueInsert){
+		try {
+			
+//			sessionFactory = HibernateUtil.getSessionFactory();
+			
+//			localite.setId(-1);
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				this.sessionFactory.getCurrentSession().getTransaction().begin();}
+			this.sessionFactory.getCurrentSession().save((BaseForfait) localite);
+			if(uniqueInsert)
+			this.sessionFactory.getCurrentSession().getTransaction().commit();
+//			this.sessionFactory.getCurrentSession().persist(localite);
+//			this.sessionFactory.getCurrentSession().flush();
+//			this.sessionFactory.getCurrentSession().close();
+		}catch (Exception e){
+			this.sessionFactory.getCurrentSession().getTransaction().rollback();
+//			throw e;
+		}
+	}
+
+	
+	public void updateForfait(Forfait localite){
+		try {
+			
+//			sessionFactory = HibernateUtil.getSessionFactory();
+			
+//			ligne.setId(-1);
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				this.sessionFactory.getCurrentSession().getTransaction().begin();}
+			this.sessionFactory.getCurrentSession().update((BaseForfait) localite);
+			this.sessionFactory.getCurrentSession().getTransaction().commit();
+//			this.sessionFactory.getCurrentSession().persist(ligne);
+//			this.sessionFactory.getCurrentSession().flush();
+//			this.sessionFactory.getCurrentSession().close();
+		}catch (Exception e){
+			this.sessionFactory.getCurrentSession().getTransaction().rollback();
+			throw e;
+		}
+	}
+
+}

@@ -162,7 +162,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											for(int i = 0 ; i < listeLiaisonTypeForfait.size() ; i++ ){
 											%>
 											<div class="form-group"   id="<%=listeLiaisonTypeForfait.get(i).getType().getId()%>" name="forfaitCout" >
-											<label for="focusedinput" class="col-sm-2 control-label" style="color:white">Coût <%= listeLiaisonTypeForfait.get(i).getForfait().getCode() %></label>
+											<label for="focusedinput" class="col-sm-2 control-label" style="color:white">Cout <%= listeLiaisonTypeForfait.get(i).getForfait().getCode() %></label>
 											
 											<div class="col-sm-8"> 
 												<input type="text"  name="coutForfait" id="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= listeLiaisonTypeForfait.get(i).getForfait().getCout()%>" style="width:50%;background-color: grey;color:white;" readonly="readonly">

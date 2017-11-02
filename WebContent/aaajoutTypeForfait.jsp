@@ -56,9 +56,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 					<h3 class="blank1">Ajout de Type/Forfait</h3> -->
 <!-- 						<div class="tab-content"> -->
 <!-- 						<div class="tab-pane active" id="horizontal-form"> -->
-							<form class="form-horizontal"  method="post" action="LocaliteAjout" >
-							
-								
+							<form class="form-horizontal"  method="post" action="" >
 
 								<div class="form-group">
 									<label class="col-sm-2 control-label" style="color: white">Ajout de</label>
@@ -104,7 +102,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 					<h3 class="blank1">Ajout d'une localité</h3> -->
 <!-- 						<div class="tab-content"> -->
 <!-- 						<div class="tab-pane active" id="horizontal-form"> -->
-							<form class="form-horizontal"  method="post" action="LocaliteAjout" >
+							<form class="form-horizontal"  method="post" action="Parametrage" >
 								
 									<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Code type</label>
@@ -130,7 +128,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="col-sm-8 col-sm-offset-2" >
 									
 <!-- 									<button class="btn-success btn" type="submit" name="VN">Valider et nouvel ajout</button> -->
-									<button class="btn-success btn" type="submit" name="VType" >Valider</button>
+									<button class="btn-success btn" type="submit" name="AType" >Ajouter</button>
 									<button class="btn-default btn" type="submit" name="A" >Annuler</button>
 <!-- 									<button class="btn-inverse btn" >Réinitialiser</button> -->
 								</div>
@@ -156,7 +154,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 					<h3 class="blank1">Ajout d'une localité</h3> -->
 <!-- 						<div class="tab-content"> -->
 <!-- 						<div class="tab-pane active" id="horizontal-form"> -->
-							<form class="form-horizontal"  method="post" action="LocaliteAjout" >
+							<form class="form-horizontal"  method="post" action="Parametrage" >
 								
 
 								<div class="form-group">
@@ -170,7 +168,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
 
 
-
+								<div class="form-group">
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white">Cout forfait</label>
+									<div class="col-sm-8">
+										<input type="number" step="100" min="0" name="coutForfait" class="form-control1" id="focusedinput" placeholder="Default Input" value="0" style="width:50%" >
+									</div>
+									<div class="col-sm-2 jlkdfj1">
+										<p class="help-block"></p>
+									</div>
+								</div>
 
 
 								
@@ -182,7 +188,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="col-sm-8 col-sm-offset-2" >
 									
 <!-- 									<button class="btn-success btn" type="submit" name="VN">Valider et nouvel ajout</button> -->
-									<button class="btn-success btn" type="submit" name="VForfait" >Valider</button>
+									<button class="btn-success btn" type="submit" name="AForfait" >Ajouter</button>
 									<button class="btn-default btn" type="submit" name="A" >Annuler</button>
 <!-- 									<button class="btn-inverse btn" >Réinitialiser</button> -->
 								</div>

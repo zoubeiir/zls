@@ -9,8 +9,10 @@ import org.hibernate.criterion.Restrictions;
 
 import com.util.HibernateUtil;
 
+import entite.base.BaseForfait;
 import entite.base.BaseLiaisonTypeForfaitDAO;
 import entite.base.BaseLiaisonTypeForfait;
+import entite.Forfait;
 import entite.LiaisonTypeForfait;
 import entite.LiaisonTypeForfait;
 import entite.Type;
@@ -71,5 +73,25 @@ public class LiaisonTypeForfaitDAO extends BaseLiaisonTypeForfaitDAO {
 
 	}
 	
+	
+	public void insertLiaisonTypeForfait(LiaisonTypeForfait localite,boolean uniqueInsert){
+		try {
+			
+//			sessionFactory = HibernateUtil.getSessionFactory();
+			
+//			localite.setId(-1);
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				this.sessionFactory.getCurrentSession().getTransaction().begin();}
+			this.sessionFactory.getCurrentSession().save((BaseLiaisonTypeForfait) localite);
+			if(uniqueInsert)
+			this.sessionFactory.getCurrentSession().getTransaction().commit();
+//			this.sessionFactory.getCurrentSession().persist(localite);
+//			this.sessionFactory.getCurrentSession().flush();
+//			this.sessionFactory.getCurrentSession().close();
+		}catch (Exception e){
+			this.sessionFactory.getCurrentSession().getTransaction().rollback();
+//			throw e;
+		}
+	}
 	
 }
