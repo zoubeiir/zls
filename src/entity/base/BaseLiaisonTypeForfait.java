@@ -1,4 +1,4 @@
-package hibernateEntity.base;
+package entity.base;
 
 import java.io.Serializable;
 
@@ -8,18 +8,18 @@ import java.io.Serializable;
  * For more information or documentation, visit The Hibernate Synchronizer page
  * at http://www.binamics.com/hibernatesync or contact Joe Hudson at joe@binamics.com.
  *
- * This is an object that contains data related to the porteur table.
+ * This is an object that contains data related to the LiaisonTypeForfait table.
  * Do not modify this class because it will be overwritten if the configuration file
  * related to this class is modified.
  *
  * @hibernate.class
- *  table="porteur"
+ *  table="LiaisonTypeForfait"
  */
-public abstract class BasePorteur  implements Serializable {
+public abstract class BaseLiaisonTypeForfait  implements Serializable {
 
-	public static String PROP_LIGNE = "Ligne";
+	public static String PROP_TYPE = "Type";
+	public static String PROP_FORFAIT = "Forfait";
 	public static String PROP_ID = "Id";
-	public static String PROP_NOM = "Nom";
 
 
 	private int hashCode = Integer.MIN_VALUE;
@@ -27,22 +27,20 @@ public abstract class BasePorteur  implements Serializable {
 	// primary key
 	private java.lang.Integer _id;
 
-	// fields
-	private java.lang.String _nom;
-
 	// many to one
-	private hibernateEntity.Ligne _ligne;
+	private entity.Type _type;
+	private entity.Forfait _forfait;
 
 
 	// constructors
-	public BasePorteur () {
+	public BaseLiaisonTypeForfait () {
 		initialize();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public BasePorteur (java.lang.Integer _id) {
+	public BaseLiaisonTypeForfait (java.lang.Integer _id) {
 		this.setId(_id);
 		initialize();
 	}
@@ -50,14 +48,14 @@ public abstract class BasePorteur  implements Serializable {
 	/**
 	 * Constructor for required fields
 	 */
-	public BasePorteur (
+	public BaseLiaisonTypeForfait (
 		java.lang.Integer _id,
-		hibernateEntity.Ligne _ligne,
-		java.lang.String _nom) {
+		entity.Type _type,
+		entity.Forfait _forfait) {
 
 		this.setId(_id);
-		this.setLigne(_ligne);
-		this.setNom(_nom);
+		this.setType(_type);
+		this.setForfait(_forfait);
 		initialize();
 	}
 
@@ -86,44 +84,46 @@ public abstract class BasePorteur  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: nom
+     * @hibernate.property
+     *  column=type
+	 * not-null=true
 	 */
-	public java.lang.String getNom () {
-		return _nom;
+	public entity.Type getType () {
+		return this._type;
 	}
 
 	/**
-	 * Set the value related to the column: nom
-	 * @param _nom the nom value
+	 * Set the value related to the column: type
+	 * @param _type the type value
 	 */
-	public void setNom (java.lang.String _nom) {
-		this._nom = _nom;
+	public void setType (entity.Type _type) {
+		this._type = _type;
 	}
 
 
 	/**
      * @hibernate.property
-     *  column=ligne
+     *  column=forfait
 	 * not-null=true
 	 */
-	public hibernateEntity.Ligne getLigne () {
-		return this._ligne;
+	public entity.Forfait getForfait () {
+		return this._forfait;
 	}
 
 	/**
-	 * Set the value related to the column: ligne
-	 * @param _ligne the ligne value
+	 * Set the value related to the column: forfait
+	 * @param _forfait the forfait value
 	 */
-	public void setLigne (hibernateEntity.Ligne _ligne) {
-		this._ligne = _ligne;
+	public void setForfait (entity.Forfait _forfait) {
+		this._forfait = _forfait;
 	}
 
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;
-		if (!(obj instanceof hibernateEntity.base.BasePorteur)) return false;
+		if (!(obj instanceof entity.base.BaseLiaisonTypeForfait)) return false;
 		else {
-			hibernateEntity.base.BasePorteur mObj = (hibernateEntity.base.BasePorteur) obj;
+			entity.base.BaseLiaisonTypeForfait mObj = (entity.base.BaseLiaisonTypeForfait) obj;
 			if (null == this.getId() || null == mObj.getId()) return false;
 			else return (this.getId().equals(mObj.getId()));
 		}

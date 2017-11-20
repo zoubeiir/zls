@@ -20,6 +20,7 @@ public abstract class BaseType  implements Serializable {
 	public static String PROP_COUT = "Cout";
 	public static String PROP_ID = "Id";
 	public static String PROP_CODE = "Code";
+	public static String PROP_LIBELLE = "Libelle";
 
 
 	private int hashCode = Integer.MIN_VALUE;
@@ -30,9 +31,11 @@ public abstract class BaseType  implements Serializable {
 	// fields
 	private java.lang.String _code;
 	private java.lang.Float _cout;
+	private java.lang.String _libelle;
 
 	// collections
-	private java.util.Set _forfaitSet;
+	private java.util.Set _ligneSet;
+	private java.util.Set _liaisonTypeForfaitSet;
 
 
 	// constructors
@@ -119,23 +122,61 @@ public abstract class BaseType  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: ForfaitSet
+	 * Return the value associated with the column: libelle
 	 */
-	public java.util.Set getForfaitSet () {
-		return this._forfaitSet;
+	public java.lang.String getLibelle () {
+		return _libelle;
 	}
 
 	/**
-	 * Set the value related to the column: ForfaitSet
-	 * @param _forfaitSet the ForfaitSet value
+	 * Set the value related to the column: libelle
+	 * @param _libelle the libelle value
 	 */
-	public void setForfaitSet (java.util.Set _forfaitSet) {
-		this._forfaitSet = _forfaitSet;
+	public void setLibelle (java.lang.String _libelle) {
+		this._libelle = _libelle;
+	}
+
+
+	/**
+	 * Return the value associated with the column: LigneSet
+	 */
+	public java.util.Set getLigneSet () {
+		return this._ligneSet;
+	}
+
+	/**
+	 * Set the value related to the column: LigneSet
+	 * @param _ligneSet the LigneSet value
+	 */
+	public void setLigneSet (java.util.Set _ligneSet) {
+		this._ligneSet = _ligneSet;
 	}
 	
-	public void addToForfaitSet (Object obj) {
-		if (null == this._forfaitSet) this._forfaitSet = new java.util.HashSet();
-		this._forfaitSet.add(obj);
+	public void addToLigneSet (Object obj) {
+		if (null == this._ligneSet) this._ligneSet = new java.util.HashSet();
+		this._ligneSet.add(obj);
+	}
+
+
+
+	/**
+	 * Return the value associated with the column: LiaisonTypeForfaitSet
+	 */
+	public java.util.Set getLiaisonTypeForfaitSet () {
+		return this._liaisonTypeForfaitSet;
+	}
+
+	/**
+	 * Set the value related to the column: LiaisonTypeForfaitSet
+	 * @param _liaisonTypeForfaitSet the LiaisonTypeForfaitSet value
+	 */
+	public void setLiaisonTypeForfaitSet (java.util.Set _liaisonTypeForfaitSet) {
+		this._liaisonTypeForfaitSet = _liaisonTypeForfaitSet;
+	}
+	
+	public void addToLiaisonTypeForfaitSet (Object obj) {
+		if (null == this._liaisonTypeForfaitSet) this._liaisonTypeForfaitSet = new java.util.HashSet();
+		this._liaisonTypeForfaitSet.add(obj);
 	}
 
 

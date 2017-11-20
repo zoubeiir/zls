@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entite.LiaisonTypeForfait;
-import entite.Ligne;
-import entite.Localite;
-import entite.Localite;
-import entite.Type;
-import entite.dao.LiaisonTypeForfaitDAO;
-import entite.dao.LigneDAO;
-import entite.dao.LocaliteDAO;
-import entite.dao.LocaliteDAO;
-import entite.dao.TypeDAO;
+import entity.LiaisonTypeForfait;
+import entity.Ligne;
+import entity.Localite;
+import entity.Localite;
+import entity.Type;
+import entity.dao.LiaisonTypeForfaitDAO;
+import entity.dao.LigneDAO;
+import entity.dao.LocaliteDAO;
+import entity.dao.LocaliteDAO;
+import entity.dao.TypeDAO;
 
 /**
  * Servlet implementation class GestionLocalite
@@ -45,7 +45,7 @@ public class GestionLocalite extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		// get parameters
+				// get parameters
 				String codeLocalite=request.getParameter("codeLocalite");
 				String mf=request.getParameter("mf");
 
@@ -72,6 +72,9 @@ public class GestionLocalite extends HttpServlet {
 					requestDispatcher.forward(request, response);
 				}else if(mf.equals("m")){
 				
+					localite = this.prepareToModification(localite);
+					request.getSession().setAttribute("localite", localite);
+					
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localiteModification.jsp") ;
 					requestDispatcher.forward(request, response);
 					
@@ -107,19 +110,20 @@ public class GestionLocalite extends HttpServlet {
 			Localite localite = new Localite();
 			localite=localiteDAO.findByCode(codeLocalite);
 			
-			if(adressePostale!=localite.getAdressePostale()){
+			if(adressePostale.replace(" ", "")!=localite.getAdressePostale().replace(" ", "")){
 				
 				localite.setAdressePostale(adressePostale);
 				isChanged=true;
-			}
-			if(adresseIP!=localite.getAdresseIP()){
 				
+			}
+			if(adresseIP.replace(" ", "")!=localite.getAdresseIP().replace(" ", "")){
 				
 				localite.setAdresseIP(adresseIP);
 				isChanged=true;
+				
 			}
 			
-			if(responsable!=localite.getResponsable()){
+			if(responsable.replace(" ", "")!=localite.getResponsable().replace(" ", "")){
 				
 				localite.setResponsable(responsable);
 				isChanged=true;
@@ -145,6 +149,9 @@ public class GestionLocalite extends HttpServlet {
 			Localite localite = new Localite();
 			localite = localiteDAO.findByCode(codeLocalite);
 			
+			localite = this.prepareToModification(localite);
+			
+			
 			// initiate and get listeLiaisonTypeForfait from DB
 			List<Ligne> listeLigne = new ArrayList<Ligne>();
 			LigneDAO ligneDAO = new LigneDAO();
@@ -161,6 +168,24 @@ public class GestionLocalite extends HttpServlet {
 		
 		
 
+	}
+
+	private Localite prepareToModification(Localite localite) {
+		// TODO Auto-generated method stub
+		
+		String adressePostale= localite.getAdressePostale();
+		String adresseIP = localite.getAdresseIP();
+		String responsable = localite.getResponsable();
+		
+		adressePostale = adressePostale.replace("  ", "");
+		adresseIP = adresseIP.replace("  ", "");
+		responsable = responsable.replace("  ", "");
+		
+		localite.setAdressePostale(adressePostale);
+		localite.setAdresseIP(adresseIP);
+		localite.setResponsable(responsable);
+		
+		return localite;
 	}
 
 }

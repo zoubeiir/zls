@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entite.Localite;
-import entite.dao.LocaliteDAO;
+import staticReference.ErreurStatic;
+import entity.Localite;
+import entity.dao.LocaliteDAO;
 
 /**
  * Servlet implementation class LocaliteAjout
@@ -65,15 +66,20 @@ public class LocaliteAjout extends HttpServlet {
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						
+						request.setAttribute("errorMessage", localite.getCode() + ErreurStatic.LOCALITE_EXISTANT);
+						
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localiteAjout.jsp") ;
+						requestDispatcher.forward(request, response) ;
 					}
 			
 			
 			// Redirections
 			if(request.getParameter("V") != null) {
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localite.html") ;
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localite.jsp") ;
 				requestDispatcher.forward(request, response) ;
 			}else{
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localiteAjout.html") ;
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localiteAjout.jsp") ;
 			requestDispatcher.forward(request, response) ;
 			}
 			
@@ -81,11 +87,11 @@ public class LocaliteAjout extends HttpServlet {
 			
 		}else if(request.getParameter("A") != null){
 			System.out.println("A");
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localite.html") ;
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localite.jsp") ;
 			requestDispatcher.forward(request, response) ;
 		}else{
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localiteAjout.html") ;
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/localiteAjout.jsp") ;
 			requestDispatcher.forward(request, response) ;
 		}
 		

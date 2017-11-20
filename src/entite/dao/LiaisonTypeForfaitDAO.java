@@ -12,9 +12,11 @@ import com.util.HibernateUtil;
 import entite.base.BaseForfait;
 import entite.base.BaseLiaisonTypeForfaitDAO;
 import entite.base.BaseLiaisonTypeForfait;
+import entite.base.BaseLigne;
 import entite.Forfait;
 import entite.LiaisonTypeForfait;
 import entite.LiaisonTypeForfait;
+import entite.Ligne;
 import entite.Type;
 import entite.base.BaseLiaisonTypeForfait;
 
@@ -93,5 +95,45 @@ public class LiaisonTypeForfaitDAO extends BaseLiaisonTypeForfaitDAO {
 //			throw e;
 		}
 	}
+
+
+	public List<LiaisonTypeForfait> findByForfait(Forfait forfait) {
+		try {
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+				Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+			
+				List<LiaisonTypeForfait> ligne = (List<LiaisonTypeForfait>) this.sessionFactory.getCurrentSession().createCriteria(BaseLiaisonTypeForfait.class).add(Restrictions.eq(LiaisonTypeForfait.PROP_FORFAIT, forfait)).list();
+//						this.sessionFactory.getCurrentSession().close();
+				return  ligne;
+		}catch (Exception e){
+			System.out.println(e);
+			return null;
+		}
+	}
+
+
+	public void deleteListe(List<LiaisonTypeForfait> listeLiaisonTypeForfait) throws Exception {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < listeLiaisonTypeForfait.size(); i++){
+	    	this.deleteLigne(listeLiaisonTypeForfait.get(i),false);
+	  }
+	    this.sessionFactory.getCurrentSession().getTransaction().commit();
+	}
 	
+	
+	
+	public void deleteLigne(LiaisonTypeForfait liaisonTypeForfait,boolean uniqueInsert) throws Exception{
+		try {
+			
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				this.sessionFactory.getCurrentSession().getTransaction().begin();}
+			this.sessionFactory.getCurrentSession().delete((BaseLiaisonTypeForfait) liaisonTypeForfait);
+			if(uniqueInsert)
+			this.sessionFactory.getCurrentSession().getTransaction().commit();
+		}catch (Exception e){
+			this.sessionFactory.getCurrentSession().getTransaction().rollback();
+			throw e;
+		}
+	}
 }

@@ -37,5 +37,6 @@
 		<mapping resource="Localite.hbm" />
 		<mapping resource="Type.hbm" />
 		<mapping resource="LiaisonTypeForfait.hbm" />
+
 	</session-factory>
 </hibernate-configuration>

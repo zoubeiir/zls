@@ -39,14 +39,15 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 import org.apache.xmlbeans.impl.xb.xsdschema.PatternDocument.Pattern;
 
+import staticReference.EtatStatic;
 import staticReference.PathStatic;
 import staticReference.TaxeStatic;
-import entite.Forfait;
-import entite.LiaisonTypeForfait;
-import entite.Ligne;
-import entite.Type;
-import entite.dao.LiaisonTypeForfaitDAO;
-import entite.dao.LigneDAO;
+import entity.Forfait;
+import entity.LiaisonTypeForfait;
+import entity.Ligne;
+import entity.Type;
+import entity.dao.LiaisonTypeForfaitDAO;
+import entity.dao.LigneDAO;
 
 /**
  * Servlet implementation class GestionRapprochement
@@ -111,10 +112,12 @@ public class GestionRapprochement extends HttpServlet {
 //							numeroLigne =String.valueOf(cell.getNumericCellValue());
 							numeroLigne =  new BigDecimal(cell.getNumericCellValue())+"";
 							
+							numeroLigne = numeroLigne.replaceFirst("00", "");
 						}
 						if(numeroLigne.startsWith("212")){
 //							numeroLigne = numeroLigne.replaceFirst("212", "");
 						}
+						
 						if( numeroLigne.startsWith("05")){
 							numeroLigne = numeroLigne.replaceFirst("05", "2125");
 						}else if(numeroLigne.startsWith("06")){
@@ -170,6 +173,13 @@ public class GestionRapprochement extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+//		if( request.getParameter("A") != null){
+//			
+//			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/accueil.jsp") ;
+//			requestDispatcher.forward(request, response);
+//		}else{
+//			
+//		}else{
 		String fileName="";
 		int indexNumeroLigne=0;
 		int indexTarif=0;
@@ -317,7 +327,9 @@ public class GestionRapprochement extends HttpServlet {
 				}
 			}
 			if(!existParc){
+				if(listeLigneParc.get(j).getEtat()==EtatStatic.ETAT_OPERATIONNEL){
 				listeLigneNonFacture.add(listeLigneParc.get(j));
+				}
 			}
 		}
 		
@@ -354,9 +366,9 @@ public class GestionRapprochement extends HttpServlet {
 		row.createCell((short)0).setCellValue("Numéro ligne");
 		row.createCell((short)1).setCellValue("Cout Parc");
 		row.createCell((short)2).setCellValue("Cout Facture");
-		row.createCell((short)3).setCellValue("Remarque");
-		
+		row.createCell((short)3).setCellValue("Différence des cout");
 		row.createCell((short)4).setCellValue("Type");
+		row.createCell((short)5).setCellValue("Remarque");
 		
 		
 		for(int indexLigneExistant = 0 ; indexLigneExistant<listeLigneExistant.size() ;indexLigneExistant = indexLigneExistant+2 ){
@@ -414,6 +426,29 @@ public class GestionRapprochement extends HttpServlet {
 							}
 //							row.createCell((short)4).setCellValue(ligneActuelle.getType().getCode());
 							row.createCell((short)4).setCellValue(ligneSuivante.getType().getCode());
+							
+							if(ligneSuivante.getEtat()!= EtatStatic.ETAT_OPERATIONNEL){
+								
+								row.createCell((short)5).setCellValue("Pas de ligne opérationnelle");
+								
+//								System.out.println(listeFacture.get(f).getLigne().getNumeroLigne()+"rouge");
+								if(ligneSuivante.getEtat()!= EtatStatic.ETAT_RESILIE)
+									row.createCell((short)5).setCellValue("Ligne résiliée");
+								
+								if(ligneSuivante.getEtat()!= EtatStatic.ETAT_CESSION)
+									row.createCell((short)5).setCellValue("Ligne en cession");
+								
+								XSSFCellStyle csCouleur = wb.createCellStyle();
+//								csCouleur.setFillForegroundColor(new XSSFColor(new Color(194, 154, 250)));
+								csCouleur.setFillForegroundColor(IndexedColors.RED.getIndex());
+//								csCouleur.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+								
+								csCouleur.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+								//appliquer le style à la cellule 3
+								row.getCell(5).setCellStyle(csCouleur);
+								
+							}
+							
 		}
 							
 							
@@ -498,7 +533,9 @@ public class GestionRapprochement extends HttpServlet {
 								ligneActuelle = listeLigneNonFacture.get(indexLigneNonFacture);
 //								ligneSuivante = listeLigneExistant.get(indexLigneExistant+1);
 												
-												
+//								if(ligneActuelle.getEtat() != EtatStatic.ETAT_OPERATIONNEL){
+//									continue;
+//								}
 												row = sheet.createRow(indexLigneNonFacture+1);
 												
 												row.createCell((short)0).setCellValue(ligneActuelle.getNumero());
@@ -726,7 +763,7 @@ public class GestionRapprochement extends HttpServlet {
 //												row.getCell((short)indexColonnePointe).setCellStyle(cellSource.getCellStyle());
 											}catch (Exception e){
 //												System.out.println("11111111111111111111111111111111111111111");
-												System.out.println(e);
+//												System.out.println(e);
 												cellSource.getNumericCellValue();
 												row.createCell((short)indexColonnePointe).setCellValue(cellSource.getNumericCellValue());
 //												row.getCell(indexColonnePointe).setCellStyle(cellSource.getCellStyle());
@@ -807,8 +844,8 @@ public class GestionRapprochement extends HttpServlet {
         outStream.close();
 		
 		
-		// redirection non requis
-//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/rapprochement.html") ;
+		// redirection non requise
+//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/rapprochement.jsp") ;
 //		requestDispatcher.forward(request, response);
 		
 	}
@@ -846,5 +883,6 @@ public class GestionRapprochement extends HttpServlet {
 //					"Sorry this Servlet only handles file upload request");
 //		}
 //	}
-
+//	}
+//}
 }

@@ -1,41 +1,38 @@
 package entity;
 
-import entity.base.BaseLigne;
+import entity.base.BaseLiaisonTypeForfait;
 
 /**
- * This is the object class that relates to the ligne table.
+ * This is the object class that relates to the LiaisonTypeForfait table.
  * Any customizations belong here.
  */
-public class Ligne extends BaseLigne {
+public class LiaisonTypeForfait extends BaseLiaisonTypeForfait {
 
 /*[CONSTRUCTOR MARKER BEGIN]*/
-	public Ligne () {
+	public LiaisonTypeForfait () {
 		super();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public Ligne (java.lang.Integer _id) {
+	public LiaisonTypeForfait (java.lang.Integer _id) {
 		super(_id);
 	}
 
 	/**
 	 * Constructor for required fields
 	 */
-	public Ligne (
+	public LiaisonTypeForfait (
 		java.lang.Integer _id,
-		entity.Localite _localite,
 		entity.Type _type,
-		java.lang.String _numero,
-		java.lang.Integer _etat) {
+		entity.Forfait _forfait) {
 
 		super (
 			_id,
-			_localite,
 			_type,
-			_numero,
-			_etat);
+			_forfait);
 	}
+
 /*[CONSTRUCTOR MARKER END]*/
 }

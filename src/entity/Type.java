@@ -33,5 +33,6 @@ public class Type extends BaseType {
 			_code,
 			_cout);
 	}
+
 /*[CONSTRUCTOR MARKER END]*/
 }

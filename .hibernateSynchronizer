@@ -1,5 +1,5 @@
 EnumExclude=
-package=graine
+package=entity
 databaseUrl=jdbc:sqlserver://localhost;DatabaseName=Rapprochement;instanceName=SQLEXPRESS;
 driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
 EnumInclude=

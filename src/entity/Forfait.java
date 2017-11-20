@@ -20,16 +20,5 @@ public class Forfait extends BaseForfait {
 		super(_id);
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public Forfait (
-		java.lang.Integer _id,
-		entity.Type _type) {
-
-		super (
-			_id,
-			_type);
-	}
 /*[CONSTRUCTOR MARKER END]*/
 }

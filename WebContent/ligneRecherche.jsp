@@ -5,16 +5,16 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 
-<%@ page import="entite.Ligne" %>
+<%@ page import="entity.Ligne" %>
 <%@ page import="javax.servlet.http.HttpServletRequest.*" %>
-<%@page import="entite.Forfait"%>
-<%@page import="entite.dao.ForfaitDAO"%>
-<%@page import="entite.Type"%>
-<%@page import="entite.dao.TypeDAO"%>
+<%@page import="entity.Forfait"%>
+<%@page import="entity.dao.ForfaitDAO"%>
+<%@page import="entity.Type"%>
+<%@page import="entity.dao.TypeDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entite.Localite"%>
+<%@page import="entity.Localite"%>
 <%@page import="java.util.List"%>
-<%@page import="entite.dao.LocaliteDAO"%>
+<%@page import="entity.dao.LocaliteDAO"%>
 
 
 
@@ -26,7 +26,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Easy Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Forms :: w3layouts</title>
+<title>IAM - RAPPROCHEMENT DES FACTURES</title>
+<link rel="shortcut icon" href="images/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Easy Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -72,7 +73,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--     <link rel="stylesheet" type="text/css" media="screen" -->
 <!--      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"> -->
      
-     
+     <% 
+	if( request!=null || session!=null){
+	String username = (String) session.getAttribute("login");
+	if(username==null || username==""|| username=="0"){
+		response.sendRedirect("index.jsp");
+// 		username==null || username==""
+		}
+	}else{
+		
+		response.sendRedirect("index.jsp");
+	}
+	
+	%>
      
 </head> 
 <body class="sticky-header left-side-collapsed"  onload="initMap()">
@@ -80,12 +93,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<div class="nav-collapse collapse navbar-responsive-collapse">
 				<ul class="nav row">
-					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
-					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.html" title="Next Section"><span class="icon icon-user" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
-					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.html" title="Next Section"><span class="icon icon-phone" style="color: "></span> <span class="text" style="color: ">LOCALITES</span></a></li>
-					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.html" title="Next Section"><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
-					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="parametrage.html" title="Next Section"><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
-<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
+					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.jsp" title=""><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.jsp" title=""><span class="icon icon-user" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.jsp" title=""><span class="icon icon-phone" style="color: "></span> <span class="text" style="color: ">LOCALITES</span></a></li>
+					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.jsp" title=""><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="parametrage.jsp" title=""><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
+<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title=""><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
+					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="Logout" title=""><span class="icon icon-signout"style="color: " ></span> <span class="text" style="color: ">SE DECONNECTER</span></a></li>
 				</ul>
 			</div><!-- /.nav-collapse -->
 		</div><!-- /.container -->
@@ -103,13 +117,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="tab-pane active" id="horizontal-form">
 							<form class="form-horizontal"  method="post" action="LigneRecherche" >
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">NumÃ©ro ligne</label>
+									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Numéro ligne</label>
 									<div class="col-sm-8">
-										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="+212"  style="width:50%">
+										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="" value="+212"  style="width:50%">
 									</div>
-<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white; width: 20%;">NumÃ©ro ligne</label> -->
+<!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white; width: 20%;">Numéro ligne</label> -->
 <!-- 									<div class="col-sm-8">  -->
-<!-- 										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="Default Input" value="+212" style="width: 20%"> -->
+<!-- 										<input type="text" name="numeroLigne" class="form-control1" id="focusedinput" placeholder="" value="+212" style="width: 20%"> -->
 <!-- 									</div> -->
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -120,7 +134,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<label class="col-sm-2 control-label" style="color: white">Localité</label>
 									<div class="col-sm-8">
 										<select   class="form-control1" name="localite" id ="localite">
-										<option id="vide" value=""  selected="selected" > Aucun </option>
+											<option id="vide" value=""  selected="selected" > </option>
+											<option id="vide" value="null"   > Aucun </option>
 											<% 
 											LocaliteDAO localiteDAO = new LocaliteDAO();
 											List<Localite> listeLocalite = new ArrayList<Localite>();
@@ -146,9 +161,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label class="col-sm-2 control-label" style="color: white">Type</label>
 									<div class="col-sm-8">
-										<select   class="form-control1" name="type">
+										<select   class="form-control1" name="type" id="type">
 										
-										<option id="vide" value=""  selected="selected" >Aucun</option>
+										<option id="vide" value=""  selected="selected" >  </option>
+										<option id="vide" value="null"   >Aucun</option>
 											<% 
 											TypeDAO typeDAO = new TypeDAO();
 											List<Type> listeType = new ArrayList<Type>();
@@ -219,7 +235,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                 						<thead>
                 							<tr>
-                								<th></th>
+<!--                 								<th></th> -->
                 								<th>Numéro ligne</th>
                 								<th>date de création</th>
                 								<th>localite</th>
@@ -242,16 +258,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							
 											<%for(int i=0; i<listeLigne.size(); i++) { %>
 										<tr style="background-color: white">
-											<td><input type="checkbox" name="checkbox" value="<%= listeLigne.get(i).getNumero() %>" ></td>
+<%-- 											<td><input type="checkbox" name="checkbox" value="<%= listeLigne.get(i).getNumero() %>" ></td> --%>
 											<td><%= listeLigne.get(i).getNumero() %></td>
+											
+											<% if(listeLigne.get(i).getDateCreation()!=null){%>
 											<td><%= listeLigne.get(i).getDateCreation() %></td>
+											<% }else{%>
+											<td>Date NS</td>
+											<%} %>
 <%-- 											<td><%= listeLigne.get(i).getFrais() %></td> --%>
-    										<td><%= listeLigne.get(i).getLocalite().getCode() %></td>
-    										<td><%= listeLigne.get(i).getType().getCode() %></td>
+											
+											<% if(listeLigne.get(i).getLocalite()!=null){%>
+											<td><%= listeLigne.get(i).getLocalite().getCode() %></td>
+											<% }else{%>
+											<td>Localite NS</td>
+											<%} %>
+											
+<%--     										<td><%= listeLigne.get(i).getLocalite().getCode() %></td> --%>
+
+											<% if(listeLigne.get(i).getType()!=null){%>
+											<td><%= listeLigne.get(i).getType().getCode() %></td>
+											<% }else{%>
+											<td>Type NS</td>
+											<%} %>
+
+
+<%--     										<td><%= listeLigne.get(i).getType().getCode() %></td> --%>
     										<td class="text-right">
        											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumero().replace("+", "%2B") %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a>
        											<a href="GestionLigne?numeroLigne=<%=listeLigne.get(i).getNumero().replace("+", "%2B")%>&mf=m" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-       											<a href="GestionLocalite?codeLocalite=<%=listeLigne.get(i).getLocalite().getCode().replace("+", "%2B") %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-home"></i></a>
+       											<% if(listeLigne.get(i).getLocalite()!=null){%>
+       											<a href="GestionLocalite?codeLocalite=<%=listeLigne.get(i).getLocalite().getCode().replace("+", "%2B") %>" class="btn btn-simple btn-info btn-icon like" ><i class="fa fa-home"></i></a>
+												<% }else{ %>
+<!-- 													<a  class="btn btn-simple btn-info btn-icon like" ><i class="fa fa-home"></i></a> -->
+												<% } %>
+														
 <!--        											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a> -->
    	 										</td>
 										</tr>
@@ -294,6 +335,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 	
 	<script type="text/javascript">
+	
+	$('#localite').html($('#localite').children('option').sort(function (x, y) {
+        return $(x).text().toUpperCase() < $(y).text().toUpperCase() ? -1 : 1;
+    }));
+    $('#localite').get(0).selectedIndex = 0;
+    
+	</script>
+	
+	<script type="text/javascript">
+	
+    
+    
     $(document).ready(function() {
 		$('#datatables').DataTable({
 		    "pagingType": "full_numbers",
@@ -301,7 +354,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		    responsive: true,
 		    language: {
 		    search: "_INPUT_",
-		    searchPlaceholder: "Search records",
+		    searchPlaceholder: "Recherche",
 		    }
 		});
 		var table = $('#datatables').DataTable();
@@ -309,25 +362,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		table.on( 'click', '.edit', function () {
 		    $tr = $(this).closest('tr');
 		    var data = table.row($tr).data();
-		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+		    alert( 'Modifier la ligne: ' + data[1]  );
 		} );
 		// Delete a record
-		table.on( 'click', '.remove', function (e) {
-		    $tr = $(this).closest('tr');
-		    table.row($tr).remove().draw();
-		    e.preventDefault();
-		} );
+// 		table.on( 'click', '.remove', function (e) {
+// 		    $tr = $(this).closest('tr');
+// 		    table.row($tr).remove().draw();
+// 		    e.preventDefault();
+// 		} );
 		//Like record
-		table.on( 'click', '.like', function () {
-		    alert('You clicked on Like button');
-		});
+// 		table.on( 'click', '.like', function () {
+// 		    alert('Consulter la ligne: ' + data[1]);
+// 		});
 	});
+	
     
 
-                $('#localite').html($('#localite').children('option').sort(function (x, y) {
-                    return $(x).text().toUpperCase() < $(y).text().toUpperCase() ? -1 : 1;
-                }));
-                $('#localite').get(0).selectedIndex = 0;
+                
          
 
         

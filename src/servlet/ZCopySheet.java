@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class GestionPorteur
+ * Servlet implementation class CopySheet
  */
-@WebServlet("/GestionPorteur")
-public class GestionPorteur extends HttpServlet {
+@WebServlet("/CopySheet")
+public class ZCopySheet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GestionPorteur() {
+    public ZCopySheet() {
         super();
         // TODO Auto-generated constructor stub
     }

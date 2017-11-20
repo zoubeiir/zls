@@ -32,10 +32,12 @@
 		<!-- </property> -->
 		<property name="hibernate.current_session_context_class">thread</property>
 
+
 		<mapping resource="Ligne.hbm" />
 		<mapping resource="Forfait.hbm" />
 		<mapping resource="Localite.hbm" />
 		<mapping resource="Type.hbm" />
 		<mapping resource="LiaisonTypeForfait.hbm" />
+		
 	</session-factory>
 </hibernate-configuration>

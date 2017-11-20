@@ -21,7 +21,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
  * Servlet implementation class TestUploadFile
  */
 @WebServlet("/TestUploadFile")
-public class TestUploadFile extends HttpServlet {
+public class ZTestUploadFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	private final String UPLOAD_DIRECTORY = "C:/Users/zsamouh/Desktop/testUploadFile";
@@ -29,7 +29,7 @@ public class TestUploadFile extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestUploadFile() {
+    public ZTestUploadFile() {
         super();
         // TODO Auto-generated constructor stub
     }

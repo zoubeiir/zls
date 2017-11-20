@@ -3,7 +3,7 @@
 	"-//Hibernate/Hibernate Mapping DTD//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
-<hibernate-mapping package="entite">
+<hibernate-mapping package="entity">
 	<class name="Forfait" table="forfait">
 		<id
 			column="ID"

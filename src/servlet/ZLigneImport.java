@@ -43,7 +43,7 @@ import entity.dao.LocaliteDAO;
  * Servlet implementation class LigneImport
  */
 @WebServlet("/LigneImport")
-public class LigneImport extends HttpServlet {
+public class ZLigneImport extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	
@@ -51,7 +51,7 @@ public class LigneImport extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LigneImport() {
+    public ZLigneImport() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -186,7 +186,7 @@ public class LigneImport extends HttpServlet {
 							ligneActuelle = new Ligne();
 							ligneActuelle.setDateCreation(new Date(01-01-2001));
 							ligneActuelle.setEtat(0);
-							ligneActuelle.setForfait(forfaitFix);
+//							ligneActuelle.setForfait(forfaitFix);
 							ligneActuelle.setLocalite(localiteActuelle);
 							ligneActuelle.setNumero(numeroActuel);
 							listeLigneImport.add(ligneActuelle);
@@ -219,7 +219,7 @@ public class LigneImport extends HttpServlet {
 							ligneActuelle = new Ligne();
 							ligneActuelle.setDateCreation(new Date(01-01-2001));
 							ligneActuelle.setEtat(0);
-							ligneActuelle.setForfait(forfaitFax);
+//							ligneActuelle.setForfait(forfaitFax);
 							ligneActuelle.setLocalite(localiteActuelle);
 							ligneActuelle.setNumero(numeroActuel);
 							listeLigneImport.add(ligneActuelle);}
@@ -253,7 +253,7 @@ public class LigneImport extends HttpServlet {
 							ligneActuelle = new Ligne();
 							ligneActuelle.setDateCreation(new Date(01-01-2001));
 							ligneActuelle.setEtat(0);
-							ligneActuelle.setForfait(forfaitGSMPro);
+//							ligneActuelle.setForfait(forfaitGSMPro);
 							ligneActuelle.setLocalite(localiteActuelle);
 							ligneActuelle.setNumero(numeroActuel);
 							
@@ -300,7 +300,7 @@ public class LigneImport extends HttpServlet {
 			}
 		 
 		
-//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/accueil.html") ;
+//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/accueil.jsp") ;
 //		requestDispatcher.forward(request, response);
 		
 	}

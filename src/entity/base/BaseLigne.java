@@ -18,10 +18,10 @@ import java.io.Serializable;
 public abstract class BaseLigne  implements Serializable {
 
 	public static String PROP_NUMERO = "Numero";
+	public static String PROP_TYPE = "Type";
 	public static String PROP_ETAT = "Etat";
 	public static String PROP_DATE_CREATION = "DateCreation";
 	public static String PROP_LOCALITE = "Localite";
-	public static String PROP_FORFAIT = "Forfait";
 	public static String PROP_ID = "Id";
 
 
@@ -37,7 +37,7 @@ public abstract class BaseLigne  implements Serializable {
 
 	// many to one
 	private entity.Localite _localite;
-	private entity.Forfait _forfait;
+	private entity.Type _type;
 
 
 	// constructors
@@ -59,15 +59,13 @@ public abstract class BaseLigne  implements Serializable {
 	public BaseLigne (
 		java.lang.Integer _id,
 		entity.Localite _localite,
-		entity.Forfait _forfait,
-		java.util.Date _dateCreation,
+		entity.Type _type,
 		java.lang.String _numero,
 		java.lang.Integer _etat) {
 
 		this.setId(_id);
 		this.setLocalite(_localite);
-		this.setForfait(_forfait);
-		this.setDateCreation(_dateCreation);
+		this.setType(_type);
 		this.setNumero(_numero);
 		this.setEtat(_etat);
 		initialize();
@@ -165,19 +163,19 @@ public abstract class BaseLigne  implements Serializable {
 
 	/**
      * @hibernate.property
-     *  column=forfait
+     *  column=type
 	 * not-null=true
 	 */
-	public entity.Forfait getForfait () {
-		return this._forfait;
+	public entity.Type getType () {
+		return this._type;
 	}
 
 	/**
-	 * Set the value related to the column: forfait
-	 * @param _forfait the forfait value
+	 * Set the value related to the column: type
+	 * @param _type the type value
 	 */
-	public void setForfait (entity.Forfait _forfait) {
-		this._forfait = _forfait;
+	public void setType (entity.Type _type) {
+		this._type = _type;
 	}
 
 

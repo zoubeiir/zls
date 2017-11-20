@@ -6,9 +6,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="entite.Localite"%>
+<%@page import="entity.Localite"%>
 <%@page import="java.util.List"%>
-<%@page import="entite.dao.LocaliteDAO"%>
+<%@page import="entity.dao.LocaliteDAO"%>
 
 
 
@@ -20,7 +20,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Easy Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Forms :: w3layouts</title>
+
+<title>IAM - RAPPROCHEMENT DES FACTURES</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Easy Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -66,7 +69,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--     <link rel="stylesheet" type="text/css" media="screen" -->
 <!--      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"> -->
      
-     
+     <% 
+	if( request!=null || session!=null){
+	String username = (String) session.getAttribute("login");
+	if(username==null || username==""|| username=="0"){
+		response.sendRedirect("index.jsp");
+// 		username==null || username==""
+		}
+	}else{
+		
+		response.sendRedirect("index.jsp");
+	}
+	
+	%>
      
 </head> 
 <body class="sticky-header left-side-collapsed"  onload="initMap()">
@@ -74,12 +89,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<div class="nav-collapse collapse navbar-responsive-collapse">
 				<ul class="nav row">
-					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
-					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.html" title="Next Section"><span class="icon icon-user" style="color: "></span> <span class="text" style="color: ">LIGNES</span></a></li>
-					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.html" title="Next Section"><span class="icon icon-phone" style="color: brown"></span> <span class="text" style="color: brown">LOCALITES</span></a></li>
-					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.html" title="Next Section"><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
-					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="parametrage.html" title="Next Section"><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
-<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
+					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.jsp" title=""><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.jsp" title=""><span class="icon icon-user" style="color: "></span> <span class="text" style="color: ">LIGNES</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.jsp" title=""><span class="icon icon-phone" style="color: brown"></span> <span class="text" style="color: brown">LOCALITES</span></a></li>
+					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.jsp" title=""><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="parametrage.jsp" title=""><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
+<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title=""><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
+					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="Logout" title=""><span class="icon icon-signout"style="color: " ></span> <span class="text" style="color: ">SE DECONNECTER</span></a></li>
 				</ul>
 			</div><!-- /.nav-collapse -->
 		</div><!-- /.container -->
@@ -99,7 +115,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 								<div class="form-group"> -->
 <!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Code localité</label> -->
 <!-- 									<div class="col-sm-8"> -->
-<!-- 										<input type="text" name="codeLocalite" class="form-control1" id="focusedinput" placeholder="Default Input" value=""  style="width:50%" > -->
+<!-- 										<input type="text" name="codeLocalite" class="form-control1" id="focusedinput" placeholder="" value=""  style="width:50%" > -->
 <!-- 									</div> -->
 <!-- 									<div class="col-sm-2 jlkdfj1"> -->
 <!-- 										<p class="help-block"></p> -->
@@ -109,7 +125,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 								<div class="form-group"> -->
 <!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Nomination</label> -->
 <!-- 									<div class="col-sm-8"> -->
-<!-- 										<input type="text" name="nom" class="form-control1" id="focusedinput" placeholder="Default Input" value=""   > -->
+<!-- 										<input type="text" name="nom" class="form-control1" id="focusedinput" placeholder="" value=""   > -->
 <!-- 									</div> -->
 <!-- 									<div class="col-sm-2 jlkdfj1"> -->
 <!-- 										<p class="help-block"></p> -->
@@ -118,7 +134,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 								<div class="form-group"> -->
 <!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse postale</label> -->
 <!-- 									<div class="col-sm-8"> -->
-<!-- 										<input type="text" name="adressePostale" class="form-control1" id="focusedinput" placeholder="Default Input" value=""   > -->
+<!-- 										<input type="text" name="adressePostale" class="form-control1" id="focusedinput" placeholder="" value=""   > -->
 <!-- 									</div> -->
 <!-- 									<div class="col-sm-2 jlkdfj1"> -->
 <!-- 										<p class="help-block"></p> -->
@@ -128,7 +144,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 								<div class="form-group"> -->
 <!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse IP</label> -->
 <!-- 									<div class="col-sm-8"> -->
-<!-- 										<input type="text" name="adresseIP" class="form-control1" id="focusedinput" placeholder="Default Input" value=""  style="width:50%" > -->
+<!-- 										<input type="text" name="adresseIP" class="form-control1" id="focusedinput" placeholder="" value=""  style="width:50%" > -->
 <!-- 									</div> -->
 <!-- 									<div class="col-sm-2 jlkdfj1"> -->
 <!-- 										<p class="help-block"></p> -->
@@ -138,7 +154,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 								<div class="form-group"> -->
 <!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Responsable</label> -->
 <!-- 									<div class="col-sm-8"> -->
-<!-- 										<input type="text" name="responsable" class="form-control1" id="focusedinput" placeholder="Default Input" value=""  style="width:50%" > -->
+<!-- 										<input type="text" name="responsable" class="form-control1" id="focusedinput" placeholder="" value=""  style="width:50%" > -->
 <!-- 									</div> -->
 <!-- 									<div class="col-sm-2 jlkdfj1"> -->
 <!-- 										<p class="help-block"></p> -->
@@ -208,12 +224,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                 						<thead>
                 							<tr >
-                								<th></th>
-                								<th style="color: white">localité</th>
-                								<th style="color: white">adressePostale</th>
-                								<th style="color: white">adresseIP</th>
-                								<th style="color: white">Responsable</th>
-                								<th style="color: white" class="disabled-sorting text-right">Actions</th>
+<!--                 								<th></th> -->
+                								<th style="color: white; width: 20%">Localité</th>
+                								<th style="color: white; width: 30%">Adresse Postale</th>
+                								<th style="color: white; width: 15%" >AdresseIP</th>
+                								<th style="color: white; width: 20%">Responsable</th>
+                								<th style="color: white; width: 15% " class="disabled-sorting text-right">Actions</th>
                 							</tr>
                 						</thead>
 <!--                 						<tfoot> -->
@@ -231,14 +247,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 							
 											<%for(int i = 0 ; i < listeLocalite.size() ; i++ ){ %>
 										<tr style="background-color: white">
-										<td></td>
+<!-- 										<td></td> -->
 <%-- 											<td><input type="checkbox" name="checkbox" value="<%= listeLocalite.get(i).getNumero() %>" ></td> --%>
-											<td><%= listeLocalite.get(i).getCode() %></td>
-											<td><%= listeLocalite.get(i).getAdressePostale() %></td>
+											<td style=" width: 20%"><%= listeLocalite.get(i).getCode() %></td>
+											<td style=" width: 30%;display: block"><%= listeLocalite.get(i).getAdressePostale() %></td>
 <%-- 											<td><%= listeLocalite.get(i).getFrais() %></td> --%>
-    										<td> <%= listeLocalite.get(i).getAdresseIP() %> </td>
-    										<td> <%= listeLocalite.get(i).getResponsable() %> </td>
-    										<td class="text-right">
+    										<td style=" width: 15%"> <%= listeLocalite.get(i).getAdresseIP() %> </td>
+    										<td style=" width: 20%"> <%= listeLocalite.get(i).getResponsable() %> </td>
+    										<td class="text-right"style=" width: 15%">
        											<a href="GestionLocalite?codeLocalite=<%=listeLocalite.get(i).getCode().replace("+", "%2B") %>" class="btn btn-simple btn-info btn-icon like"><i class="fa fa-info"></i></a>
        											<a href="GestionLocalite?codeLocalite=<%=listeLocalite.get(i).getCode().replace("+", "%2B")%>&mf=m" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
 <!--        											<a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="fa fa-times"></i></a> -->
@@ -291,7 +307,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		    responsive: true,
 		    language: {
 		    search: "_INPUT_",
-		    searchPlaceholder: "Search records",
+		    searchPlaceholder: "Recherche",
 		    }
 		});
 		var table = $('#datatables').DataTable();
@@ -299,7 +315,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		table.on( 'click', '.edit', function () {
 		    $tr = $(this).closest('tr');
 		    var data = table.row($tr).data();
-		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+		    alert( 'Modifier la localité : ' + data[0] );
 		} );
 		// Delete a record
 		table.on( 'click', '.remove', function (e) {
@@ -308,9 +324,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		    e.preventDefault();
 		} );
 		//Like record
-		table.on( 'click', '.like', function () {
-		    alert('You clicked on Like button');
-		});
+// 		table.on( 'click', '.like', function () {
+// 		    alert('Consulter la localité' + date[0]);
+// 		});
 	});
     </script>
     

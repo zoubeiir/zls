@@ -11561,7 +11561,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "Montrer _MENU_ lignes",
 
 
 			/**
@@ -11699,7 +11699,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			"sZeroRecords": "Aucun resultat ne correspond à cette recherche"
 		},
 
 

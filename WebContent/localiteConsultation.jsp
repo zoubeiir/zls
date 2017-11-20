@@ -5,12 +5,13 @@
 
 
 
-<%@page import="entite.Ligne"%>
+<%@page import="entity.Ligne"%>
 <%@page import="java.util.List"%>
-<%@page import="entite.Localite"%>
+<%@page import="entity.Localite"%>
 <html>
 <head>
-<title>Easy Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Forms :: w3layouts</title>
+<title>IAM - RAPPROCHEMENT DES FACTURES</title>
+<link rel="shortcut icon" href="images/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Easy Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -41,11 +42,23 @@ List<Ligne> listeLigne = (List<Ligne>) request.getSession().getAttribute("listeL
 
 
 
-<link href="css/combine.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+<!-- <link href="css/combine.css" rel="stylesheet"> -->
+<!--     <link rel="stylesheet" type="text/css" media="screen" -->
+<!--      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"> -->
      
-     
+     <% 
+	if( request!=null || session!=null){
+	String username = (String) session.getAttribute("login");
+	if(username==null || username==""|| username=="0"){
+		response.sendRedirect("index.jsp");
+// 		username==null || username==""
+		}
+	}else{
+		
+		response.sendRedirect("index.jsp");
+	}
+	
+	%>
 	
 </head> 
 
@@ -54,12 +67,13 @@ List<Ligne> listeLigne = (List<Ligne>) request.getSession().getAttribute("listeL
 		<div class="container">
 			<div class="nav-collapse collapse navbar-responsive-collapse">
 				<ul class="nav row">
-					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
-					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.html" title="Next Section"><span class="icon icon-user" style="color: "></span> <span class="text" style="color: ">LIGNES</span></a></li>
-					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.html" title="Next Section"><span class="icon icon-phone" style="color: brown"></span> <span class="text" style="color: brown">LOCALITES</span></a></li>
-					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.html" title="Next Section"><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
-					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="parametrage.html" title="Next Section"><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
-<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style=" " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
+					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.jsp" title=""><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.jsp" title=""><span class="icon icon-user" style="color: "></span> <span class="text" style="color: ">LIGNES</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.jsp" title=""><span class="icon icon-phone" style="color: brown"></span> <span class="text" style="color: brown">LOCALITES</span></a></li>
+					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.jsp" title=""><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="parametrage.jsp" title=""><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
+<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title=""><span class="icon icon-file"style=" " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
+					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="Logout" title=""><span class="icon icon-signout"style="color: " ></span> <span class="text" style="color: ">SE DECONNECTER</span></a></li>
 				</ul>
 			</div><!-- /.nav-collapse -->
 		</div><!-- /.container -->
@@ -77,7 +91,7 @@ List<Ligne> listeLigne = (List<Ligne>) request.getSession().getAttribute("listeL
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Code localité</label>
 									<div class="col-sm-8">
-										<input type="text" name="codeLocalite" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= localite.getCode() %>"  style="width:50%; background-color: grey; " readonly="readonly" >
+										<input type="text" name="codeLocalite" class="form-control1" id="focusedinput" placeholder="" value="<%= localite.getCode() %>"  style="width:50%; background-color: grey; " readonly="readonly" >
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -87,7 +101,7 @@ List<Ligne> listeLigne = (List<Ligne>) request.getSession().getAttribute("listeL
 <!-- 								<div class="form-group"> -->
 <!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Nomination</label> -->
 <!-- 									<div class="col-sm-8"> -->
-<!-- 										<input type="text" name="nom" class="form-control1" id="focusedinput" placeholder="Default Input" value=""   > -->
+<!-- 										<input type="text" name="nom" class="form-control1" id="focusedinput" placeholder="" value=""   > -->
 <!-- 									</div> -->
 <!-- 									<div class="col-sm-2 jlkdfj1"> -->
 <!-- 										<p class="help-block"></p> -->
@@ -96,7 +110,7 @@ List<Ligne> listeLigne = (List<Ligne>) request.getSession().getAttribute("listeL
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse postale</label>
 									<div class="col-sm-8">
-										<input type="text" name="adressePostale" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= localite.getAdressePostale() %>"  style=" background-color: grey; " readonly="readonly"   >
+										<input type="text" name="adressePostale" class="form-control1" id="focusedinput" placeholder="" value="<%= localite.getAdressePostale() %>"  style=" background-color: grey; " readonly="readonly"   >
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -106,7 +120,7 @@ List<Ligne> listeLigne = (List<Ligne>) request.getSession().getAttribute("listeL
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse IP</label>
 									<div class="col-sm-8">
-										<input type="text" name="adresseIP" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= localite.getAdresseIP() %>"  style="width:50%; background-color: grey; " readonly="readonly" >
+										<input type="text" name="adresseIP" class="form-control1" id="focusedinput" placeholder="" value="<%= localite.getAdresseIP() %>"  style="width:50%; background-color: grey; " readonly="readonly" >
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -116,7 +130,7 @@ List<Ligne> listeLigne = (List<Ligne>) request.getSession().getAttribute("listeL
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Responsable</label>
 									<div class="col-sm-8">
-										<input type="text" name="responsable" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= localite.getResponsable() %>"  style="width:50%; background-color: grey; " readonly="readonly" >
+										<input type="text" name="responsable" class="form-control1" id="focusedinput" placeholder="" value="<%= localite.getResponsable() %>"  style="width:50%; background-color: grey; " readonly="readonly" >
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -183,7 +197,7 @@ List<Ligne> listeLigne = (List<Ligne>) request.getSession().getAttribute("listeL
                 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                 						<thead>
                 							<tr>
-                								<th></th>
+<!--                 								<th></th> -->
                 								<th>Numéro ligne</th>
                 								<th>date de création</th>
                 								<th>localite</th>
@@ -206,7 +220,7 @@ List<Ligne> listeLigne = (List<Ligne>) request.getSession().getAttribute("listeL
                 							
 											<%for(int i=0; i<listeLigne.size(); i++) { %>
 										<tr style="background-color: white">
-											<td><input type="checkbox" name="checkbox" value="<%= listeLigne.get(i).getNumero() %>" ></td>
+<%-- 											<td><input type="checkbox" name="checkbox" value="<%= listeLigne.get(i).getNumero() %>" ></td> --%>
 											<td><%= listeLigne.get(i).getNumero() %></td>
 											<td><%= listeLigne.get(i).getDateCreation() %></td>
 <%-- 											<td><%= listeLigne.get(i).getFrais() %></td> --%>

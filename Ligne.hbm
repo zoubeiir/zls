@@ -3,7 +3,7 @@
 	"-//Hibernate/Hibernate Mapping DTD//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
-<hibernate-mapping package="entite">
+<hibernate-mapping package="entity">
 	<class name="Ligne" table="ligne">
 		<id
 			column="ID"
@@ -16,7 +16,7 @@
 			column="dateCreation"
 			length="10"
 			name="DateCreation"
-			not-null="true"
+			not-null="false"
 			type="date"
 		 />
 		<!-- please tell Joe Hudson that the type 'nchar' could not be resolved.. defaulting to java.lang.String -->

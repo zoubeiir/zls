@@ -11,15 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import staticReference.ErreurStatic;
 import staticReference.EtatStatic;
-import entite.Forfait;
-import entite.Ligne;
-import entite.Localite;
-import entite.Type;
-import entite.dao.ForfaitDAO;
-import entite.dao.LigneDAO;
-import entite.dao.LocaliteDAO;
-import entite.dao.TypeDAO;
+import entity.Forfait;
+import entity.Ligne;
+import entity.Localite;
+import entity.Type;
+import entity.dao.ForfaitDAO;
+import entity.dao.LigneDAO;
+import entity.dao.LocaliteDAO;
+import entity.dao.TypeDAO;
 
 /**
  * Servlet implementation class LigneAjout
@@ -53,45 +54,78 @@ public class LigneAjout extends HttpServlet {
 		if(request.getParameter("VN") != null || request.getParameter("V") != null){
 			
 			
-			
+			Ligne ligne = new Ligne();
 			
 			String numeroLigne = request.getParameter("numeroLigne");
-			String dateCreation = request.getParameter("dateCreation");
+			String JJ = request.getParameter("jour");
+			String MM = request.getParameter("mois");
+			String AAAA = request.getParameter("annee");
+			
+			if(numeroLigne.startsWith("+212")){
+			numeroLigne = numeroLigne.substring(1);
+			}
+			
+			String dateCreation = request.getParameter("annee")+"-"+request.getParameter("mois")+"-"+request.getParameter("jour");
+			
 			String idLocaliteCaractere = request.getParameter("localite");
 			String idTypeCaractere = request.getParameter("type");
-			String idForfaitCaractere = request.getParameter("forfait");
+//			String idForfaitCaractere = request.getParameter("forfait");
 			
+			
+			if(!idTypeCaractere.equals("")){
+				
 			int idLocalite = Integer.parseInt(idLocaliteCaractere);
-			int idType = Integer.parseInt(idTypeCaractere);
-//			int idForfait = Integer.parseInt(idForfaitCaractere);
-			
 			
 			LocaliteDAO localiteDAO = new LocaliteDAO();
 			Localite localite = new Localite();
 			localite = localiteDAO.findByID(idLocalite);
 			
-//			TypeDAO typeDAO = new TypeDAO();
-//			Type type = new Type();
-//			type = typeDAO.findByID(idType);
+			ligne.setLocalite(localite);
+			
+			}else{
+				ligne.setLocalite(null);
+			}
+			if(!idTypeCaractere.equals("")){
+				
+			int idType = Integer.parseInt(idTypeCaractere);
 			
 			TypeDAO typeDAO = new TypeDAO();
 			Type type = new Type();
 			type = typeDAO.findByID(idType);
 			
-			Ligne ligne = new Ligne();
+			ligne.setType(type);
+			
+			}else{
+				ligne.setType(null);
+			}
+//			int idForfait = Integer.parseInt(idForfaitCaractere);
+			
+			
+			
+			
+//			TypeDAO typeDAO = new TypeDAO();
+//			Type type = new Type();
+//			type = typeDAO.findByID(idType);
+			
+			
+			
+			
 			ligne.setNumero(numeroLigne);
 			
 			
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			try {
+				if(!JJ.equals("JJ") && !MM.equals("MMMM") && !AAAA.equals("AAAA")){
 				ligne.setDateCreation(formatter.parse(dateCreation));
+				}else{
+					ligne.setDateCreation(null);
+				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			ligne.setLocalite(localite);
-			ligne.setType(type);
+			
 			
 			ligne.setEtat(EtatStatic.ETAT_OPERATIONNEL);
 			
@@ -101,6 +135,12 @@ public class LigneAjout extends HttpServlet {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
+				
+				request.setAttribute("errorMessage", numeroLigne + ErreurStatic.NUMERO_EXISTANT);
+				
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneAjout.jsp") ;
+				requestDispatcher.forward(request, response) ;
 			}
 			
 			
@@ -121,7 +161,7 @@ public class LigneAjout extends HttpServlet {
 			
 			// Redirections
 			if(request.getParameter("V") != null) {
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligne.html") ;
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligne.jsp") ;
 				requestDispatcher.forward(request, response) ;
 			}else{
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneAjout.jsp") ;
@@ -132,7 +172,7 @@ public class LigneAjout extends HttpServlet {
 			
 		}else if(request.getParameter("A") != null){
 			System.out.println("A");
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligne.html") ;
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligne.jsp") ;
 			requestDispatcher.forward(request, response) ;
 		}else{
 			

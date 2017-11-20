@@ -1,6 +1,6 @@
 package servlet;
 
-import hibernateEntity.Ligne;
+import entity.Ligne;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -144,7 +144,7 @@ public class LocaliteImport extends HttpServlet {
 			}
 		 
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneImport.html") ;
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligneImport.jsp") ;
 		requestDispatcher.forward(request, response);
 	}
 

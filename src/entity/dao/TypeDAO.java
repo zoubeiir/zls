@@ -1,10 +1,5 @@
 package entity.dao;
 
-import entity.Type;
-import entity.Type;
-import entity.base.BaseType;
-import entity.base.BaseType;
-
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -14,6 +9,8 @@ import org.hibernate.criterion.Restrictions;
 
 import com.util.HibernateUtil;
 
+import entity.Type;
+import entity.base.BaseType;
 import entity.base.BaseTypeDAO;
 
 /**
@@ -26,51 +23,84 @@ import entity.base.BaseTypeDAO;
  */
 public class TypeDAO extends BaseTypeDAO {
 	
-	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 	
-public List<Type> findAll(){
-	
+	public List<Type> findAll(){
+		
+			
+			try {
+				if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+					Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
+					Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();
+					}
+					Criteria crit = this.sessionFactory.getCurrentSession().createCriteria(BaseType.class);
+//					this.sessionFactory.getCurrentSession().close();
+					return crit.list();
+					
+		
+			}catch (Exception e){
+				try {
+					throw e;
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					return null;
+				}
+//				return null;
+			}
+				
+		
+		}
+
+	public Type findByID(int idType){
 		
 		try {
 			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
 				Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
-				Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();
-				}
-				Criteria crit = this.sessionFactory.getCurrentSession().createCriteria(BaseType.class);
-//				this.sessionFactory.getCurrentSession().close();
-				return crit.list();
-				
-	
+				Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
+			
+				Type localite = (Type) this.sessionFactory.getCurrentSession().createCriteria(BaseType.class).add(Restrictions.eq(Type.PROP_ID, idType)).uniqueResult();
+//						this.sessionFactory.getCurrentSession().close();
+				return  localite;
 		}catch (Exception e){
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				return null;
-			}
-//			return null;
+			System.out.println(e);
+			return null;
 		}
 			
-	
+
 	}
-
-public Type findByID(String numeroType){
-	
-	try {
-		if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
-			Transaction transaction = this.sessionFactory.getCurrentSession().getTransaction();
-			Transaction tx =this.sessionFactory.getCurrentSession().beginTransaction();}
-		
-			Type localite = (Type) this.sessionFactory.getCurrentSession().createCriteria(BaseType.class).add(Restrictions.eq(Type.PROP_ID, numeroType)).uniqueResult();
-//					this.sessionFactory.getCurrentSession().close();
-			return  localite;
-	}catch (Exception e){
-		System.out.println(e);
-		return null;
+	public void insertType(Type localite,boolean uniqueInsert) {
+		try {
+			
+//			sessionFactory = HibernateUtil.getSessionFactory();
+			
+//			localite.setId(-1);
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				this.sessionFactory.getCurrentSession().getTransaction().begin();}
+			this.sessionFactory.getCurrentSession().save((BaseType) localite);
+			if(uniqueInsert)
+			this.sessionFactory.getCurrentSession().getTransaction().commit();
+//			this.sessionFactory.getCurrentSession().persist(localite);
+//			this.sessionFactory.getCurrentSession().flush();
+//			this.sessionFactory.getCurrentSession().close();
+		}catch (Exception e){
+			this.sessionFactory.getCurrentSession().getTransaction().rollback();
+//			throw e;
+		}
 	}
-		
-
-}
-
+	public void deleteLigne(Type type,boolean uniqueInsert) throws Exception{
+		try {
+			
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				this.sessionFactory.getCurrentSession().getTransaction().begin();}
+			this.sessionFactory.getCurrentSession().delete((BaseType) type);
+			if(uniqueInsert)
+			this.sessionFactory.getCurrentSession().getTransaction().commit();
+		}catch (Exception e){
+			this.sessionFactory.getCurrentSession().getTransaction().rollback();
+			throw e;
+		}
+	}
+	
+	
 }

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entite.Ligne;
-import entite.dao.LigneDAO;
+import entity.Ligne;
+import entity.dao.LigneDAO;
 
 /**
  * Servlet implementation class LigneRecherche
@@ -52,7 +52,7 @@ public class LigneRecherche extends HttpServlet {
 		}else if(request.getParameter("A") != null){
 			
 //			request.getSession().removeAttribute("listeLigne");
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligne.html") ;
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ligne.jsp") ;
 			requestDispatcher.forward(request, response);
 			
 			
@@ -88,21 +88,30 @@ public class LigneRecherche extends HttpServlet {
 			
 			if(localite!=""){
 			for(int i = 0 ; i < listeLigne.size() ; i++){
-				
+				if(localite.equals("null")){
+					if(listeLigne.get(i).getLocalite()==null){
+						listeLigneRecherche.add(listeLigne.get(i));
+					}
+				}else{
+				if(listeLigne.get(i).getLocalite()!=null){
 				if(!listeLigne.get(i).getLocalite().getId().toString().equals(localite)){
 //					listeLigne.remove(i);
 				}else{
 					listeLigneRecherche.add(listeLigne.get(i));
 					System.out.println(listeLigne.get(i).getLocalite().getCode());
-				}
+				}}}
 			}
 			if(type!=""){
 				for(int i = 0 ; i < listeLigne.size() ; i++){
-					
+					if(listeLigne.get(i).getType()!=null){
 					if(!listeLigne.get(i).getType().getId().toString().equals(type)){
 						listeLigneRecherche.remove(listeLigne.get(i));
+					}
+					
 					}else{
-						System.out.println(listeLigne.get(i).getLocalite().getCode());
+						if(!type.equals("null"))
+							listeLigneRecherche.remove(listeLigne.get(i));
+						
 					}
 				}
 			}
@@ -111,12 +120,15 @@ public class LigneRecherche extends HttpServlet {
 				if(type!=""){
 					for(int i = 0 ; i < listeLigne.size() ; i++){
 						
+						
+						
+						if(listeLigne.get(i).getType()!=null){
 						if(!listeLigne.get(i).getType().getId().toString().equals(type)){
-//							listeLigneRecherche.remove(listeLigne.get(i));
+							listeLigneRecherche.remove(listeLigne.get(i));
 						}else{
-							System.out.println(listeLigne.get(i).getLocalite().getCode());
+//							System.out.println(listeLigne.get(i).getLocalite().getCode());
 							listeLigneRecherche.add(listeLigne.get(i));
-						}
+						}}
 					}
 				}else{
 					listeLigneRecherche=listeLigne;
@@ -130,8 +142,8 @@ public class LigneRecherche extends HttpServlet {
 			numeroLigne = numeroLigne.replace(" ", "");
 			numeroLigne = numeroLigne.replace("\t", "");
 			if(numeroLigne.startsWith("+212"))
-		numeroLigne =numeroLigne.replace("+212", "212");
-		ligne.setNumero(numeroLigne);
+				numeroLigne =numeroLigne.replace("+212", "212");
+			ligne.setNumero(numeroLigne);
 		
 //		String fraisLigne = request.getParameter("fraisLigne") ;
 //		
@@ -158,7 +170,7 @@ public class LigneRecherche extends HttpServlet {
 		
 		
 		try {
-			listeLigneRecherche = ligneDAO.search(ligne);
+			listeLigne = ligneDAO.search(ligne);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,6 +178,62 @@ public class LigneRecherche extends HttpServlet {
 		
 //		System.out.println(listeLigne.get(0).getFrais());
 //		System.out.println(listeLigne.get(1).getFrais());
+		
+		
+		
+		
+		
+		if(localite!=""){
+			for(int i = 0 ; i < listeLigne.size() ; i++){
+				if(localite.equals("null")){
+					if(listeLigne.get(i).getLocalite()==null){
+						listeLigneRecherche.add(listeLigne.get(i));
+					}
+				}else{
+				if(listeLigne.get(i).getLocalite()!=null){
+				if(!listeLigne.get(i).getLocalite().getId().toString().equals(localite)){
+//					listeLigne.remove(i);
+				}else{
+					listeLigneRecherche.add(listeLigne.get(i));
+					System.out.println(listeLigne.get(i).getLocalite().getCode());
+				}}}
+			}
+			if(type!=""){
+				for(int i = 0 ; i < listeLigne.size() ; i++){
+					if(listeLigne.get(i).getType()!=null){
+					if(!listeLigne.get(i).getType().getId().toString().equals(type)){
+						listeLigneRecherche.remove(listeLigne.get(i));
+					}
+					
+					}else{
+						if(!type.equals("null"))
+							listeLigneRecherche.remove(listeLigne.get(i));
+						
+					}
+				}
+			}
+			}else{
+//				listeLigneRecherche = listeLigne;
+				if(type!=""){
+					for(int i = 0 ; i < listeLigne.size() ; i++){
+						
+						
+						
+						if(listeLigne.get(i).getType()!=null){
+						if(!listeLigne.get(i).getType().getId().toString().equals(type)){
+							listeLigneRecherche.remove(listeLigne.get(i));
+						}else{
+//							System.out.println(listeLigne.get(i).getLocalite().getCode());
+							listeLigneRecherche.add(listeLigne.get(i));
+						}}
+					}
+				}else{
+					listeLigneRecherche=listeLigne;
+				}
+			}
+		
+		
+		
 		
 		}
 		

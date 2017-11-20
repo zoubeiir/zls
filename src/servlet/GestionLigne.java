@@ -18,15 +18,15 @@ import org.hibernate.Transaction;
 
 import com.util.HibernateUtil;
 
-import entite.LiaisonTypeForfait;
-import entite.Localite;
-import entite.Type;
-import entite.dao.LiaisonTypeForfaitDAO;
-import entite.dao.LocaliteDAO;
-import entite.dao.TypeDAO;
-import entite.Ligne;
-import entite.base.*;
-import entite.dao.LigneDAO;
+import entity.LiaisonTypeForfait;
+import entity.Localite;
+import entity.Type;
+import entity.dao.LiaisonTypeForfaitDAO;
+import entity.dao.LocaliteDAO;
+import entity.dao.TypeDAO;
+import entity.Ligne;
+import entity.base.*;
+import entity.dao.LigneDAO;
 import antlr.StringUtils;
 
 /**
@@ -97,14 +97,33 @@ public class GestionLigne extends HttpServlet {
 		}else if (request.getParameter("V") != null){
 			
 			//get parameter
+			
+			String JJ = request.getParameter("jour");
+			String MM = request.getParameter("mois");
+			String AAAA = request.getParameter("annee");
+			
+			
 			String numeroLigne=request.getParameter("numeroLigne");
 			String idTypeCaractere = request.getParameter("type");
-			String dateCreation = request.getParameter("dateCreation");
 			String idLocaliteCaractere = request.getParameter("localite");
+			String etatCaracter = request.getParameter("etat");
+			String dateCreation = request.getParameter("annee")+"-"+request.getParameter("mois")+"-"+request.getParameter("jour");
 			
 			
-			int idType = Integer.parseInt(idTypeCaractere);
-			int idLocalite=Integer.parseInt(idLocaliteCaractere);
+			
+			int idType;
+			if(idTypeCaractere==""){
+				idType=-1;
+			}else{
+			 idType = Integer.parseInt(idTypeCaractere);
+			}
+			int idLocalite;
+			if(idLocaliteCaractere==""){
+				idLocalite=-1;
+			}else{
+			 idLocalite=Integer.parseInt(idLocaliteCaractere);
+			}
+			int etat=Integer.parseInt(etatCaracter);
 			
 			boolean isChanged=false;
 			
@@ -112,7 +131,23 @@ public class GestionLigne extends HttpServlet {
 			Ligne ligne = new Ligne();
 			ligne=ligneDAO.findByNumero(numeroLigne);
 			
-			if(idType!=ligne.getType().getId()){
+			
+			// MAJ du type
+			if(idType==-1 && ligne.getType()==null ){
+//				ça change rien
+//				ligne.setType(null);
+			}else if(idType==-1){
+				ligne.setType(null);
+				isChanged=true;
+			}else if(idType!=-1 && ligne.getType()==null){
+				TypeDAO typeDAO = new TypeDAO();
+				Type type = new Type();
+				type = typeDAO.findByID(idType);
+				
+				ligne.setType(type);
+				isChanged=true;
+				
+			}else if(idType!=ligne.getType().getId()){
 				TypeDAO typeDAO = new TypeDAO();
 				Type type = new Type();
 				type = typeDAO.findByID(idType);
@@ -120,7 +155,24 @@ public class GestionLigne extends HttpServlet {
 				ligne.setType(type);
 				isChanged=true;
 			}
-			if(idLocalite!=ligne.getLocalite().getId()){
+			
+			
+			// MAJ de la localité
+			if(idLocalite==-1 && ligne.getLocalite()==null ){
+//				ça change rien
+//				ligne.setType(null);
+			}else if(idLocalite==-1){
+				ligne.setLocalite(null);
+				isChanged=true;
+			}else if(idLocalite!=-1 && ligne.getLocalite()==null){
+				LocaliteDAO localiteDAO = new LocaliteDAO();
+				Localite localite = new Localite();
+				localite = localiteDAO.findByID(idLocalite);
+				
+				ligne.setLocalite(localite);
+				isChanged=true;
+				
+			}else if(idLocalite!=ligne.getLocalite().getId()){
 				LocaliteDAO localiteDAO = new LocaliteDAO();
 				Localite localite = new Localite();
 				localite = localiteDAO.findByID(idLocalite);
@@ -128,18 +180,44 @@ public class GestionLigne extends HttpServlet {
 				ligne.setLocalite(localite);
 				isChanged=true;
 			}
-			if(!dateCreation.equals(ligne.getDateCreation().toString())){
+//			if(!dateCreation.equals(ligne.getDateCreation().toString())){
 				
-				System.out.println(dateCreation+"!!!!!!!"+ligne.getDateCreation().toString());
-				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				try {
+					if(!JJ.equals("JJ") && !MM.equals("MMMM") && !AAAA.equals("AAAA")){
+						
 					ligne.setDateCreation(formatter.parse(dateCreation));
+					if(!dateCreation.equals(ligne.getDateCreation().toString()))
+					isChanged=true;
+					}else{
+						ligne.setDateCreation(null);
+					}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				
+				
+				
+//				System.out.println(dateCreation+"!!!!!!!"+ligne.getDateCreation().toString());
+//				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//				try {
+//					ligne.setDateCreation(formatter.parse(dateCreation));
+//				} catch (ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				
+//			}
+			
+			if(etat!=ligne.getEtat()){
+				
+				
+				ligne.setEtat(etat);
 				isChanged=true;
 			}
+			
 			
 			if(isChanged){
 				ligneDAO.update(ligne);

@@ -1,20 +1,20 @@
 
 
-<%@page import="entite.dao.LiaisonTypeForfaitDAO"%>
-<%@page import="entite.dao.LocaliteDAO"%>
+<%@page import="entity.dao.LiaisonTypeForfaitDAO"%>
+<%@page import="entity.dao.LocaliteDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<%@ page import="entite.Ligne" %>
+<%@ page import="entity.Ligne" %>
 <%@ page import="javax.servlet.http.HttpServletRequest.*" %>
-<%@page import="entite.Type"%>
-<%@page import="entite.dao.TypeDAO"%>
+<%@page import="entity.Type"%>
+<%@page import="entity.dao.TypeDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entite.Localite"%>
+<%@page import="entity.Localite"%>
 <%@page import="java.util.List"%>
 <%@page import="staticReference.EtatStatic"%>
-<%@page import="entite.LiaisonTypeForfait"%>
+<%@page import="entity.LiaisonTypeForfait"%>
 
 
 
@@ -25,7 +25,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>IAM - RAPPROCHEMENT DES FACTURES</title>
+<link rel="shortcut icon" href="images/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Easy Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -43,6 +44,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 new WOW().init();
 	</script>
 	
+	<% 
+	if( request!=null || session!=null){
+	String username = (String) session.getAttribute("login");
+	if(username==null || username==""|| username=="0"){
+		response.sendRedirect("index.jsp");
+// 		username==null || username==""
+		}
+	}else{
+		
+		response.sendRedirect("index.jsp");
+	}
+	
+	%>
 	
 </head> 
 
@@ -51,12 +65,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<div class="nav-collapse collapse navbar-responsive-collapse">
 				<ul class="nav row">
-					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.html" title="Next Section"><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
-					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.html" title="Next Section"><span class="icon icon-user" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
-					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.html" title="Next Section"><span class="icon icon-phone" style="color: "></span> <span class="text" style="color: ">LOCALITES</span></a></li>
-					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.html" title="Next Section"><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
-					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="parametrage.html" title="Next Section"><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
-<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
+					<li data-slide="1" class="col-12 col-sm-2"><a  href="accueil.jsp" title=""><span class="icon icon-home" style="color: "></span> <span class="text" style="color:  ;">ACCUEIL</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="ligne.jsp" title=""><span class="icon icon-user" style="color: brown"></span> <span class="text" style="color: brown">LIGNES</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="localite.jsp" title=""><span class="icon icon-phone" style="color: "></span> <span class="text" style="color: ">LOCALITES</span></a></li>
+					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="rapprochement.jsp" title=""><span class="icon icon-gears" style="color: "></span> <span class="text" style="color: ">RAPPROCHEMENT</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="parametrage.jsp" title=""><span class="icon icon-ticket" style="color: "></span> <span class="text" style="color: ">PARAMETRAGE</span></a></li>
+<!-- 					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title=""><span class="icon icon-file"style="color: " ></span> <span class="text" style="color: ">Extraction</span></a></li> -->
+					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="Logout" title=""><span class="icon icon-signout"style="color: " ></span> <span class="text" style="color: ">SE DECONNECTER</span></a></li>
 				</ul>
 			</div><!-- /.nav-collapse -->
 		</div><!-- /.container -->
@@ -74,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Code localité</label>
 									<div class="col-sm-8">
-										<input type="text" name="codeLocalite" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= localite.getCode() %>"  style="width:50%; background-color: grey; " readonly="readonly" >
+										<input type="text" name="codeLocalite" class="form-control1" id="focusedinput" placeholder="" value="<%= localite.getCode() %>"  style="width:50%; background-color: grey; " readonly="readonly" >
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -84,7 +99,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 								<div class="form-group"> -->
 <!-- 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Nomination</label> -->
 <!-- 									<div class="col-sm-8"> -->
-<!-- 										<input type="text" name="nom" class="form-control1" id="focusedinput" placeholder="Default Input" value=""   > -->
+<!-- 										<input type="text" name="nom" class="form-control1" id="focusedinput" placeholder="" value=""   > -->
 <!-- 									</div> -->
 <!-- 									<div class="col-sm-2 jlkdfj1"> -->
 <!-- 										<p class="help-block"></p> -->
@@ -93,7 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse postale</label>
 									<div class="col-sm-8">
-										<input type="text" name="adressePostale" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= localite.getAdressePostale() %>"  style=" "   >
+										<input type="text" maxlength="100" name="adressePostale" class="form-control1" id="focusedinput" placeholder="" value="<%= localite.getAdressePostale() %>"  style=" "   >
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -103,7 +118,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Adresse IP</label>
 									<div class="col-sm-8">
-										<input type="text" name="adresseIP" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= localite.getAdresseIP() %>"  style="width:50%; " >
+										<input type="text" maxlength="20" name="adresseIP" class="form-control1" id="focusedinput" placeholder="" value="<%= localite.getAdresseIP() %>"  style="width:50%; " >
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -113,7 +128,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label" style="color: white ;">Responsable</label>
 									<div class="col-sm-8">
-										<input type="text" name="responsable" class="form-control1" id="focusedinput" placeholder="Default Input" value="<%= localite.getResponsable() %>"  style="width:50%; " >
+										<input type="text" maxlength="50" name="responsable" class="form-control1" id="focusedinput" placeholder="" value="<%= localite.getResponsable() %>"  style="width:50%; " >
 									</div>
 									<div class="col-sm-2 jlkdfj1">
 										<p class="help-block"></p>
@@ -173,9 +188,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 
-<link href="css/combine.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+<!-- <link href="css/combine.css" rel="stylesheet"> -->
+<!--     <link rel="stylesheet" type="text/css" media="screen" -->
+<!--      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"> -->
      
      
 

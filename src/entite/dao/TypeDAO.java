@@ -9,7 +9,9 @@ import org.hibernate.criterion.Restrictions;
 
 import com.util.HibernateUtil;
 
+import entite.base.BaseLiaisonTypeForfait;
 import entite.base.BaseTypeDAO;
+import entite.LiaisonTypeForfait;
 import entite.Type;
 import entite.base.BaseType;
 
@@ -88,5 +90,17 @@ public class TypeDAO extends BaseTypeDAO {
 //			throw e;
 		}
 	}
-	
+	public void deleteLigne(Type type,boolean uniqueInsert) throws Exception{
+		try {
+			
+			if(!this.sessionFactory.getCurrentSession().getTransaction().isActive()){
+				this.sessionFactory.getCurrentSession().getTransaction().begin();}
+			this.sessionFactory.getCurrentSession().delete((BaseType) type);
+			if(uniqueInsert)
+			this.sessionFactory.getCurrentSession().getTransaction().commit();
+		}catch (Exception e){
+			this.sessionFactory.getCurrentSession().getTransaction().rollback();
+			throw e;
+		}
+	}
 }

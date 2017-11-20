@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>IAM - RAPPROCHEMENT DES FACTURES</title>
+<link rel="shortcut icon" href="images/favicon.ico">
 </head>
 <body>
 
